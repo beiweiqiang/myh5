@@ -39,6 +39,8 @@ class SignUpPage extends React.Component {
       },
     };
 
+    console.log(this.state);
+
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
     this.validateSignupForm = this.validateSignupForm.bind(this);
@@ -161,7 +163,7 @@ class SignUpPage extends React.Component {
    * Render the component.
    */
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     if (this.state.wait) {
       return (
         <div>
@@ -212,4 +214,4 @@ class SignUpPage extends React.Component {
 
 
 // export default connect(mapStateToProps)(SignUpPage);
-export default SignUpForm;
+export default SignUpPage;

@@ -69,33 +69,22 @@ class SignUpForm extends Component {
   }
 }
 
-
-// const SignUpForm = ({
-//   onSubmit,
-//   onChange,
-//   flash,
-//   validateResult,
-//   user,
-// }) => (
-
-// );
-
 SignUpForm.propTypes = {
-  // onSubmit: PropTypes.func.isRequired,
-  // onChange: PropTypes.func.isRequired,
-  // flash: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  flash: PropTypes.string.isRequired,
   validateResult: PropTypes.shape({
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     confirm: PropTypes.string.isRequired,
   }).isRequired,
-  // user: PropTypes.shape({
-  //   name: PropTypes.string.isRequired,
-  //   email: PropTypes.string.isRequired,
-  //   password: PropTypes.string.isRequired,
-  //   confirm: PropTypes.string.isRequired,
-  // }).isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    confirm: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default SignUpForm;
