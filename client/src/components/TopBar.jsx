@@ -28,55 +28,53 @@ class Login extends Component {
   }
 }
 
-const Logged = (props) => (
-  <div style={{ display: 'flex', alignItems: 'center' }}>
-    <span style={{ color: '#fff', fontSize: '1.5em', marginRight: '10px' }}>
-      {props.user.name}
-    </span>
-    <Avatar
-      src={props.user.avatarUrl}
-      size={32}
-      style={{ marginRight: '10px' }}
-    />
-    <IconMenu
-      {...props}
-      iconButtonElement={
-        <IconButton><MoreVertIcon /></IconButton>
-      }
-      targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-    >
-      <Link to="/">
-        <MenuItem primaryText="新建H5" />
-      </Link>
-      <Link to="/">
-        <MenuItem primaryText="我的H5" />
-      </Link>
-      <Link to="/logout">
-        <MenuItem primaryText="退出" />
+class Logged extends Component {
+  static muiName = 'IconMenu';
+  
+  render() {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <span style={{ color: '#fff', fontSize: '1.5em', marginRight: '10px' }}>
+          {props.user.name}
+        </span>
+        <Avatar
+          src={props.user.avatarUrl}
+          size={32}
+          style={{ marginRight: '10px' }}
+        />
+        <IconMenu
+          {...props}
+          iconButtonElement={
+            <IconButton><MoreVertIcon /></IconButton>
+          }
+          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        >
+          <Link to="/">
+            <MenuItem primaryText="新建H5" />
+          </Link>
+          <Link to="/">
+            <MenuItem primaryText="我的H5" />
+          </Link>
+          <Link to="/logout">
+            <MenuItem primaryText="退出" />
 
-      </Link>
-    </IconMenu>
-  </div>
-);
-
-Logged.muiName = 'IconMenu';
-
-/*const TopBar = (props) => (
-  <AppBar
-    showMenuIconButton={false}
-    title={<span style={{ cursor: 'pointer' }}><Link to="/" >myh5</Link></span>}
-    iconElementRight={props.user ? <Logged user={props.user} /> : <Login />}
-  />
-);*/
+          </Link>
+        </IconMenu>
+      </div>  
+    );
+  }
+}
 
 class TopBar extends Component {
   render() {
+    const { user } = this.props;
+    
     return (
       <AppBar
         showMenuIconButton={false}
         title={<span style={{ cursor: 'pointer' }}><Link to="/" >myh5</Link></span>}
-        iconElementRight={this.props.user ? <Logged user={this.props.user} /> : <Login />}
+        iconElementRight={user ? <Logged user={user} /> : <Login />}
       />
     );
   }

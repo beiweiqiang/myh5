@@ -11,6 +11,19 @@ export const SIGNUP = 'SIGNUP';
 // 验证注册表单填写是否合法
 export const VALIDATE_SIGNUP_FORM = 'VALIDATE_SIGNUP_FORM';
 
+export function increase(n) {
+  return {
+    type: 'INCREASE',
+    amount: n,
+  };
+}
+
+export function decrease(n) {
+  return {
+    type: 'DECREASE',
+    amount: n,
+  };
+}
 
 
 export function login(user) {

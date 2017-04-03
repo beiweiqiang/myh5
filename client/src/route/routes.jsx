@@ -14,23 +14,7 @@ import Auth from '../modules/Auth';
 
 const Routes = () => {
   return (
-    <Router>
-      <div>
-        <Switch>
-          <Route exact path="/" component={DashboardPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/signup" component={SignUpPage} />
-          <Route
-            path="/logout"
-            render={() => {
-              Auth.deauthenticateUser();
-              return (<Redirect to="/" />);
-            }}
-          />
-        </Switch>
 
-      </div>
-    </Router>
   );
 };
 
