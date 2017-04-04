@@ -12,12 +12,17 @@ module.exports = new PassportLocalStrategy({
     email: email.trim(),
     password: password.trim(),
     name: req.body.name.trim(),
-    confirm: req.body.confirm.trim(),
+    // confirm: req.body.confirm.trim(),
     avatarUrl: req.body.avatarUrl.trim(),
   };
+  // console.log('userData');
+  // console.log(userData);
 
   process.nextTick(() => {
     User.findOne({ email: userData.email }, (err, user) => {
+      // console.log('findOne');
+      // console.log(err);
+      // console.log(user);
       if (err) return done(err);
       if (user) {
         return done(null, false);

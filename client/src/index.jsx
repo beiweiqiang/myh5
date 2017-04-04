@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
 
-// import App from './containers/App.jsx';
 import createHistory from 'history/createBrowserHistory';
 import {
   BrowserRouter as Router,
@@ -14,6 +13,8 @@ import {
 } from 'react-router-dom';
 
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+
+import ReduxThunk from 'redux-thunk';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -28,8 +29,6 @@ import Auth from './modules/Auth';
 import * as reducers from './reducers';
 import BasicExample from './example.jsx';
 
-// import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-
 // remove tap delay, essential for MaterialUI to work properly
 injectTapEventPlugin();
 
@@ -40,8 +39,13 @@ const store = createStore(
     ...reducers,
     router: routerReducer,
   }),
-  applyMiddleware(middleware)
+  applyMiddleware(middleware, ReduxThunk)
 );
+
+store.subscribe(() => {
+  // console.log('store has been updated. Latest store state:', store.getState());
+  // 在这里更新你的视图
+});
 
 ReactDOM.render(
   (<MuiThemeProvider muiTheme={getMuiTheme()}>

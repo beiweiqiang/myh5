@@ -1,11 +1,6 @@
-import { combineReducers } from 'redux';
-
-// import validateSignUp from './validateSignUp';
-
-
-
-
-// export validateSignUp from './validateSignUp';
 
 export count from './count';
 
+export { validateSignUp, signupErrMessage, signupSuccess, signUpFormInput } from './signup';
+
+export loading from './loading';

@@ -6,12 +6,21 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 class SignUpForm extends Component {
-  render() {
-    const { onSubmit, onChange, flash, validateResult, user } = this.props;
+  componentWillReceiveProps(nextProps) {
 
+  }
+
+  render() {
+    // **state 变量
+    const { flash, validateResult, user } = this.props;
+    // console.log(user);
+
+    // **state 方法
+    const { onSubmit, signupFormInput, submitForm } = this.props;
+    
     return (
       <Card className="container">
-        <form action="/" onSubmit={onSubmit}>
+        <form action="/" onSubmit={(event) => { event.preventDefault(); onSubmit(user); }}>
           <h2 className="card-heading">Sign Up</h2>
 
           {flash && <p className="error-message">{flash}</p>}
@@ -21,7 +30,7 @@ class SignUpForm extends Component {
               floatingLabelText="Name"
               name="name"
               errorText={validateResult.name}
-              onChange={onChange}
+              onChange={event => signupFormInput({ name: `${event.target.value}` })}
               value={user.name}
             />
           </div>
@@ -31,7 +40,7 @@ class SignUpForm extends Component {
               floatingLabelText="Email"
               name="email"
               errorText={validateResult.email}
-              onChange={onChange}
+              onChange={event => signupFormInput({ email: `${event.target.value}` })}
               value={user.email}
             />
           </div>
@@ -41,7 +50,7 @@ class SignUpForm extends Component {
               floatingLabelText="Password"
               type="password"
               name="password"
-              onChange={onChange}
+              onChange={event => signupFormInput({ password: `${event.target.value}` })}
               errorText={validateResult.password}
               value={user.password}
             />
@@ -52,7 +61,7 @@ class SignUpForm extends Component {
               floatingLabelText="confirm"
               type="password"
               name="confirm"
-              onChange={onChange}
+              onChange={event => signupFormInput({ confirm: `${event.target.value}` })}
               errorText={validateResult.confirm}
               value={user.confirm}
             />
@@ -71,7 +80,7 @@ class SignUpForm extends Component {
 
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  // onChange: PropTypes.func.isRequired,
   flash: PropTypes.string.isRequired,
   validateResult: PropTypes.shape({
     name: PropTypes.string.isRequired,

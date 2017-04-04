@@ -28,7 +28,8 @@ CircularProgressBg.propTypes = {
 };
 
 CircularProgressBg.defaultProps = {
-  color: 'rgba(0, 0, 0, 0.6)',
+  // color: 'rgba(0, 0, 0, 0.6)',
+  color: '#fff',
 };
 
 export default CircularProgressBg;

@@ -1,15 +1,24 @@
 
+// actions 常量 ============================================================
 
-// 登录
-export const LOGIN = 'LOGIN';
-// 退出登录
-export const LOGOUT = 'LOGOUT';
-// 注册
-export const SIGNUP = 'SIGNUP';
-// 上传头像
+// circular progress 加载
+export const SPIN_LOADING = 'SPIN_LOADING';
 
-// 验证注册表单填写是否合法
-export const VALIDATE_SIGNUP_FORM = 'VALIDATE_SIGNUP_FORM';
+// **关于 signUp
+export { SIGNUP_SUCCESS, SIGNUP_ERROR_MESSAGE, VALIDATE_SIGNUP_FORM, SIGNUP_FORM_INPUT } from './signup';
+
+// action creator =========================================================
+
+// **关于 signup
+export { signupSuccess, submitSignup, signUpFormInput } from './signup';
+
+// 是否正在加载
+export function loading(boolean = false) {
+  return {
+    type: SPIN_LOADING,
+    loading: boolean,
+  };
+}
 
 export function increase(n) {
   return {
@@ -22,28 +31,6 @@ export function decrease(n) {
   return {
     type: 'DECREASE',
     amount: n,
-  };
-}
-
-
-export function login(user) {
-  return {
-    type: LOGIN,
-    user,
-  };
-}
-
-export function signup(user) {
-  return {
-    type: SIGNUP,
-    user,
-  };
-}
-
-export function validateSignUpForm(signUpContent) {
-  return {
-    type: VALIDATE_SIGNUP_FORM,
-    signUpContent,
   };
 }
 
