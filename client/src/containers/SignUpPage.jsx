@@ -6,13 +6,13 @@ import SignUpForm from '../components/SignUpForm.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import TopBar from '../components/TopBar.jsx';
 
-import { submitSignup, signUpFormInput } from '../actions';
+import { submitSignup, signUpFormInput, signupSuccess } from '../actions';
 
 class SignUpPage extends React.Component {
 
   render() {
-    const { submitSignup, signUpFormInput } = this.props;
-    const { validateRes, signupSuccess, user, signupErrMessage, loading } = this.props;
+    const { submitSignup, signUpFormInput, signupSuccess } = this.props;
+    const { validateRes, checkSignup, user, signupErrMessage, loading } = this.props;
     // console.log(this.state);
     if (loading) {
       return (
@@ -23,7 +23,10 @@ class SignUpPage extends React.Component {
 
       );
     }
-    if (signupSuccess) return (<Redirect to="/login" />);
+    if (checkSignup) {
+      signupSuccess(false);
+      return (<Redirect to="/login" />);
+    }
 
     return (
       <div>
@@ -58,7 +61,7 @@ function mapStateToProps(state) {
     loading: state.loading,
     validateRes: state.validateSignUp,
     user: state.signUpFormInput,
-    signupSuccess: state.signupSuccess,
+    checkSignup: state.signupSuccess,
     signupErrMessage: state.signupErrMessage,
   };
 }
@@ -69,5 +72,6 @@ export default connect(
   {
     submitSignup,
     signUpFormInput,
+    signupSuccess,
   },
   )(SignUpPage);

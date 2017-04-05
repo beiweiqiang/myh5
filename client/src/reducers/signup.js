@@ -7,13 +7,16 @@ export function signupErrMessage(state = '', action) {
   return state;
 }
 
-export function signUpFormInput(state = {
+
+const inputInitial = {
   name: '',
   email: '',
   password: '',
   confirm: '',
-}, action) {
+};
+export function signUpFormInput(state = inputInitial, action) {
   if (action.type === SIGNUP_FORM_INPUT) {
+    if (action.clean) return inputInitial;
     return Object.assign({}, state, action.input);
   }
   return state;
@@ -21,7 +24,7 @@ export function signUpFormInput(state = {
 
 export function signupSuccess(state = false, action) {
   if (action.type === SIGNUP_SUCCESS) {
-    return true;
+    return action.success;
   }
   return state;
 }

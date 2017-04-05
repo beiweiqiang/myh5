@@ -54,9 +54,10 @@ function validateSignupForm(payload) {
 }
 
 
-export function signupSuccess() {
+export function signupSuccess(boolean) {
   return {
     type: SIGNUP_SUCCESS,
+    success: boolean,
   };
 }
 
@@ -66,6 +67,14 @@ function signupErrMessage(message) {
   return {
     type: SIGNUP_ERROR_MESSAGE,
     message,
+  };
+}
+
+export function signUpFormInput(input, boolean = false) {
+  return {
+    type: SIGNUP_FORM_INPUT,
+    input,
+    clean: boolean,
   };
 }
 
@@ -108,7 +117,8 @@ function submitSignupValidate(formData) {
         // console.log(res);
         if (res.success) {
           localStorage.setItem('successMessage', res.message);
-          dispatch(signupSuccess());
+          dispatch(signupSuccess(true));
+          dispatch(signUpFormInput({}, true));
         } else {
           dispatch(signupErrMessage(res.error));
         }
@@ -139,9 +149,3 @@ export function submitSignup(signUpContent) {
   };
 }
 
-export function signUpFormInput(input) {
-  return {
-    type: SIGNUP_FORM_INPUT,
-    input,
-  };
-}
