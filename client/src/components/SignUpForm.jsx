@@ -6,9 +6,6 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 class SignUpForm extends Component {
-  componentWillReceiveProps(nextProps) {
-
-  }
 
   render() {
     // **state 变量
@@ -16,7 +13,7 @@ class SignUpForm extends Component {
     // console.log(user);
 
     // **state 方法
-    const { onSubmit, signupFormInput, submitForm } = this.props;
+    const { onSubmit, signupFormInput } = this.props;
     
     return (
       <Card className="container">
@@ -81,6 +78,7 @@ class SignUpForm extends Component {
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   // onChange: PropTypes.func.isRequired,
+  signupFormInput: PropTypes.func.isRequired,
   flash: PropTypes.string.isRequired,
   validateResult: PropTypes.shape({
     name: PropTypes.string.isRequired,

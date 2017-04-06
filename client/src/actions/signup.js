@@ -16,7 +16,18 @@ export const VALIDATE_SIGNUP_FORM = 'VALIDATE_SIGNUP_FORM';
 // 注册表单输入
 export const SIGNUP_FORM_INPUT = 'SIGNUP_FORM_INPUT';
 
+// 注册成功信息
+export const SIGNUP_SUCCESS_MESSAGE = 'SIGNUP_SUCCESS_MESSAGE';
+
 // 提交注册表单 action creator ========================================================
+
+// 显示 注册成功 的消息
+export function signupSuccessMessage(text = '') {
+  return {
+    type: SIGNUP_SUCCESS_MESSAGE,
+    text,
+  };
+}
 
 function validateSignupForm(payload) {
   const errors = {
@@ -54,6 +65,8 @@ function validateSignupForm(payload) {
 }
 
 
+// 传入true表示注册成功，跳转到 /login
+// 传入false取消注册成功状态，不会进行跳转
 export function signupSuccess(boolean) {
   return {
     type: SIGNUP_SUCCESS,
@@ -62,7 +75,7 @@ export function signupSuccess(boolean) {
 }
 
 
-
+// 注册失败，可能是因为用户已存在
 function signupErrMessage(message) {
   return {
     type: SIGNUP_ERROR_MESSAGE,
@@ -116,8 +129,16 @@ function submitSignupValidate(formData) {
         // console.log('ajax res');
         // console.log(res);
         if (res.success) {
-          localStorage.setItem('successMessage', res.message);
+
+          // 在登录页面显示 注册成功 的消息
+          dispatch(signupSuccessMessage(res.message));
+
+          // localStorage.setItem('successMessage', res.message);
+
+          // 发送注册成功状态，进行跳转
           dispatch(signupSuccess(true));
+
+          // 清除注册表单已填内容
           dispatch(signUpFormInput({}, true));
         } else {
           dispatch(signupErrMessage(res.error));
@@ -128,6 +149,7 @@ function submitSignupValidate(formData) {
   };
 }
 
+// 注册表单填写不合法，在每个填写栏下方显示出错提示
 function validateSignup(validateErr) {
   return {
     type: VALIDATE_SIGNUP_FORM,
@@ -135,6 +157,7 @@ function validateSignup(validateErr) {
   };
 }
 
+// 总按钮，提交注册表单，点击以后先进行表单验证
 export function submitSignup(signUpContent) {
   return (dispatch) => {
     const validateRes = validateSignupForm(signUpContent);

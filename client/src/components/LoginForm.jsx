@@ -1,53 +1,63 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
-const LoginForm = ({
-  onSubmit,
-  onChange,
-  successMessage,
-  validateResult,
-  user,
-}) => (
-  <Card className="container">
-    <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Login</h2>
+// const LoginForm = ({
+//   onSubmit,
+//   onChange,
+//   successMessage,
+//   validateResult,
+//   user,
+// }) => (
+// );
+class LoginForm extends Component {
+  render() {
+    const { successMessage, validateResult, user } = this.props;
 
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {validateResult.errorMessage && <p className="error-message">{validateResult.errorMessage}</p>}
+    const { onChange, onSubmit } = this.props;
+    
+    return (
+      <Card className="container">
+        <form action="/" onSubmit={onSubmit}>
+          <h2 className="card-heading">Login</h2>
 
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Email"
-          name="email"
-          errorText={validateResult.email}
-          onChange={onChange}
-          value={user.email}
-        />
-      </div>
+          {successMessage && <p className="success-message">{successMessage}</p>}
+          {validateResult.errorMessage && <p className="error-message">{validateResult.errorMessage}</p>}
 
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Password"
-          type="password"
-          name="password"
-          onChange={onChange}
-          errorText={validateResult.password}
-          value={user.password}
-        />
-      </div>
+          <div className="field-line">
+            <TextField
+              floatingLabelText="Email"
+              name="email"
+              errorText={validateResult.email}
+              onChange={onChange}
+              value={user.email}
+            />
+          </div>
 
-      <div className="button-line">
-        <RaisedButton type="submit" label="Log in" primary />
-      </div>
+          <div className="field-line">
+            <TextField
+              floatingLabelText="Password"
+              type="password"
+              name="password"
+              onChange={onChange}
+              errorText={validateResult.password}
+              value={user.password}
+            />
+          </div>
 
-      <CardText>Don't have an account? <Link to={'/signup'}><FlatButton label="Create one" primary={true} /></Link>.</CardText>
-    </form>
-  </Card>
-);
+          <div className="button-line">
+            <RaisedButton type="submit" label="Log in" primary />
+          </div>
+
+          <CardText>Don't have an account? <Link to={'/signup'}><FlatButton label="Create one" primary={true} /></Link>.</CardText>
+        </form>
+      </Card>        
+    );
+  }
+}
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,

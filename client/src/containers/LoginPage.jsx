@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 // import CircularProgress from 'material-ui/CircularProgress';
 
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
@@ -8,27 +9,17 @@ import Auth from '../modules/Auth';
 import LoginForm from '../components/LoginForm.jsx';
 import TopBar from '../components/TopBar.jsx';
 
-// import '../style/LoginPage.less';
+import { signupSuccessMessage, signupSuccess } from '../actions';
 
 class LoginPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    // **localStorage 中是否存储着注册成功的消息
-    const storedMessage = localStorage.getItem('successMessage');
-    let successMessage = '';
 
-    if (storedMessage) {
-      successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
-    }
 
     // **组件初始 state
     this.state = {
       loginSuccess: false,
-      // errors: {},
-      // **来自注册成功的消息
-      successMessage,
       user: {
         email: '',
         password: '',
@@ -46,6 +37,26 @@ class LoginPage extends React.Component {
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
     this.validateLoginForm = this.validateLoginForm.bind(this);
+  }
+
+  componentWillMount() {
+    // 这行有问题 在render里不要修改state
+    this.props.signupSuccess(false);
+    console.log('componentWillMount');
+  }
+
+  // 渲染完
+  componentDidMount() {
+    console.log('componentDidMount');
+    // **localStorage 中是否存储着注册成功的消息
+    // const storedMessage = localStorage.getItem('successMessage');
+    // let successMessage = '';
+
+    // if (storedMessage) {
+    //   successMessage = storedMessage;
+    //   localStorage.removeItem('successMessage');
+    // }
+    this.props.signupSuccessMessage();
   }
 
   validateLoginForm(payload) {
@@ -153,21 +164,19 @@ class LoginPage extends React.Component {
   }
 
   render() {
+    // dispatch to props
+    const { signupSuccessMessage } = this.props;
+
+    // state to props
+    const { loading, signupSuccessMes } = this.props;
+
     // 如果在xhr提交过程中，出现circular progress
-    if (this.state.wait) {
+    if (loading) {
       return (
         <div>
           <TopBar />
           <CircularProgressBg />
-          <LoginForm
-            onSubmit={this.processForm}
-            onChange={this.changeUser}
-            successMessage={this.state.successMessage}
-            validateResult={this.state.validateResult}
-            user={this.state.user}
-          />
         </div>
-
       );
     }
 
@@ -179,7 +188,7 @@ class LoginPage extends React.Component {
         <LoginForm
           onSubmit={this.processForm}
           onChange={this.changeUser}
-          successMessage={this.state.successMessage}
+          successMessage={signupSuccessMes}
           validateResult={this.state.validateResult}
           user={this.state.user}
         />
@@ -189,8 +198,33 @@ class LoginPage extends React.Component {
 
 }
 
-LoginPage.contextTypes = {
-  router: PropTypes.object.isRequired,
+LoginPage.propTypes = {
+  signupSuccessMessage: PropTypes.func.isRequired,
+
+  loading: PropTypes.bool.isRequired,
+  signupSuccessMes: PropTypes.string.isRequired,
 };
 
-export default LoginPage;
+// export default LoginPage;
+
+function mapStateToProps(state) {
+  return {
+    loading: state.loading,
+    signupSuccessMes: state.signupSuccessMessage,
+    // validateRes: state.validateSignUp,
+    // user: state.signUpFormInput,
+    // checkSignup: state.signupSuccess,
+    // signupErrMessage: state.signupErrMessage,
+  };
+}
+
+
+export default connect(
+  mapStateToProps,
+  {
+    signupSuccessMessage,
+    // submitSignup,
+    // signUpFormInput,
+    signupSuccess,
+  },
+  )(LoginPage);

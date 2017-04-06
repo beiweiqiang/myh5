@@ -6,14 +6,16 @@ import SignUpForm from '../components/SignUpForm.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import TopBar from '../components/TopBar.jsx';
 
-import { submitSignup, signUpFormInput, signupSuccess } from '../actions';
+import { submitSignup, signUpFormInput } from '../actions';
 
 class SignUpPage extends React.Component {
 
   render() {
-    const { submitSignup, signUpFormInput, signupSuccess } = this.props;
+    // dispatch to props
+    const { submitSignup, signUpFormInput } = this.props;
+
+    // state to props
     const { validateRes, checkSignup, user, signupErrMessage, loading } = this.props;
-    // console.log(this.state);
     if (loading) {
       return (
         <div>
@@ -24,7 +26,6 @@ class SignUpPage extends React.Component {
       );
     }
     if (checkSignup) {
-      signupSuccess(false);
       return (<Redirect to="/login" />);
     }
 
@@ -33,7 +34,6 @@ class SignUpPage extends React.Component {
         <TopBar />
         <SignUpForm
           onSubmit={content => submitSignup(content)}
-          submitForm={this.submitForm}
           signupFormInput={input => signUpFormInput(input)}
           flash={signupErrMessage}
           validateResult={validateRes}
@@ -45,15 +45,25 @@ class SignUpPage extends React.Component {
 
 }
 
-SignUpPage.PropTypes = {
+SignUpPage.propTypes = {
+  submitSignup: PropTypes.func.isRequired,
+  // signupSuccess: PropTypes.func.isRequired,
+  // signupFormInput: PropTypes.func.isRequired,
   validateRes: PropTypes.shape({
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     confirm: PropTypes.string.isRequired,
-    valid: PropTypes.bool.isRequired,
   }).isRequired,
-  submitSignup: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    confirm: PropTypes.string.isRequired,
+  }).isRequired,
+  signupErrMessage: PropTypes.string.isRequired,
+  checkSignup: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -72,6 +82,6 @@ export default connect(
   {
     submitSignup,
     signUpFormInput,
-    signupSuccess,
+    // signupSuccess,
   },
   )(SignUpPage);
