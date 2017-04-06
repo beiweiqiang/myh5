@@ -42,21 +42,6 @@ class LoginPage extends React.Component {
   componentWillMount() {
     // 这行有问题 在render里不要修改state
     this.props.signupSuccess(false);
-    console.log('componentWillMount');
-  }
-
-  // 渲染完
-  componentDidMount() {
-    console.log('componentDidMount');
-    // **localStorage 中是否存储着注册成功的消息
-    // const storedMessage = localStorage.getItem('successMessage');
-    // let successMessage = '';
-
-    // if (storedMessage) {
-    //   successMessage = storedMessage;
-    //   localStorage.removeItem('successMessage');
-    // }
-    this.props.signupSuccessMessage();
   }
 
   validateLoginForm(payload) {
@@ -200,6 +185,7 @@ class LoginPage extends React.Component {
 
 LoginPage.propTypes = {
   signupSuccessMessage: PropTypes.func.isRequired,
+  signupSuccess: PropTypes.func.isRequired,
 
   loading: PropTypes.bool.isRequired,
   signupSuccessMes: PropTypes.string.isRequired,

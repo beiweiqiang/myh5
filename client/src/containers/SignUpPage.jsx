@@ -6,9 +6,13 @@ import SignUpForm from '../components/SignUpForm.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import TopBar from '../components/TopBar.jsx';
 
-import { submitSignup, signUpFormInput } from '../actions';
+import { submitSignup, signUpFormInput, signupSuccessMessage } from '../actions';
 
 class SignUpPage extends React.Component {
+
+  componentWillMount() {
+    this.props.signupSuccessMessage();
+  }
 
   render() {
     // dispatch to props
@@ -46,8 +50,8 @@ class SignUpPage extends React.Component {
 }
 
 SignUpPage.propTypes = {
+  signupSuccessMessage: PropTypes.func.isRequired,
   submitSignup: PropTypes.func.isRequired,
-  // signupSuccess: PropTypes.func.isRequired,
   // signupFormInput: PropTypes.func.isRequired,
   validateRes: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -82,6 +86,6 @@ export default connect(
   {
     submitSignup,
     signUpFormInput,
-    // signupSuccess,
+    signupSuccessMessage,
   },
   )(SignUpPage);
