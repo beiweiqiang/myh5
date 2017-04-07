@@ -96,7 +96,9 @@ function submitValidateLogin(formData) {
         // **保存token
         Auth.authenticateUser(resMessage.token);
         dispatch(loginFormInput({}, true));
-        dispatch(saveUserMes(true, resMessage.user));
+
+        // 保存用户信息
+        dispatch(saveUserMes(resMessage.user));
       }
 
       // **取消loading

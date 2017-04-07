@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import createHistory from 'history/createBrowserHistory';
@@ -21,13 +21,13 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
+// import components
 import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
-import Auth from './modules/Auth';
+import Logout from './containers/Logout.jsx';
 
 import * as reducers from './reducers';
-import BasicExample from './example.jsx';
 
 // remove tap delay, essential for MaterialUI to work properly
 injectTapEventPlugin();
@@ -55,13 +55,7 @@ ReactDOM.render(
           <Route exact path="/" component={DashboardPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />
-          <Route
-            path="/logout"
-            render={() => {
-              Auth.deauthenticateUser();
-              return (<Redirect to="/" />);
-            }}
-          />
+          <Route path="/logout" component={Logout} />
         </div>
       </ConnectedRouter>
     </Provider>

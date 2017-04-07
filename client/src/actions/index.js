@@ -11,7 +11,7 @@ export { SIGNUP_SUCCESS, SIGNUP_ERROR_MESSAGE, VALIDATE_SIGNUP_FORM, SIGNUP_FORM
 export { LOGIN_SUCCESS, LOGIN_ERROR_MESSAGE, VALIDATE_LOGIN_FORM, LOGIN_FORM_INPUT } from './login';
 
 // **关于 user
-export { SAVE_USER_MESSAGE } from './user';
+export { SAVE_USER_MESSAGE, REQUEST_FINISH } from './user';
 
 // action creator =========================================================
 
@@ -22,7 +22,7 @@ export { signupSuccess, submitSignup, signUpFormInput, signupSuccessMessage } fr
 export { loginSuccess, submitLogin, loginFormInput } from './login';
 
 // **关于 user
-export { saveUserMes } from './user';
+export { saveUserMes, getUserMes } from './user';
 
 // 是否正在加载
 export function loading(boolean = false) {

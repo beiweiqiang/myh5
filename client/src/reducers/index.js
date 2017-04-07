@@ -5,6 +5,6 @@ export { validateSignUp, signupErrMessage, signupSuccess, signUpFormInput, signu
 
 export { loginErrMessage, loginFormInput, loginSuccess, validateLogin } from './login';
 
-export { saveUserMes } from './user';
+export { saveUserMes, requestFinish } from './user';
 
 export { loading } from './loading';
