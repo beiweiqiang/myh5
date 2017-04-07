@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import SignUpForm from '../components/SignUpForm.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
-import TopBar from '../components/TopBar.jsx';
+import TopBar from './TopBarContainer.jsx';
 
 import { submitSignup, signUpFormInput, signupSuccessMessage } from '../actions';
 

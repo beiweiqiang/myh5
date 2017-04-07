@@ -2,7 +2,7 @@ const initialState = {
   number: 1
 }
 
-export default function update(state = initialState, action) {
+export function count(state = initialState, action) {
   if(action.type === 'INCREASE') {
     return { number: state.number + action.amount }
   }

@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import LoginForm from '../components/LoginForm.jsx';
-import TopBar from '../components/TopBar.jsx';
+// import TopBar from '../components/TopBar.jsx';
+import TopBar from './TopBarContainer.jsx';
+
 
 import { signupSuccess, loginFormInput, submitLogin } from '../actions';
 

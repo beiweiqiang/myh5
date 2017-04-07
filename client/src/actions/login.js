@@ -3,7 +3,7 @@ import $ from 'jquery';
 import Auth from '../modules/Auth';
 
 
-import { loading } from './index';
+import { loading, saveUserMes } from './index';
 
 // 登录成功
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -96,6 +96,7 @@ function submitValidateLogin(formData) {
         // **保存token
         Auth.authenticateUser(resMessage.token);
         dispatch(loginFormInput({}, true));
+        dispatch(saveUserMes(true, resMessage.user));
       }
 
       // **取消loading

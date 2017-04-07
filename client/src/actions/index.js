@@ -9,6 +9,10 @@ export { SIGNUP_SUCCESS, SIGNUP_ERROR_MESSAGE, VALIDATE_SIGNUP_FORM, SIGNUP_FORM
 
 // **关于 login
 export { LOGIN_SUCCESS, LOGIN_ERROR_MESSAGE, VALIDATE_LOGIN_FORM, LOGIN_FORM_INPUT } from './login';
+
+// **关于 user
+export { SAVE_USER_MESSAGE } from './user';
+
 // action creator =========================================================
 
 // **关于 signup
@@ -16,6 +20,9 @@ export { signupSuccess, submitSignup, signUpFormInput, signupSuccessMessage } fr
 
 // **关于 login
 export { loginSuccess, submitLogin, loginFormInput } from './login';
+
+// **关于 user
+export { saveUserMes } from './user';
 
 // 是否正在加载
 export function loading(boolean = false) {

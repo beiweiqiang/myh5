@@ -71,21 +71,25 @@ class TopBar extends Component {
     const { user } = this.props;
     
     return (
-      <AppBar
-        showMenuIconButton={false}
-        title={<span style={{ cursor: 'pointer' }}><Link to="/" >myh5</Link></span>}
-        iconElementRight={user ? <Logged user={user} /> : <Login />}
-      />
+      <div>
+        <AppBar
+          showMenuIconButton={false}
+          title={<span style={{ cursor: 'pointer' }}><Link to="/" >myh5</Link></span>}
+          iconElementRight={user.name ? <Logged user={user} /> : <Login />}
+        />
+      </div>
     );
   }
 }
 
 TopBar.propTypes = {
-  // user: PropTypes.shape({
-  //   name: PropTypes.string.isRequired,
-  //   avatarUrl: PropTypes.string.isRequired,
-  //   email: PropTypes.string.isRequired,
-  // }).isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    avatarUrl: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired,
 };
+
+
 
 export default TopBar;

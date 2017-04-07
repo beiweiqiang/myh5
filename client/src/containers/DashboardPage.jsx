@@ -5,7 +5,8 @@ import Auth from '../modules/Auth';
 import Dashboard from '../components/Dashboard.jsx';
 import HomePage from '../components/HomePage.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
-import TopBar from '../components/TopBar.jsx';
+// import TopBar from '../components/TopBar.jsx';
+import TopBar from './TopBarContainer.jsx';
 
 class DashboardPage extends React.Component {
 
@@ -54,7 +55,7 @@ class DashboardPage extends React.Component {
     // 存在token登录Dashboard 没有token登录HomePage
     if (this.state.secretData) return (
       <div>
-        <TopBar user={this.state.user} />
+        <TopBar />
         <Dashboard secretData={this.state.secretData} />
       </div>
     );
