@@ -19,7 +19,7 @@ module.exports = new PassportLocalStrategy({
 
     // **没有此用户
     if (!user) {
-      const error = new Error('email not exist');
+      const error = new Error('email 不存在');
       error.name = 'IncorrectCredentialsError';
 
       return done(error);
@@ -28,7 +28,7 @@ module.exports = new PassportLocalStrategy({
     // **检查password
     if (!user.comparePassword(userData.password)) {
       // return done(null, false, 'password incorrect');
-      const error = new Error('password incorrect');
+      const error = new Error('password 错误');
       error.name = 'IncorrectCredentialsError';
       return done(error);
     }

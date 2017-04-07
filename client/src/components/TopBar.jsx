@@ -35,15 +35,15 @@ class Logged extends Component {
     return (
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <span style={{ color: '#fff', fontSize: '1.5em', marginRight: '10px' }}>
-          {props.user.name}
+          {this.props.user.name}
         </span>
         <Avatar
-          src={props.user.avatarUrl}
+          src={this.props.user.avatarUrl}
           size={32}
           style={{ marginRight: '10px' }}
         />
         <IconMenu
-          {...props}
+          {...this.props}
           iconButtonElement={
             <IconButton><MoreVertIcon /></IconButton>
           }

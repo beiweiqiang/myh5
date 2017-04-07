@@ -5,23 +5,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
-// const LoginForm = ({
-//   onSubmit,
-//   onChange,
-//   successMessage,
-//   validateResult,
-//   user,
-// }) => (
-// );
 class LoginForm extends Component {
   render() {
     const { successMessage, validateResult, user } = this.props;
 
-    const { onChange, onSubmit } = this.props;
-    
+    const { loginFormInput, submitLogin } = this.props;
+
     return (
       <Card className="container">
-        <form action="/" onSubmit={onSubmit}>
+        <form action="/" onSubmit={(event) => { event.preventDefault(); submitLogin(user); }}>
           <h2 className="card-heading">Login</h2>
 
           {successMessage && <p className="success-message">{successMessage}</p>}
@@ -32,7 +24,7 @@ class LoginForm extends Component {
               floatingLabelText="Email"
               name="email"
               errorText={validateResult.email}
-              onChange={onChange}
+              onChange={event => loginFormInput({ email: `${event.target.value}` })}
               value={user.email}
             />
           </div>
@@ -42,7 +34,7 @@ class LoginForm extends Component {
               floatingLabelText="Password"
               type="password"
               name="password"
-              onChange={onChange}
+              onChange={event => loginFormInput({ password: `${event.target.value}` })}
               errorText={validateResult.password}
               value={user.password}
             />
@@ -54,17 +46,23 @@ class LoginForm extends Component {
 
           <CardText>Don't have an account? <Link to={'/signup'}><FlatButton label="Create one" primary={true} /></Link>.</CardText>
         </form>
-      </Card>        
+      </Card>
     );
   }
 }
 
 LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  validateResult: PropTypes.object.isRequired,
+  submitLogin: PropTypes.func.isRequired,
+  loginFormInput: PropTypes.func.isRequired,
+  validateResult: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
   successMessage: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default LoginForm;

@@ -95,27 +95,6 @@ function submitSignupValidate(formData) {
   return (dispatch) => {
     dispatch(loading(true));
 
-    // **create an AJAX request
-
-    // const xhr = new XMLHttpRequest();
-    // xhr.open('post', '/auth/signup');
-    // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // xhr.responseType = 'json';
-    // xhr.addEventListener('load', () => {
-    //   dispatch(loading(false));
-    //   // **{success: boolean , [message | error]: string}
-    //   const resMessage = $.parseJSON(JSON.stringify(xhr.response));
-    //   if (xhr.status !== 200 || !resMessage.success) {
-    //     return dispatch(signupErrMessage(resMessage.error));
-    //   }
-
-    //   // **localStorage 存储注册成功的消息，用于login页面显示 flash 消息
-    //   localStorage.setItem('successMessage', resMessage.message);
-
-    //   return dispatch(signupSuccess());
-    // });
-    // xhr.send(formData);
-
     $.ajax({
       url: '/auth/signup',
       type: 'post',
@@ -129,11 +108,8 @@ function submitSignupValidate(formData) {
         // console.log('ajax res');
         // console.log(res);
         if (res.success) {
-
           // 在登录页面显示 注册成功 的消息
           dispatch(signupSuccessMessage(res.message));
-
-          // localStorage.setItem('successMessage', res.message);
 
           // 发送注册成功状态，进行跳转
           dispatch(signupSuccess(true));
