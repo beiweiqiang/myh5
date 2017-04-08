@@ -50,7 +50,7 @@ class Logged extends Component {
           targetOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         >
-          <Link to="/">
+          <Link to="/newpage">
             <MenuItem primaryText="新建H5" />
           </Link>
           <Link to="/">

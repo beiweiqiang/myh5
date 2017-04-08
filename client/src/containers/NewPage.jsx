@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import TopBar from './TopBarContainer.jsx';
 import Toolbar from '../components/Toolbar.jsx';
-
+import CircularProgressBg from '../components/CircularProgressBg.jsx';
 
 class NewPage extends Component {
   render() {
+    const { loading } = this.props;
+    if (loading) return (<CircularProgressBg />);
     return (
       <div>
         <TopBar />
@@ -16,7 +19,15 @@ class NewPage extends Component {
 }
 
 NewPage.propTypes = {
-
+  loading: PropTypes.bool.isRequired,
 };
 
-export default NewPage;
+function mapStateToProps(state) {
+  return {
+    loading: state.loading,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+)(NewPage);

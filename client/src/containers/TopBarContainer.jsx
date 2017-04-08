@@ -38,7 +38,6 @@ TopBarContainer.propTypes = {
 function mapStateToProps(state) {
   return {
     user: state.saveUserMes,
-    // loading: state.loading,
     requestFinish: state.requestFinish,
   };
 }

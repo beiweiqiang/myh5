@@ -9,14 +9,6 @@ import TopBar from './TopBarContainer.jsx';
 class DashboardPage extends React.Component {
 
   render() {
-    // if (this.state.loading) return (<CircularProgressBg color="#fff" />);
-    // 存在token登录Dashboard 没有token登录HomePage
-    /*if (this.state.secretData) return (
-      <div>
-        <TopBar />
-        <Dashboard secretData={this.state.secretData} />
-      </div>
-    );*/
     const { loading } = this.props;
     if (loading) return (<CircularProgressBg />);
     return (
@@ -36,7 +28,6 @@ DashboardPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.saveUserMes,
     loading: state.loading,
   };
 }

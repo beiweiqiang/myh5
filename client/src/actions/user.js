@@ -28,22 +28,33 @@ function requestFinish(boolean = false) {
 export function getUserMes() {
   return (dispatch) => {
     dispatch(loading(true));
-    const xhr = new XMLHttpRequest();
-    xhr.open('get', '/api/topbar');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    // set the authorization HTTP header
-    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
+    // **先取消ajax**  减少加载时间******
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('get', '/api/topbar');
+    // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-      const resMessage = $.parseJSON(JSON.stringify(xhr.response));
-      if (xhr.status === 200) {
-        dispatch(saveUserMes(resMessage.user));
-      }
-      dispatch(loading(false));
-      dispatch(requestFinish(true));
-    });
-    xhr.send();
+    // // set the authorization HTTP header
+    // xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    // xhr.responseType = 'json';
+    // xhr.addEventListener('load', () => {
+
+    //   const resMessage = $.parseJSON(JSON.stringify(xhr.response));
+    //   if (xhr.status === 200) {
+    //     dispatch(saveUserMes(resMessage.user));
+    //   }
+    //   dispatch(loading(false));
+    //   dispatch(requestFinish(true));
+    // });
+    // xhr.send();
+
+    // 以下是额外代码
+    dispatch(saveUserMes({
+      name: '1',
+      email: '1@1.com',
+      avatarUrl: './img/default.jpg',
+    }));
+    dispatch(loading(false));
+    dispatch(requestFinish(true));
   };
 }

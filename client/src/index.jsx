@@ -26,6 +26,7 @@ import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import Logout from './containers/Logout.jsx';
+import NewPage from './containers/NewPage.jsx';
 
 import * as reducers from './reducers';
 
@@ -56,6 +57,7 @@ ReactDOM.render(
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/logout" component={Logout} />
+          <Route path="/newpage" component={NewPage} />
         </div>
       </ConnectedRouter>
     </Provider>
