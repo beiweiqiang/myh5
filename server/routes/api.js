@@ -21,7 +21,6 @@ router.get('/topbar', (req, res) => {
         errors: '用户出错，请退出后重新登录',
       });
     }
-    // console.log(user);
     res.status(200).json({
       message: '登录成功',
       success: true,

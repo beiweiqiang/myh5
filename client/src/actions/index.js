@@ -13,6 +13,13 @@ export { LOGIN_SUCCESS, LOGIN_ERROR_MESSAGE, VALIDATE_LOGIN_FORM, LOGIN_FORM_INP
 // **关于 user
 export { SAVE_USER_MESSAGE, REQUEST_FINISH } from './user';
 
+
+// **newpage
+// toolbar
+export { TOGGLE_PHONE_SIZE, ADD_PIC, ADD_TEXT } from './newpage/toolbar';
+// pagelist
+export { TOGGLE_PAGE, DELETE_PAGE, ADD_NEW_PAGE, UP_MOVE_PAGE, DOWN_MOVE_PAGE } from './newpage/pagelist';
+
 // action creator =========================================================
 
 // **关于 signup
@@ -24,6 +31,15 @@ export { loginSuccess, submitLogin, loginFormInput } from './login';
 // **关于 user
 export { saveUserMes, getUserMes } from './user';
 
+// **newpage
+// toolbar
+export { togglePhoneSize, addText, addPic } from './newpage/toolbar';
+// pagelist
+export { togglePage, deletePage, addNewPage, upMovePage, downMovePage } from './newpage/pagelist';
+
+
+
+
 // 是否正在加载
 export function loading(boolean = false) {
   return {
@@ -31,18 +47,3 @@ export function loading(boolean = false) {
     loading: boolean,
   };
 }
-
-export function increase(n) {
-  return {
-    type: 'INCREASE',
-    amount: n,
-  };
-}
-
-export function decrease(n) {
-  return {
-    type: 'DECREASE',
-    amount: n,
-  };
-}
-

@@ -44,7 +44,8 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  // console.log('store has been updated. Latest store state:', store.getState());
+  // console.log(store.getState());
+  // console.log(store.getState().currentPage);
   // 在这里更新你的视图
 });
 
@@ -53,11 +54,12 @@ ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <div>
-          <Route exact path="/" component={DashboardPage} />
+          {/*暂时修改router component*/}
+          <Route exact path="/" component={NewPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/logout" component={Logout} />
-          <Route path="/newpage" component={NewPage} />
+          <Route path="/newpage" component={DashboardPage} />
         </div>
       </ConnectedRouter>
     </Provider>

@@ -19,6 +19,7 @@
     "jquery": "^3.2.1",
     "jsonwebtoken": "^7.3.0",
     "material-ui": "^0.17.1",
+    "material-ui-color-picker": "^1.0.1",
     "mongoose": "^4.9.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

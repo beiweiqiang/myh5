@@ -46,6 +46,7 @@ const localLoginStrategy = require('./server/passport/local-login');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
+
 // authentication checker 中间件，要在 routes 之前
 const authCheckMiddleware = require('./server/middleware/auth-check');
 
@@ -57,6 +58,12 @@ const apiRoutes = require('./server/routes/api');
 
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+
+// 无论登录那个url 自动跳转到/
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
+
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
