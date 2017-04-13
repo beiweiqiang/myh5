@@ -44,17 +44,18 @@ const store = createStore(
 );
 
 store.subscribe(() => {
+  // 在这里更新你的视图
   // console.log(store.getState());
   // console.log(store.getState().currentPage);
-  // 在这里更新你的视图
+  // console.log(store.getState().activeItem);
 });
 
+// 暂时修改 router component
 ReactDOM.render(
   (<MuiThemeProvider muiTheme={getMuiTheme()}>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <div>
-          {/*暂时修改router component*/}
           <Route exact path="/" component={NewPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />

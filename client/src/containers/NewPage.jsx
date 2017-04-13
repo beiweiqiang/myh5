@@ -6,10 +6,17 @@ import Toolbar from '../components/Toolbar.jsx';
 import MobileWindow from '../components/MobileWindow.jsx';
 import PageList from '../components/PageList/PageList.jsx';
 import MyTemplate from '../components/MyTemplate.jsx';
-import Tabs from '../components/Tabs.jsx';
+import EditTabs from '../components/EditTabs/Tabs.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 
-import { togglePhoneSize, addText, addPic, togglePage, deletePage } from '../actions';
+import {
+  // toolbar
+  togglePhoneSize, addText, addPic,
+  // pagelist
+  togglePage, deletePage, addNewPage, upMovePage, downMovePage,
+  // edittabs
+  toggleEditTabs, toggleEditItem,
+} from '../actions';
 
 const style = {
   display: 'flex',
@@ -41,9 +48,14 @@ class NewPage extends Component {
     const { loading, mobileSize } = this.props;
 
     // dispatch to props
-    const { togglePhoneSize, addText, addPic, togglePage, deletePage } = this.props;
+    const {
+      togglePhoneSize, addText, addPic,
+      togglePage, deletePage, addNewPage, upMovePage, downMovePage,
+      toggleEditTabs, toggleEditItem,
+    } = this.props;
 
     if (loading) return (<CircularProgressBg />);
+
     return (
       <div>
         <TopBar />
@@ -64,8 +76,14 @@ class NewPage extends Component {
             <PageList
               togglePage={togglePage}
               deletePage={deletePage}
+              addNewPage={addNewPage}
+              upMovePage={upMovePage}
+              downMovePage={downMovePage}
             />
-            <Tabs />
+            <EditTabs
+              toggleEditTabs={toggleEditTabs}
+              toggleEditItem={toggleEditItem}
+            />
           </div>
         </div>
       </div>
@@ -77,8 +95,14 @@ NewPage.propTypes = {
   togglePhoneSize: PropTypes.func.isRequired,
   addText: PropTypes.func.isRequired,
   addPic: PropTypes.func.isRequired,
+
   togglePage: PropTypes.func.isRequired,
   deletePage: PropTypes.func.isRequired,
+  upMovePage: PropTypes.func.isRequired,
+  downMovePage: PropTypes.func.isRequired,
+
+  toggleEditTabs: PropTypes.func.isRequired,
+  toggleEditItem: PropTypes.func.isRequired,
 
   mobileSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -97,7 +121,14 @@ export default connect(
     togglePhoneSize,
     addText,
     addPic,
+
     togglePage,
     deletePage,
+    addNewPage,
+    upMovePage,
+    downMovePage,
+
+    toggleEditTabs,
+    toggleEditItem,
   }
 )(NewPage);

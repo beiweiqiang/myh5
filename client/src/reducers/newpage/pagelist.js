@@ -7,7 +7,7 @@ export function currentPage(state = 1, action) {
   return state;
 }
 
-export function deletePage(state = 1, action) {
+export function deletePage(state = 0, action) {
   if (action.type === DELETE_PAGE) {
     return action.page;
   }

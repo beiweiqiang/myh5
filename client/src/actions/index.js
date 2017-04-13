@@ -19,6 +19,8 @@ export { SAVE_USER_MESSAGE, REQUEST_FINISH } from './user';
 export { TOGGLE_PHONE_SIZE, ADD_PIC, ADD_TEXT } from './newpage/toolbar';
 // pagelist
 export { TOGGLE_PAGE, DELETE_PAGE, ADD_NEW_PAGE, UP_MOVE_PAGE, DOWN_MOVE_PAGE } from './newpage/pagelist';
+// tabs
+export { TOGGLE_EDIT_TABS, TOGGLE_EDIT_ITEM, CHANGE_FONT_SIZE, CHANGE_FONT_COLOR, FONT_BOLD } from './newpage/tabs';
 
 // action creator =========================================================
 
@@ -36,7 +38,8 @@ export { saveUserMes, getUserMes } from './user';
 export { togglePhoneSize, addText, addPic } from './newpage/toolbar';
 // pagelist
 export { togglePage, deletePage, addNewPage, upMovePage, downMovePage } from './newpage/pagelist';
-
+// tabs
+export { toggleEditTabs, toggleEditItem, changeFontSize, changeFontColor, fontBold } from './newpage/tabs';
 
 
 

@@ -1,22 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 import { List } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import PageListItem from './PageListItem.jsx';
 
-import { addNewPage } from '../../actions';
+// import { addNewPage } from '../../actions';
 
 class PageList extends Component {
   render() {
-    // dispatch to props
-    const { addNewPage } = this.props;
+    const {
+      addNewPage,
+      ...rest
+    } = this.props;
 
     return (
       <div style={{ marginBottom: '40px' }}>
         <List>
-          {[1, 2, 3, 4].map((ele, index) => (<PageListItem {...this.props} page={index + 1} key={ele} />))}
+          {[1, 2, 3, 4].map((ele, index) => (<PageListItem {...rest} page={index} key={ele} />))}
         </List>
         <RaisedButton
           label="添加页"
@@ -35,9 +37,4 @@ PageList.propTypes = {
 
 // function map
 
-export default connect(
-  null,
-  {
-    addNewPage,
-  }
-)(PageList);
+export default PageList;

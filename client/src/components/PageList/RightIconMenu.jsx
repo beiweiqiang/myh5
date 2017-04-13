@@ -7,7 +7,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-import { deletePage, togglePage, upMovePage, downMovePage } from '../../actions';
+// import { deletePage, togglePage, upMovePage, downMovePage } from '../../actions';
 
 const iconButtonElement = (
   <IconButton>
@@ -54,18 +54,4 @@ RightIconMenu.propTypes = {
   downMovePage: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
-  return {
-    
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  {
-    deletePage,
-    togglePage,
-    upMovePage,
-    downMovePage,
-  }
-)(RightIconMenu);
+export default RightIconMenu;
