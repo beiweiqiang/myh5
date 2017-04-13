@@ -1,6 +1,6 @@
 import { TOGGLE_PAGE, DELETE_PAGE, ADD_NEW_PAGE } from '../../actions';
 
-export function currentPage(state = 1, action) {
+export function currentPage(state = 0, action) {
   if (action.type === TOGGLE_PAGE) {
     return action.page;
   }

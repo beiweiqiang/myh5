@@ -15,7 +15,7 @@ import {
   // pagelist
   togglePage, deletePage, addNewPage, upMovePage, downMovePage,
   // edittabs
-  toggleEditTabs, toggleEditItem,
+  toggleEditTabs, toggleEditItem, changeFontSize, changeFontColor, fontBold,
 } from '../actions';
 
 const style = {
@@ -45,13 +45,13 @@ const rightStyle = {
 class NewPage extends Component {
   render() {
     // state to props
-    const { loading, mobileSize } = this.props;
+    const { loading, mobileSize, currentPage} = this.props;
 
     // dispatch to props
     const {
       togglePhoneSize, addText, addPic,
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
-      toggleEditTabs, toggleEditItem,
+      toggleEditTabs, toggleEditItem, changeFontSize, changeFontColor, fontBold,
     } = this.props;
 
     if (loading) return (<CircularProgressBg />);
@@ -81,8 +81,12 @@ class NewPage extends Component {
               downMovePage={downMovePage}
             />
             <EditTabs
+              currentPage={currentPage}
               toggleEditTabs={toggleEditTabs}
               toggleEditItem={toggleEditItem}
+              changeFontSize={changeFontSize}
+              changeFontColor={changeFontColor}
+              fontBold={fontBold}
             />
           </div>
         </div>
@@ -103,15 +107,20 @@ NewPage.propTypes = {
 
   toggleEditTabs: PropTypes.func.isRequired,
   toggleEditItem: PropTypes.func.isRequired,
+  changeFontSize: PropTypes.func.isRequired,
+  changeFontColor: PropTypes.func.isRequired,
+  fontBold: PropTypes.func.isRequired,
 
   mobileSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
+  currentPage: PropTypes.number.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     loading: state.loading,
     mobileSize: state.togglePhoneSize,
+    currentPage: state.currentPage,
   };
 }
 
@@ -130,5 +139,8 @@ export default connect(
 
     toggleEditTabs,
     toggleEditItem,
+    changeFontSize,
+    changeFontColor,
+    fontBold,
   }
 )(NewPage);

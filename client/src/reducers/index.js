@@ -15,6 +15,5 @@ export { loading } from './loading';
 
 // 打印action type
 export function logger(state = '', action) {
-  console.log(action.type);
-  return state;
+  return action;
 }

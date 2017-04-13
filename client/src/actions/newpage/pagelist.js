@@ -30,14 +30,16 @@ export function addNewPage() {
   };
 }
 
-export function upMovePage() {
+export function upMovePage(page) {
   return {
     type: UP_MOVE_PAGE,
+    page,
   };
 }
 
-export function downMovePage() {
+export function downMovePage(page) {
   return {
     type: DOWN_MOVE_PAGE,
+    page,
   };
 }

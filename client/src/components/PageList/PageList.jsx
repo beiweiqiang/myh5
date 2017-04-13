@@ -9,6 +9,7 @@ import PageListItem from './PageListItem.jsx';
 // import { addNewPage } from '../../actions';
 
 class PageList extends Component {
+  // this.props: togglePage, deletePage, addNewPage, upMovePage, downMovePage
   render() {
     const {
       addNewPage,
@@ -18,7 +19,7 @@ class PageList extends Component {
     return (
       <div style={{ marginBottom: '40px' }}>
         <List>
-          {[1, 2, 3, 4].map((ele, index) => (<PageListItem {...rest} page={index} key={ele} />))}
+          {[1, 2, 3, 4].map((ele, index) => (<PageListItem {...rest} index={index} key={ele} />))}
         </List>
         <RaisedButton
           label="添加页"

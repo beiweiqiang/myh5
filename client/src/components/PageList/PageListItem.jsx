@@ -6,22 +6,23 @@ import RightIconMenu from './RightIconMenu.jsx';
 
 class PageListItem extends Component {
   render() {
-    const { page } = this.props;
+    // this.props: togglePage, deletePage, upMovePage, downMovePage, index
+    // const { page } = this.props;
     // rest 包含 deletePage, upMovePage, downMovePage
-    const { togglePage, ...rest } = this.props;
+    const { togglePage, index, ...rest } = this.props;
     return (
       <div>
         <ListItem
-          primaryText={`第 ${page + 1} 页`}
+          primaryText={`第 ${index + 1} 页`}
           rightIconButton={(() => {
             return (
               <span>
-                <RightIconMenu togglePage={togglePage} page={page} {...rest} />
+                <RightIconMenu index={index} {...rest} />
               </span>
             );
           })()
           }
-          onTouchTap={(event) => togglePage(page)}
+          onTouchTap={(event) => togglePage(index)}
         />
         <Divider />
       </div>
@@ -30,7 +31,7 @@ class PageListItem extends Component {
 }
 
 PageListItem.propTypes = {
-  page: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   togglePage: PropTypes.func.isRequired,
 };
 

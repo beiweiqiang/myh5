@@ -16,7 +16,8 @@ const styles = {
 class EditTabs extends Component {
 
   render() {
-    const { toggleEditTabs } = this.props;
+    // rest: currentPage, toggleEditItem, changeFontSize, changeFontColor, fontBold
+    const { toggleEditTabs, ...rest } = this.props;
 
     return (
       <Tabs>
@@ -24,7 +25,7 @@ class EditTabs extends Component {
           label="文本"
           onActive={(...rest) => toggleEditTabs(0)}
         >
-          <TabList {...this.props} />
+          <TabList {...rest} />
         </Tab>
         <Tab
           label="图片"

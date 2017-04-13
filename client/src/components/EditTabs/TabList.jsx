@@ -10,9 +10,8 @@ import ColorPicker from 'material-ui-color-picker';
 
 class EditListItem extends Component {
   render() {
-    const { index } = this.props;
-    // console.log('index: ', index);
-    const { toggleEditItem } = this.props;
+    const { index, currentPage } = this.props;
+    const { changeFontSize, changeFontColor, fontBold } = this.props;
 
     return (
       <ListItem
@@ -23,8 +22,6 @@ class EditListItem extends Component {
           </p>
         }
         secondaryTextLines={2}
-        primaryTogglesNestedList={true}
-        onNestedListToggle={() => toggleEditItem(index)}
         nestedItems={[
           <ListItem
             innerDivStyle={{ padding: '0px', marginLeft: '0px' }}
@@ -35,8 +32,7 @@ class EditListItem extends Component {
               name="fontSize"
               hintText="输入字体大小"
               onChange={(event, newValue) => {
-                console.log(event);
-                console.log(newValue);
+                changeFontSize(currentPage, index, newValue);
               }}
               type="number"
             />
@@ -45,11 +41,14 @@ class EditListItem extends Component {
               hintText="选择颜色"
               id="colorPicker"
               defaultValue="#000"
-              onChange={color => console.log(color)}
+              onChange={color => changeFontColor(currentPage, index, color)}
             />
             <Checkbox
               style={{ margin: '6px 0px' }}
               label="加粗"
+              onCheck={(event, isInputChecked) => {
+                fontBold(currentPage, index, isInputChecked);
+              }}
             />
           </ListItem>,
         ]}
