@@ -16,20 +16,18 @@ const styles = {
 class EditTabs extends Component {
 
   render() {
-    // rest: currentPage, toggleEditItem, changeFontSize, changeFontColor, fontBold
-    const { toggleEditTabs, ...rest } = this.props;
+    // rest: currentPage, changeFontSize, changeFontColor, fontBold, toggleNestedItem
+    const { pages, ...rest } = this.props;
 
     return (
       <Tabs>
         <Tab
           label="文本"
-          onActive={(...rest) => toggleEditTabs(0)}
         >
-          <TabList {...rest} />
+          <TabList pages={pages} {...rest} />
         </Tab>
         <Tab
           label="图片"
-          onActive={(...rest) => toggleEditTabs(1)}
         >
           <div>
             <h2 style={styles.headline}>Controllable Tab B</h2>
@@ -46,7 +44,7 @@ class EditTabs extends Component {
 }
 
 EditTabs.propTypes = {
-  toggleEditTabs: PropTypes.func.isRequired,
+  // toggleEditTabs: PropTypes.func.isRequired,
 };
 
 // function mapStateToProps(state) {

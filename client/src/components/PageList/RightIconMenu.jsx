@@ -17,10 +17,10 @@ const iconButtonElement = (
 
 class RightIconMenu extends Component {
   render() {
-    // this.props: deletePage, upMovePage, downMovePage, index
-    const { index } = this.props;
+    // this.props: togglePage, deletePage, upMovePage, downMovePage, index
+    const { index, pages } = this.props;
 
-    const { deletePage, upMovePage, downMovePage } = this.props;
+    const { togglePage, deletePage, upMovePage, downMovePage } = this.props;
 
     return (
       <IconMenu
@@ -36,10 +36,15 @@ class RightIconMenu extends Component {
           primaryText="下移"
           onTouchTap={(event) => downMovePage(index)}
         />
-        <MenuItem
-          primaryText="删除"
-          onTouchTap={(event) => deletePage(index)}
-        />
+        {pages.length === 1 ? (<span></span>) : (
+          <MenuItem
+            primaryText="删除"
+            onTouchTap={(event) => {
+              togglePage(0);
+              deletePage(index);
+            }}
+          />
+        )}
       </IconMenu>
     );
   }
@@ -48,6 +53,7 @@ class RightIconMenu extends Component {
 RightIconMenu.propTypes = {
   index: PropTypes.number.isRequired,
 
+  togglePage: PropTypes.func.isRequired,
   deletePage: PropTypes.func.isRequired,
   upMovePage: PropTypes.func.isRequired,
   downMovePage: PropTypes.func.isRequired,

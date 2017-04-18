@@ -17,7 +17,7 @@ export function saveUserMes(user) {
   };
 }
 
-function requestFinish(boolean = false) {
+function sendRequest(boolean = false) {
   return {
     type: REQUEST_FINISH,
     finish: boolean,
@@ -29,14 +29,12 @@ export function getUserMes() {
   return (dispatch) => {
     dispatch(loading(true));
 
-    // **先取消ajax**  减少加载时间******
     const xhr = new XMLHttpRequest();
     xhr.open('get', '/api/topbar');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     // set the authorization HTTP header
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-    // console.log(Auth.getToken());
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       const resMessage = $.parseJSON(JSON.stringify(xhr.response));
@@ -44,17 +42,9 @@ export function getUserMes() {
         dispatch(saveUserMes(resMessage.user));
       }
       dispatch(loading(false));
-      dispatch(requestFinish(true));
     });
     xhr.send();
-
-    // 以下是额外代码
-    // dispatch(saveUserMes({
-    //   name: '1',
-    //   email: '1@1.com',
-    //   avatarUrl: './img/default.jpg',
-    // }));
-    // dispatch(loading(false));
-    // dispatch(requestFinish(true));
+    // 发起一次请求以后dispatch
+    dispatch(sendRequest(true));
   };
 }

@@ -1,7 +1,9 @@
+import { combineReducers } from 'redux';
+
 import { SIGNUP_ERROR_MESSAGE, SIGNUP_FORM_INPUT, SIGNUP_SUCCESS, VALIDATE_SIGNUP_FORM, SIGNUP_SUCCESS_MESSAGE } from '../actions';
 
 // 注册出错信息，可能是用户已存在
-export function signupErrMessage(state = '', action) {
+function errMes(state = '', action) {
   if (action.type === SIGNUP_ERROR_MESSAGE) {
     return action.message;
   }
@@ -16,7 +18,7 @@ const inputInitial = {
   password: '',
   confirm: '',
 };
-export function signUpFormInput(state = inputInitial, action) {
+function formInput(state = inputInitial, action) {
   if (action.type === SIGNUP_FORM_INPUT) {
     if (action.clean) return inputInitial;
     return Object.assign({}, state, action.input);
@@ -25,7 +27,7 @@ export function signUpFormInput(state = inputInitial, action) {
 }
 
 // 注册成功状态
-export function signupSuccess(state = false, action) {
+function success(state = false, action) {
   if (action.type === SIGNUP_SUCCESS) {
     return action.success;
   }
@@ -33,7 +35,7 @@ export function signupSuccess(state = false, action) {
 }
 
 // 注册表单验证信息
-export function validateSignUp(state = {
+function validateMes(state = {
   name: '',
   email: '',
   password: '',
@@ -52,10 +54,18 @@ export function validateSignUp(state = {
 }
 
 // 显示 “注册成功” 的信息
-export function signupSuccessMessage(state = '', action) {
+function successMes(state = '', action) {
   if (action.type === SIGNUP_SUCCESS_MESSAGE) {
     if (action.clean) return '';
     return action.text;
   }
   return state;
 }
+
+export default combineReducers({
+  errMes,
+  formInput,
+  success,
+  validateMes,
+  successMes,
+});

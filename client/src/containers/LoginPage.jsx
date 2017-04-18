@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import LoginForm from '../components/LoginForm.jsx';
-// import TopBar from '../components/TopBar.jsx';
 import TopBar from './TopBarContainer.jsx';
 
 
@@ -75,11 +74,11 @@ LoginPage.propTypes = {
 function mapStateToProps(state) {
   return {
     loading: state.loading,
-    signupSuccessMes: state.signupSuccessMessage,
-    loginErrMessage: state.loginErrMessage,
-    loginSuccess: state.loginSuccess,
-    validateRes: state.validateLogin,
-    user: state.loginFormInput,
+    signupSuccessMes: state.signup.successMes,
+    loginErrMessage: state.login.errMes,
+    loginSuccess: state.login.success,
+    validateRes: state.login.validateMes,
+    user: state.login.formInput,
   };
 }
 

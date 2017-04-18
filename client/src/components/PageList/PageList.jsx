@@ -9,23 +9,36 @@ import PageListItem from './PageListItem.jsx';
 // import { addNewPage } from '../../actions';
 
 class PageList extends Component {
-  // this.props: togglePage, deletePage, addNewPage, upMovePage, downMovePage
+  // this.props: pages, togglePage, deletePage, addNewPage, upMovePage, downMovePage
   render() {
     const {
+      pages,
       addNewPage,
+      togglePage,
       ...rest
     } = this.props;
 
     return (
       <div style={{ marginBottom: '40px' }}>
         <List>
-          {[1, 2, 3, 4].map((ele, index) => (<PageListItem {...rest} index={index} key={ele} />))}
+          {pages.map((ele, index) => (
+            <PageListItem
+              key={`${Date.now() + index}`}
+              index={index}
+              togglePage={togglePage}
+              pages={pages}
+              {...rest}
+            />
+          ))}
         </List>
         <RaisedButton
           label="添加页"
           secondary={true}
           fullWidth={true}
-          onTouchTap={(event) => addNewPage()}
+          onTouchTap={(event) => {
+            togglePage(pages.length);
+            addNewPage();
+          }}
         />
       </div>
     );
@@ -34,8 +47,7 @@ class PageList extends Component {
 
 PageList.propTypes = {
   addNewPage: PropTypes.func.isRequired,
+  togglePage: PropTypes.func.isRequired,
 };
-
-// function map
 
 export default PageList;

@@ -7,21 +7,18 @@ import RightIconMenu from './RightIconMenu.jsx';
 class PageListItem extends Component {
   render() {
     // this.props: togglePage, deletePage, upMovePage, downMovePage, index
-    // const { page } = this.props;
-    // rest 包含 deletePage, upMovePage, downMovePage
-    const { togglePage, index, ...rest } = this.props;
+    const { togglePage, index } = this.props;
     return (
       <div>
         <ListItem
           primaryText={`第 ${index + 1} 页`}
-          rightIconButton={(() => {
-            return (
-              <span>
-                <RightIconMenu index={index} {...rest} />
-              </span>
-            );
-          })()
-          }
+          rightIconButton={(
+            <span>
+              <RightIconMenu
+                {...this.props}
+              />
+            </span>
+          )}
           onTouchTap={(event) => togglePage(index)}
         />
         <Divider />

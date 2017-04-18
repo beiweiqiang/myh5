@@ -73,10 +73,10 @@ SignUpPage.propTypes = {
 function mapStateToProps(state) {
   return {
     loading: state.loading,
-    validateRes: state.validateSignUp,
-    user: state.signUpFormInput,
-    checkSignup: state.signupSuccess,
-    signupErrMessage: state.signupErrMessage,
+    validateRes: state.signup.validateMes,
+    user: state.signup.formInput,
+    checkSignup: state.signup.success,
+    signupErrMessage: state.signup.errMes,
   };
 }
 

@@ -1,17 +1,26 @@
+import { SPIN_LOADING } from '../actions';
 
-export { validateSignUp, signupErrMessage, signupSuccess, signUpFormInput, signupSuccessMessage } from './signup';
+export signup from './signup';
 
-export { loginErrMessage, loginFormInput, loginSuccess, validateLogin } from './login';
+export login from './login';
 
-export { saveUserMes, requestFinish } from './user';
+export { user, sendRequest } from './user';
 
 
-export { togglePhoneSize, addText, addPic } from './newpage/toolbar';
-export { currentPage, deletePage } from './newpage/pagelist';
-export { activeTab, activeItem } from './newpage/tabs';
+// export { togglePhoneSize, addText, addPic } from './newpage/toolbar';
+// export { currentPage, deletePage } from './newpage/pagelist';
+// export { activeTab, activeItem } from './newpage/tabs';
 
-export { loading } from './loading';
+export newPage from './newPage';
 
+
+export function loading(state = false, action) {
+  if (action.type === SPIN_LOADING) {
+    if (action.loading === true) return true;
+    return false;
+  }
+  return state;
+}
 
 // 打印action type
 export function logger(state = '', action) {

@@ -85,8 +85,9 @@ class TopBar extends Component {
 TopBar.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
 };
 

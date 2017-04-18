@@ -11,10 +11,9 @@ import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui
 class MyToolbar extends React.Component {
 
   render() {
-
     const { togglePhoneSize, addText, addPic } = this.props;
 
-    const { mobileSize } = this.props;
+    const { mobileSize, currentPage } = this.props;
     // console.log(mobileSize);
 
     // let selected = 1;
@@ -34,8 +33,8 @@ class MyToolbar extends React.Component {
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup>
-          <RaisedButton onTouchTap={addText} label="文本" primary={true} />
-          <RaisedButton onTouchTap={addPic} label="图片" primary={true} />
+          <RaisedButton onTouchTap={(event) => addText(currentPage)} label="文本" primary={true} />
+          <RaisedButton onTouchTap={(event) => addPic()} label="图片" primary={true} />
         </ToolbarGroup>
       </Toolbar>
     );

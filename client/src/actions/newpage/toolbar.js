@@ -20,14 +20,18 @@ export function togglePhoneSize(size) {
   };
 }
 
-export function addText() {
+export function addText(page) {
   return {
     type: ADD_TEXT,
+    page,
   };
 }
 
-export function addPic() {
+export function addPic(page, picUrl, width, height) {
   return {
     type: ADD_PIC,
+    picUrl,
+    width,
+    height,
   };
 }

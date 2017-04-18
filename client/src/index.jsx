@@ -45,7 +45,8 @@ const store = createStore(
 
 store.subscribe(() => {
   // 在这里更新你的视图
-  console.log(store.getState().logger);
+  console.log(store.getState());
+  // console.log(store.getState().logger);
   // console.log(store.getState().currentPage);
   // console.log(store.getState().activeItem);
 });

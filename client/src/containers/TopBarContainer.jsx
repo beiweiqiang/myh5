@@ -6,7 +6,7 @@ import { getUserMes } from '../actions';
 
 class TopBarContainer extends Component {
   componentWillMount() {
-    if (!this.props.requestFinish) {
+    if (!this.props.sendRequest) {
       this.props.getUserMes();
     }
   }
@@ -27,9 +27,10 @@ TopBarContainer.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
-  requestFinish: PropTypes.bool.isRequired,
+  sendRequest: PropTypes.bool.isRequired,
 };
 
 
@@ -37,8 +38,8 @@ TopBarContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.saveUserMes,
-    requestFinish: state.requestFinish,
+    user: state.user,
+    sendRequest: state.sendRequest,
   };
 }
 

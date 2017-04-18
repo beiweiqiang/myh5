@@ -6,12 +6,12 @@ import Subheader from 'material-ui/Subheader';
 import TextField from 'material-ui/TextField';
 
 import Checkbox from 'material-ui/Checkbox';
-import ColorPicker from 'material-ui-color-picker';
+import { SketchPicker } from 'react-color';
 
 class EditListItem extends Component {
   render() {
-    const { index, currentPage } = this.props;
-    const { changeFontSize, changeFontColor, fontBold } = this.props;
+    const { index, currentPage, textStyle } = this.props;
+    const { changeFontSize, changeFontColor, fontBold, toggleNestedItem } = this.props;
 
     return (
       <ListItem
@@ -22,26 +22,26 @@ class EditListItem extends Component {
           </p>
         }
         secondaryTextLines={2}
+        open={textStyle[index].open}
+        onNestedListToggle={(listItem) => toggleNestedItem(currentPage, index, !textStyle[index].open)}
         nestedItems={[
           <ListItem
             innerDivStyle={{ padding: '0px', marginLeft: '0px' }}
             disabled={true}
-            key={1}
+            key={`${Date.now()}`}
           >
             <TextField
               name="fontSize"
-              hintText="输入字体大小"
+              floatingLabelText="输入字体大小"
               onChange={(event, newValue) => {
                 changeFontSize(currentPage, index, newValue);
               }}
+              value={textStyle[index].size}
               type="number"
             />
-            <ColorPicker
-              name="colorPicker"
-              hintText="选择颜色"
-              id="colorPicker"
-              defaultValue="#000"
-              onChange={color => changeFontColor(currentPage, index, color)}
+            <SketchPicker
+              color={textStyle[index].color}
+              onChangeComplete={color => changeFontColor(currentPage, index, color.hex)}
             />
             <Checkbox
               style={{ margin: '6px 0px' }}
@@ -49,6 +49,7 @@ class EditListItem extends Component {
               onCheck={(event, isInputChecked) => {
                 fontBold(currentPage, index, isInputChecked);
               }}
+              checked={textStyle[index].bold}
             />
           </ListItem>,
         ]}
@@ -57,13 +58,22 @@ class EditListItem extends Component {
   }
 }
 
-export default class ListExampleNested extends React.Component {
+export default class TabsList extends React.Component {
 
   render() {
+    const { pages, currentPage, ...rest } = this.props;
     return (
       <List>
         <Subheader>点击箭头展开编辑界面</Subheader>
-        {[0, 1, 2].map((ele, index) => (<EditListItem key={ele} index={index} {...this.props} />))}
+        {pages[currentPage].text.map((ele, index) => (
+          <EditListItem
+            currentPage={currentPage}
+            key={`${Date.now() + index}`}
+            index={index}
+            textStyle={pages[currentPage].text}
+            {...rest}
+          />
+        ))}
       </List>
     );
   }

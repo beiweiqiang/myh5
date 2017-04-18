@@ -8,6 +8,9 @@ import PageList from '../components/PageList/PageList.jsx';
 import MyTemplate from '../components/MyTemplate.jsx';
 import EditTabs from '../components/EditTabs/Tabs.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
+import EditCard from '../components/EditCard/index.jsx';
+
+// import Example from '../components/Draggable';
 
 import {
   // toolbar
@@ -15,7 +18,7 @@ import {
   // pagelist
   togglePage, deletePage, addNewPage, upMovePage, downMovePage,
   // edittabs
-  toggleEditTabs, toggleEditItem, changeFontSize, changeFontColor, fontBold,
+  changeFontSize, changeFontColor, fontBold, toggleNestedItem,
 } from '../actions';
 
 const style = {
@@ -42,16 +45,22 @@ const rightStyle = {
   alignItems: 'center',
 };
 
+const underToolbarStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+};
+
 class NewPage extends Component {
   render() {
     // state to props
-    const { loading, mobileSize, currentPage} = this.props;
+    const { loading, mobileSize, currentPage, pages } = this.props;
 
     // dispatch to props
     const {
       togglePhoneSize, addText, addPic,
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
-      toggleEditTabs, toggleEditItem, changeFontSize, changeFontColor, fontBold,
+      changeFontSize, changeFontColor, fontBold, toggleNestedItem,
     } = this.props;
 
     if (loading) return (<CircularProgressBg />);
@@ -63,17 +72,32 @@ class NewPage extends Component {
           <MyTemplate />
           <div style={centerStyle} >
             <Toolbar
+              currentPage={currentPage}
               togglePhoneSize={togglePhoneSize}
               addText={addText}
               addPic={addPic}
               mobileSize={mobileSize}
             />
-            <MobileWindow
-              mobileSize={mobileSize}
-            />
+            <div style={underToolbarStyle}>
+              <MobileWindow
+                mobileSize={mobileSize}
+              />
+
+              <EditCard
+                pages={pages}
+                currentPage={currentPage}
+                toggleNestedItem={toggleNestedItem}
+                changeFontSize={changeFontSize}
+                changeFontColor={changeFontColor}
+                fontBold={fontBold}
+              />
+
+            </div>
+
           </div>
           <div style={rightStyle}>
             <PageList
+              pages={pages}
               togglePage={togglePage}
               deletePage={deletePage}
               addNewPage={addNewPage}
@@ -81,9 +105,9 @@ class NewPage extends Component {
               downMovePage={downMovePage}
             />
             <EditTabs
+              pages={pages}
               currentPage={currentPage}
-              toggleEditTabs={toggleEditTabs}
-              toggleEditItem={toggleEditItem}
+              toggleNestedItem={toggleNestedItem}
               changeFontSize={changeFontSize}
               changeFontColor={changeFontColor}
               fontBold={fontBold}
@@ -105,22 +129,23 @@ NewPage.propTypes = {
   upMovePage: PropTypes.func.isRequired,
   downMovePage: PropTypes.func.isRequired,
 
-  toggleEditTabs: PropTypes.func.isRequired,
-  toggleEditItem: PropTypes.func.isRequired,
   changeFontSize: PropTypes.func.isRequired,
   changeFontColor: PropTypes.func.isRequired,
   fontBold: PropTypes.func.isRequired,
+  toggleNestedItem: PropTypes.func.isRequired,
 
   mobileSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
   currentPage: PropTypes.number.isRequired,
+  // pages: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     loading: state.loading,
-    mobileSize: state.togglePhoneSize,
-    currentPage: state.currentPage,
+    mobileSize: state.newPage.mobileSize,
+    currentPage: state.newPage.currentPage,
+    pages: state.newPage.pages,
   };
 }
 
@@ -137,10 +162,9 @@ export default connect(
     upMovePage,
     downMovePage,
 
-    toggleEditTabs,
-    toggleEditItem,
     changeFontSize,
     changeFontColor,
     fontBold,
+    toggleNestedItem,
   }
 )(NewPage);
