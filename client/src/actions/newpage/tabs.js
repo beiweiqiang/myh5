@@ -1,46 +1,13 @@
-// 修改字体大小
-export const CHANGE_FONT_SIZE = 'CHANGE_FONT_SIZE';
-// 修改字体颜色
-export const CHANGE_FONT_COLOR = 'CHANGE_FONT_COLOR';
-// 字体加粗
-export const FONT_BOLD = 'FONT_BOLD';
-// 切换内嵌item
-export const TOGGLE_NESTED_ITEM = 'TOGGLE_NESTED_ITEM';
+
+// toggle 文本编辑窗口
+export const TOGGLE_TEXT_EDIT_CARD = 'TOGGLE_TEXT_EDIT_CARD';
 
 // actions creator ======================
 
-export function changeFontSize(page, item, size) {
+// 如果item是null，则表示不展示编辑窗口，最多展示一个编辑窗口
+export function toggleTextEditCard(item) {
   return {
-    type: CHANGE_FONT_SIZE,
-    page,
+    type: TOGGLE_TEXT_EDIT_CARD,
     item,
-    size,
-  };
-}
-
-export function changeFontColor(page, item, color) {
-  return {
-    type: CHANGE_FONT_COLOR,
-    page,
-    item,
-    color,
-  };
-}
-
-export function fontBold(page, item, boolean) {
-  return {
-    type: FONT_BOLD,
-    page,
-    item,
-    bold: boolean,
-  };
-}
-
-export function toggleNestedItem(page, item, boolean) {
-  return {
-    type: TOGGLE_NESTED_ITEM,
-    page,
-    item,
-    open: boolean,
   };
 }

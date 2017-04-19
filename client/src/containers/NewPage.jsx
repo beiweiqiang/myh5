@@ -6,7 +6,7 @@ import Toolbar from '../components/Toolbar.jsx';
 import MobileWindow from '../components/MobileWindow.jsx';
 import PageList from '../components/PageList/PageList.jsx';
 import MyTemplate from '../components/MyTemplate.jsx';
-import EditTabs from '../components/EditTabs/Tabs.jsx';
+import EditTabs from '../components/EditTabs/EditTabs.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import EditCard from '../components/EditCard/index.jsx';
 
@@ -18,7 +18,7 @@ import {
   // pagelist
   togglePage, deletePage, addNewPage, upMovePage, downMovePage,
   // edittabs
-  changeFontSize, changeFontColor, fontBold, toggleNestedItem,
+  changeFontSize, changeFontColor, fontBold, toggleTextEditCard, changeTextContent,
 } from '../actions';
 
 const style = {
@@ -54,13 +54,13 @@ const underToolbarStyle = {
 class NewPage extends Component {
   render() {
     // state to props
-    const { loading, mobileSize, currentPage, pages } = this.props;
+    const { loading, mobileSize, currentPage, pages, currentTextIndex } = this.props;
 
     // dispatch to props
     const {
       togglePhoneSize, addText, addPic,
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
-      changeFontSize, changeFontColor, fontBold, toggleNestedItem,
+      changeFontSize, changeFontColor, fontBold, toggleTextEditCard, changeTextContent,
     } = this.props;
 
     if (loading) return (<CircularProgressBg />);
@@ -82,15 +82,18 @@ class NewPage extends Component {
               <MobileWindow
                 mobileSize={mobileSize}
               />
-
-              <EditCard
-                pages={pages}
-                currentPage={currentPage}
-                toggleNestedItem={toggleNestedItem}
-                changeFontSize={changeFontSize}
-                changeFontColor={changeFontColor}
-                fontBold={fontBold}
-              />
+              {currentTextIndex === null ?
+                null :
+                (<EditCard
+                  pages={pages}
+                  currentTextIndex={currentTextIndex}
+                  currentPage={currentPage}
+                  changeFontSize={changeFontSize}
+                  changeFontColor={changeFontColor}
+                  fontBold={fontBold}
+                  changeTextContent={changeTextContent}
+                  toggleTextEditCard={toggleTextEditCard}
+                />)}
 
             </div>
 
@@ -107,10 +110,7 @@ class NewPage extends Component {
             <EditTabs
               pages={pages}
               currentPage={currentPage}
-              toggleNestedItem={toggleNestedItem}
-              changeFontSize={changeFontSize}
-              changeFontColor={changeFontColor}
-              fontBold={fontBold}
+              toggleTextEditCard={toggleTextEditCard}
             />
           </div>
         </div>
@@ -129,10 +129,11 @@ NewPage.propTypes = {
   upMovePage: PropTypes.func.isRequired,
   downMovePage: PropTypes.func.isRequired,
 
+  changeTextContent: PropTypes.func.isRequired,
   changeFontSize: PropTypes.func.isRequired,
   changeFontColor: PropTypes.func.isRequired,
   fontBold: PropTypes.func.isRequired,
-  toggleNestedItem: PropTypes.func.isRequired,
+  toggleTextEditCard: PropTypes.func.isRequired,
 
   mobileSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -146,6 +147,7 @@ function mapStateToProps(state) {
     mobileSize: state.newPage.mobileSize,
     currentPage: state.newPage.currentPage,
     pages: state.newPage.pages,
+    currentTextIndex: state.newPage.currentTextIndex,
   };
 }
 
@@ -162,9 +164,10 @@ export default connect(
     upMovePage,
     downMovePage,
 
+    changeTextContent,
     changeFontSize,
     changeFontColor,
     fontBold,
-    toggleNestedItem,
+    toggleTextEditCard,
   }
 )(NewPage);

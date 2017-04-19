@@ -1,6 +1,6 @@
 import { TOGGLE_PAGE, DELETE_PAGE, ADD_NEW_PAGE } from '../../actions';
 
-import { CHANGE_FONT_SIZE, CHANGE_FONT_COLOR, FONT_BOLD, TOGGLE_NESTED_ITEM } from '../../actions';
+import { CHANGE_FONT_SIZE, CHANGE_FONT_COLOR, FONT_BOLD, CHANG_TEXT_CONTENT } from '../../actions';
 
 import { ADD_TEXT, ADD_PIC } from '../../actions';
 
@@ -20,13 +20,12 @@ function page(state = {
       text: [
         ...state.text,
         {
-          content: '双击输入文本',
+          content: '示例文本示例文本示例文本',
           size: 16,
           color: '#000',
           bold: false,
           x: 0,
           y: 0,
-          open: false,
         },
       ],
     });
@@ -42,17 +41,6 @@ function page(state = {
           x: 0,
           y: 0,
         },
-      ],
-    });
-  }
-  if (action.type === TOGGLE_NESTED_ITEM) {
-    return Object.assign({}, state, {
-      text: [
-        ...state.text.slice(0, action.item),
-        Object.assign({}, state.text[action.item], {
-          open: action.open,
-        }),
-        ...state.text.slice(action.item + 1),
       ],
     });
   }
@@ -89,6 +77,17 @@ function page(state = {
       ],
     });
   }
+  if (action.type === CHANG_TEXT_CONTENT) {
+    return Object.assign({}, state, {
+      text: [
+        ...state.text.slice(0, action.item),
+        Object.assign({}, state.text[action.item], {
+          content: action.content,
+        }),
+        ...state.text.slice(action.item + 1),
+      ],
+    });
+  }
   return state;
 }
 
@@ -119,7 +118,7 @@ export function pages(state = [
     || action.type === CHANGE_FONT_SIZE
     || action.type === CHANGE_FONT_COLOR
     || action.type === FONT_BOLD
-    || action.type === TOGGLE_NESTED_ITEM) {
+    || action.type === CHANG_TEXT_CONTENT) {
     return [
       ...state.slice(0, action.page),
       page(state[action.page], action),

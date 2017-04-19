@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { Tabs, Tab } from 'material-ui/Tabs';
-import TabList from './TabList.jsx';
+import EditTabList from './EditTabList.jsx';
 
 const styles = {
   headline: {
@@ -16,15 +16,14 @@ const styles = {
 class EditTabs extends Component {
 
   render() {
-    // rest: currentPage, changeFontSize, changeFontColor, fontBold, toggleNestedItem
-    const { pages, ...rest } = this.props;
+    // pages, currentPage, toggleTextEditCard
 
     return (
       <Tabs>
         <Tab
           label="文本"
         >
-          <TabList pages={pages} {...rest} />
+          <EditTabList {...this.props} />
         </Tab>
         <Tab
           label="图片"
@@ -44,20 +43,7 @@ class EditTabs extends Component {
 }
 
 EditTabs.propTypes = {
-  // toggleEditTabs: PropTypes.func.isRequired,
+
 };
-
-// function mapStateToProps(state) {
-//   return {
-
-//   };
-// }
-
-// export default connect(
-//   mapStateToProps,
-//   {
-
-//   }
-// )(EditTabs);
 
 export default EditTabs;

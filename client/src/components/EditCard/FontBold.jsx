@@ -4,16 +4,16 @@ import Checkbox from 'material-ui/Checkbox';
 class FontBold extends Component {
   render() {
     const { fontBold } = this.props;
-    const { currentPage, index, textStyle } = this.props;
+    const { currentPage, currentTextIndex, bold } = this.props;
     return (
       <div>
         <Checkbox
           style={{ margin: '6px 0px' }}
           label="加粗"
           onCheck={(event, isInputChecked) => {
-            fontBold(currentPage, index, isInputChecked);
+            fontBold(currentPage, currentTextIndex, isInputChecked);
           }}
-          checked={textStyle[index].bold}
+          checked={bold}
         />
       </div>
     );

@@ -20,7 +20,9 @@ export { TOGGLE_PHONE_SIZE, ADD_PIC, ADD_TEXT } from './newpage/toolbar';
 // pagelist
 export { TOGGLE_PAGE, DELETE_PAGE, ADD_NEW_PAGE, UP_MOVE_PAGE, DOWN_MOVE_PAGE } from './newpage/pagelist';
 // tabs
-export { TOGGLE_EDIT_TABS, TOGGLE_EDIT_ITEM, CHANGE_FONT_SIZE, CHANGE_FONT_COLOR, FONT_BOLD, TOGGLE_NESTED_ITEM } from './newpage/tabs';
+export { TOGGLE_TEXT_EDIT_CARD } from './newpage/tabs';
+// editcard
+export { CHANGE_FONT_SIZE, CHANGE_FONT_COLOR, FONT_BOLD, CHANG_TEXT_CONTENT } from './newpage/editcard';
 
 // action creator =========================================================
 
@@ -39,8 +41,9 @@ export { togglePhoneSize, addText, addPic } from './newpage/toolbar';
 // pagelist
 export { togglePage, deletePage, addNewPage, upMovePage, downMovePage } from './newpage/pagelist';
 // tabs
-export { toggleEditTabs, toggleEditItem, changeFontSize, changeFontColor, fontBold, toggleNestedItem } from './newpage/tabs';
-
+export { toggleEditTabs, toggleEditItem, toggleTextEditCard } from './newpage/tabs';
+// editcard
+export { changeFontSize, changeFontColor, fontBold, changeTextContent } from './newpage/editcard';
 
 
 // 是否正在加载

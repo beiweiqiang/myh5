@@ -1,24 +1,79 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Done from 'material-ui/svg-icons/action/done';
+import { blue500 } from 'material-ui/styles/colors';
+
+import onClickOutside from 'react-onclickoutside';
 
 import FontSize from './FontSize.jsx';
 import ColorPick from './ColorPick.jsx';
 import FontBold from './FontBold.jsx';
+import TextContent from './TextContent.jsx';
 
 class EditCard extends Component {
+  handleClickOutside = evt => {
+    this.props.toggleTextEditCard(null);
+  }
+  
   render() {
+    // pages, currentTextIndex, currentPage, changeFontSize, changeFontColor, fontBold, changeTextContent
+    const { pages, currentTextIndex, currentPage } = this.props;
+    const { changeFontSize, changeFontColor, fontBold, changeTextContent, toggleTextEditCard } = this.props;
+    const { content, size, color, bold } = pages[currentPage].text[currentTextIndex];
+
     return (
-      <Card style={{ maxWidth: '400px' }}>
+      <Card style={{ maxWidth: '360px', padding: '0 2em 1em 2em' }}>
         <CardHeader
           title="编辑文本样式"
+          style={{ paddingLeft: '0px', paddingRight: '0px', display: 'flex', alignItems: 'center' }}
+          titleStyle={{ color: blue500, fontSize: '1.2em' }}
+        >
+          <FlatButton
+            icon={<Done />}
+            onTouchTap={(event) => toggleTextEditCard(null)}
+          />
+        </CardHeader>
+        <TextContent
+          content={content}
+          currentTextIndex={currentTextIndex}
+          currentPage={currentPage}
+          changeTextContent={changeTextContent}
+        />
+        <FontSize
+          size={size}
+          currentTextIndex={currentTextIndex}
+          currentPage={currentPage}
+          changeFontSize={changeFontSize}
+        />
+        <FontBold
+          bold={bold}
+          currentTextIndex={currentTextIndex}
+          currentPage={currentPage}
+          fontBold={fontBold}
+        />
+        <ColorPick
+          color={color}
+          currentTextIndex={currentTextIndex}
+          currentPage={currentPage}
+          changeFontColor={changeFontColor}
         />
       </Card>
     );
   }
 }
 
+EditCard.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  // currentTextIndex: PropTypes.number.isRequired,
 
-export default EditCard;
+  changeFontSize: PropTypes.func.isRequired,
+  changeFontColor: PropTypes.func.isRequired,
+  fontBold: PropTypes.func.isRequired,
+  changeTextContent: PropTypes.func.isRequired,
+  toggleTextEditCard: PropTypes.func.isRequired,
+};
+
+
+export default onClickOutside(EditCard);
