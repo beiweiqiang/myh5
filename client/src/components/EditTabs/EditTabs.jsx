@@ -16,7 +16,7 @@ const styles = {
 class EditTabs extends Component {
 
   render() {
-    // pages, currentPage, toggleTextEditCard
+    // pages, currentPage, toggleTextEditCard, deleteTextItem
 
     return (
       <Tabs>

@@ -11,6 +11,7 @@ import FontSize from './FontSize.jsx';
 import ColorPick from './ColorPick.jsx';
 import FontBold from './FontBold.jsx';
 import TextContent from './TextContent.jsx';
+import Position from './Position.jsx';
 
 class EditCard extends Component {
   handleClickOutside = evt => {
@@ -20,9 +21,8 @@ class EditCard extends Component {
   render() {
     // pages, currentTextIndex, currentPage, changeFontSize, changeFontColor, fontBold, changeTextContent
     const { pages, currentTextIndex, currentPage } = this.props;
-    const { changeFontSize, changeFontColor, fontBold, changeTextContent, toggleTextEditCard } = this.props;
-    const { content, size, color, bold } = pages[currentPage].text[currentTextIndex];
-
+    const { changeFontSize, changeFontColor, fontBold, changeTextContent, toggleTextEditCard, changeTextPosition } = this.props;
+    const { content, size, color, bold, x, y } = pages[currentPage].text[currentTextIndex];
     return (
       <Card style={{ maxWidth: '360px', padding: '0 2em 1em 2em' }}>
         <CardHeader
@@ -46,6 +46,12 @@ class EditCard extends Component {
           currentTextIndex={currentTextIndex}
           currentPage={currentPage}
           changeFontSize={changeFontSize}
+        />
+        <Position
+          position={{x, y}}
+          currentTextIndex={currentTextIndex}
+          currentPage={currentPage}
+          changeTextPosition={changeTextPosition}
         />
         <FontBold
           bold={bold}

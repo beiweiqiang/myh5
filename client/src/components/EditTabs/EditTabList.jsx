@@ -3,20 +3,64 @@ import { List, ListItem } from 'material-ui/List';
 
 import Subheader from 'material-ui/Subheader';
 
-import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
 
-import Checkbox from 'material-ui/Checkbox';
-import { SketchPicker } from 'react-color';
+import { grey400 } from 'material-ui/styles/colors';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+
+// import { deletePage, togglePage, upMovePage, downMovePage } from '../../actions';
+
+const iconButtonElement = (
+  <IconButton>
+    <MoreVertIcon color={grey400} />
+  </IconButton>
+);
+
+class RightIconMenu extends Component {
+  render() {
+    // this.props: index, currentPage, deleteTextItem
+    const { index, currentPage } = this.props;
+
+    const { deleteTextItem } = this.props;
+
+    return (
+      <IconMenu
+        iconButtonElement={iconButtonElement}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+      >
+        <MenuItem
+          primaryText="删除"
+          onTouchTap={(event) => {
+            deleteTextItem(currentPage, index);
+          }}
+        />
+      </IconMenu>
+    );
+  }
+}
+
+
+
 
 class EditListItem extends Component {
   render() {
-    const { index, content } = this.props;
-    const { toggleTextEditCard } = this.props;
+    const { index, content, currentPage } = this.props;
+    const { toggleTextEditCard, deleteTextItem } = this.props;
 
     return (
       <ListItem
-        secondaryText={content}
+        primaryText={content}
         onTouchTap={(event) => toggleTextEditCard(index)}
+        rightIconButton={(
+          <span>
+            <RightIconMenu
+              {...this.props}
+            />
+          </span>
+        )}
       />
     );
   }
@@ -31,9 +75,9 @@ EditListItem.propTypes = {
 export default class TabsList extends React.Component {
 
   render() {
-    // pages, currentPage, toggleTextEditCard
+    // pages, currentPage, toggleTextEditCard, deleteTextItem
     const { pages, currentPage } = this.props;
-    const { toggleTextEditCard } = this.props;
+    const { toggleTextEditCard, deleteTextItem } = this.props;
     return (
       <List>
         <Subheader>点击文本弹出样式编辑窗口</Subheader>
@@ -42,7 +86,7 @@ export default class TabsList extends React.Component {
             key={`${Date.now() + index}`}
             index={index}
             content={ele.content}
-            toggleTextEditCard={toggleTextEditCard}
+            {...this.props}
           />
         ))}
       </List>

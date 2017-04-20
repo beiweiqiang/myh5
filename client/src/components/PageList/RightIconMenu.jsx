@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import IconButton from 'material-ui/IconButton';
-import { connect } from 'react-redux';
-
 import { grey400 } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
@@ -28,15 +26,25 @@ class RightIconMenu extends Component {
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
-        <MenuItem
-          primaryText="上移"
-          onTouchTap={(event) => upMovePage(index)}
-        />
-        <MenuItem
-          primaryText="下移"
-          onTouchTap={(event) => downMovePage(index)}
-        />
-        {pages.length === 1 ? (<span></span>) : (
+        {index === 0 ? (null) : (
+          <MenuItem
+            primaryText="上移"
+            onTouchTap={(event) => {
+              togglePage(0);
+              upMovePage(index);
+            }}
+          />
+        )}
+        {index + 1 === pages.length ? (null) : (
+          <MenuItem
+            primaryText="下移"
+            onTouchTap={(event) => {
+              togglePage(0);
+              downMovePage(index);
+            }}
+          />
+        )}
+        {pages.length === 1 ? (null) : (
           <MenuItem
             primaryText="删除"
             onTouchTap={(event) => {

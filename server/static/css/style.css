@@ -34,3 +34,8 @@ a {
   padding: 0 16px;
   color: green;
 }
+
+.box {
+  display: inline-block;
+  position: absolute;
+}

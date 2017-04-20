@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { SketchPicker } from 'react-color';
+import { grey500 } from 'material-ui/styles/colors';
 
 
 class ColorPic extends Component {
@@ -8,6 +9,7 @@ class ColorPic extends Component {
     const { currentPage, currentTextIndex, color } = this.props;
     return (
       <div>
+        <small style={{ color: grey500 }}>选择字体颜色</small>
         <SketchPicker
           color={color}
           onChangeComplete={pickColor => changeFontColor(currentPage, currentTextIndex, pickColor.hex)}

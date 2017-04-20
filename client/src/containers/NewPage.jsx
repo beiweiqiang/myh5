@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 
 import TopBar from './TopBarContainer.jsx';
 import Toolbar from '../components/Toolbar.jsx';
-import MobileWindow from '../components/MobileWindow.jsx';
+import MobileWindow from '../components/MobileWindow/MobileWindow.jsx';
 import PageList from '../components/PageList/PageList.jsx';
 import MyTemplate from '../components/MyTemplate.jsx';
 import EditTabs from '../components/EditTabs/EditTabs.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import EditCard from '../components/EditCard/index.jsx';
-
-// import Example from '../components/Draggable';
 
 import {
   // toolbar
@@ -18,7 +16,9 @@ import {
   // pagelist
   togglePage, deletePage, addNewPage, upMovePage, downMovePage,
   // edittabs
-  changeFontSize, changeFontColor, fontBold, toggleTextEditCard, changeTextContent,
+  changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition,
+  // tabs
+  toggleTextEditCard, deleteTextItem,
 } from '../actions';
 
 const style = {
@@ -58,9 +58,14 @@ class NewPage extends Component {
 
     // dispatch to props
     const {
+      // toolbar
       togglePhoneSize, addText, addPic,
+      // pagelist
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
-      changeFontSize, changeFontColor, fontBold, toggleTextEditCard, changeTextContent,
+      // edittabs
+      changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition,
+      // tabs
+      toggleTextEditCard, deleteTextItem,
     } = this.props;
 
     if (loading) return (<CircularProgressBg />);
@@ -81,6 +86,10 @@ class NewPage extends Component {
             <div style={underToolbarStyle}>
               <MobileWindow
                 mobileSize={mobileSize}
+                pages={pages}
+                currentPage={currentPage}
+                currentTextIndex={currentTextIndex}
+                changeTextPosition={changeTextPosition}
               />
               {currentTextIndex === null ?
                 null :
@@ -93,6 +102,7 @@ class NewPage extends Component {
                   fontBold={fontBold}
                   changeTextContent={changeTextContent}
                   toggleTextEditCard={toggleTextEditCard}
+                  changeTextPosition={changeTextPosition}
                 />)}
 
             </div>
@@ -111,6 +121,7 @@ class NewPage extends Component {
               pages={pages}
               currentPage={currentPage}
               toggleTextEditCard={toggleTextEditCard}
+              deleteTextItem={deleteTextItem}
             />
           </div>
         </div>
@@ -133,7 +144,10 @@ NewPage.propTypes = {
   changeFontSize: PropTypes.func.isRequired,
   changeFontColor: PropTypes.func.isRequired,
   fontBold: PropTypes.func.isRequired,
+  changeTextPosition: PropTypes.func.isRequired,
+
   toggleTextEditCard: PropTypes.func.isRequired,
+  deleteTextItem: PropTypes.func.isRequired,
 
   mobileSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -164,10 +178,13 @@ export default connect(
     upMovePage,
     downMovePage,
 
+    changeTextPosition,
     changeTextContent,
     changeFontSize,
     changeFontColor,
     fontBold,
+
     toggleTextEditCard,
+    deleteTextItem,
   }
 )(NewPage);

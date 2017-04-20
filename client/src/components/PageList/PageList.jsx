@@ -33,8 +33,8 @@ class PageList extends Component {
         </List>
         <RaisedButton
           label="添加页"
-          secondary={true}
-          fullWidth={true}
+          secondary
+          fullWidth
           onTouchTap={(event) => {
             togglePage(pages.length);
             addNewPage();
