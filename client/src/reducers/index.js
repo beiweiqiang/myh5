@@ -6,12 +6,13 @@ export login from './login';
 
 export { user, sendRequest } from './user';
 
+export { displayQRcode, qrcodeUrl, publishBtnDisabled } from './newpage/toolbar';
 
 // export { togglePhoneSize, addText, addPic } from './newpage/toolbar';
 // export { currentPage, deletePage } from './newpage/pagelist';
 // export { activeTab, activeItem } from './newpage/tabs';
 
-export newPage from './newPage';
+export newPage from './newpage';
 
 
 export function loading(state = false, action) {

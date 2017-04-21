@@ -16,7 +16,7 @@ export { SAVE_USER_MESSAGE, REQUEST_FINISH } from './user';
 
 // **newpage
 // toolbar
-export { TOGGLE_PHONE_SIZE, ADD_PIC, ADD_TEXT } from './newpage/toolbar';
+export { TOGGLE_PHONE_SIZE, ADD_PIC, ADD_TEXT, PUBLISH_H5, DISPLAY_QR_CODE, SET_QR_CODE, SET_PUBLISH_BTN } from './newpage/toolbar';
 // pagelist
 export { TOGGLE_PAGE, DELETE_PAGE, ADD_NEW_PAGE, UP_MOVE_PAGE, DOWN_MOVE_PAGE } from './newpage/pagelist';
 // tabs
@@ -39,7 +39,7 @@ export { saveUserMes, getUserMes } from './user';
 
 // **newpage
 // toolbar
-export { togglePhoneSize, addText, addPic } from './newpage/toolbar';
+export { togglePhoneSize, addText, addPic, publishH5, displayQRcode, setQRcode } from './newpage/toolbar';
 // pagelist
 export { togglePage, deletePage, addNewPage, upMovePage, downMovePage } from './newpage/pagelist';
 // tabs

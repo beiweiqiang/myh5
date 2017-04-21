@@ -8,6 +8,12 @@ const csurf = require('csurf');
 
 const passport = require('passport');
 const config = require('./config');
+const qiniu = require('qiniu');
+
+// 需要填写你的 Access Key 和 Secret Key
+qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
+qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
+
 
 // 链接数据库 加载models
 require('./server/models').connect(config.dbUri);

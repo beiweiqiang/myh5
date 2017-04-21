@@ -12,7 +12,7 @@ import EditCard from '../components/EditCard/index.jsx';
 
 import {
   // toolbar
-  togglePhoneSize, addText, addPic,
+  togglePhoneSize, addText, addPic, publishH5, displayQRcode,
   // pagelist
   togglePage, deletePage, addNewPage, upMovePage, downMovePage,
   // edittabs
@@ -54,12 +54,12 @@ const underToolbarStyle = {
 class NewPage extends Component {
   render() {
     // state to props
-    const { loading, mobileSize, currentPage, pages, currentTextIndex } = this.props;
+    const { publishBtnDisabled, qrcodeUrl, showQR, email, loading, mobileSize, currentPage, pages, currentTextIndex } = this.props;
 
     // dispatch to props
     const {
       // toolbar
-      togglePhoneSize, addText, addPic,
+      togglePhoneSize, addText, addPic, publishH5, displayQRcode,
       // pagelist
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
       // edittabs
@@ -77,11 +77,18 @@ class NewPage extends Component {
           <MyTemplate />
           <div style={centerStyle} >
             <Toolbar
+              email={email}
+              pages={pages}
               currentPage={currentPage}
               togglePhoneSize={togglePhoneSize}
               addText={addText}
               addPic={addPic}
               mobileSize={mobileSize}
+              publishH5={publishH5}
+              displayQRcode={displayQRcode}
+              showQR={showQR}
+              qrcodeUrl={qrcodeUrl}
+              publishBtnDisabled={publishBtnDisabled}
             />
             <div style={underToolbarStyle}>
               <MobileWindow
@@ -131,9 +138,15 @@ class NewPage extends Component {
 }
 
 NewPage.propTypes = {
+  publishBtnDisabled: PropTypes.bool.isRequired,
+  qrcodeUrl: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   togglePhoneSize: PropTypes.func.isRequired,
   addText: PropTypes.func.isRequired,
   addPic: PropTypes.func.isRequired,
+  publishH5: PropTypes.func.isRequired,
+  showQR: PropTypes.bool.isRequired,
+  displayQRcode: PropTypes.func.isRequired,
 
   togglePage: PropTypes.func.isRequired,
   deletePage: PropTypes.func.isRequired,
@@ -157,6 +170,10 @@ NewPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    publishBtnDisabled: state.publishBtnDisabled,
+    qrcodeUrl: state.qrcodeUrl,
+    showQR: state.displayQRcode,
+    email: state.user.email,
     loading: state.loading,
     mobileSize: state.newPage.mobileSize,
     currentPage: state.newPage.currentPage,
@@ -168,9 +185,11 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
+    displayQRcode,
     togglePhoneSize,
     addText,
     addPic,
+    publishH5,
 
     togglePage,
     deletePage,

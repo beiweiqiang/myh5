@@ -1,22 +1,16 @@
 import $ from 'jquery';
 
 import Auth from '../modules/Auth';
-
-
 import { loading, saveUserMes } from './index';
 
 // 登录成功
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-
 // 登录失败信息
 export const LOGIN_ERROR_MESSAGE = 'LOGIN_ERROR_MESSAGE';
-
 // 验证表单输入是否合法
 export const VALIDATE_LOGIN_FORM = 'VALIDATE_LOGIN_FORM';
-
 // 登录表单输入
 export const LOGIN_FORM_INPUT = 'LOGIN_FORM_INPUT';
-
 
 // 提交登录表单 action creator ========================================================
 
