@@ -43,7 +43,9 @@ module.exports = new PassportLocalStrategy({
     const data = {
       email: user.name,
       name: user.name,
+      password: user.password,
       avatarUrl: user.avatarUrl,
+      createTime: user.createTime,
     };
 
     // **传递3个参数

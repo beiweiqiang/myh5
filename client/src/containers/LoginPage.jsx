@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
-import LoginForm from '../components/LoginForm.jsx';
+import LoginForm from '../components/Login/LoginForm.jsx';
 import TopBar from './TopBarContainer.jsx';
 
 

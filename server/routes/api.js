@@ -43,8 +43,8 @@ router.get('/topbar', (req, res) => {
 
 
 router.post('/publish', (req, res, next) => {
-  const { pages, email } = req.body;
-  const renderStr = ejs.render(read(join(__dirname, '../template/index.ejs'), 'utf8'), { pages });
+  const { pages, email, title } = req.body;
+  const renderStr = ejs.render(read(join(__dirname, '../template/index.ejs'), 'utf8'), { pages, title });
   fs.writeFile(join(__dirname, '../template/index.html'), renderStr, (err) => {
     if (err) throw err;
 

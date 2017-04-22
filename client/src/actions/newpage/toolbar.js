@@ -1,7 +1,6 @@
-import { loading } from '../index';
 import $ from 'jquery';
 import Auth from '../../modules/Auth';
-// import jq-qucode from 'jr-qrcode';
+
 const jrQrcode = require('jr-qrcode');
 
 // actions constant
@@ -19,8 +18,16 @@ export const DISPLAY_QR_CODE = 'DISPLAY_QR_CODE';
 export const SET_QR_CODE = 'SET_QR_CODE';
 // 设置发布按钮状态
 export const SET_PUBLISH_BTN = 'SET_PUBLISH_BTN';
+// 展示发布设置
+export const DISPLAY_PUBLISH_SETTINGS = 'DISPLAY_PUBLISH_SETTINGS';
+// 保存发布了的h5
+export const SAVE_MY_PUBLISH = 'SAVE_MY_PUBLISH';
+// 保存正在编辑的h5
+export const SAVE_MY_EDIT_PAGES = 'SAVE_MY_EDIT_PAGES';
+
 
 // actions creator
+
 // 切换手机屏幕大小
 // 1 iphone6 375x667
 // 2 iphone6p 414x736
@@ -32,6 +39,7 @@ export function togglePhoneSize(size) {
   };
 }
 
+// 添加文本
 export function addText(page) {
   return {
     type: ADD_TEXT,
@@ -39,6 +47,7 @@ export function addText(page) {
   };
 }
 
+// 添加图片
 export function addPic(page, picUrl, width, height) {
   return {
     type: ADD_PIC,
@@ -48,6 +57,7 @@ export function addPic(page, picUrl, width, height) {
   };
 }
 
+// 设置发布按钮的disabled状态
 function setPublishBtn(boolean) {
   return {
     type: SET_PUBLISH_BTN,
@@ -55,6 +65,8 @@ function setPublishBtn(boolean) {
   };
 }
 
+
+// 是否展示qrcode的dialog窗口
 export function displayQRcode(boolean) {
   return {
     type: DISPLAY_QR_CODE,
@@ -62,6 +74,7 @@ export function displayQRcode(boolean) {
   };
 }
 
+// 设置qrcode的图片url
 export function setQRcode(url) {
   return {
     type: SET_QR_CODE,
@@ -69,15 +82,23 @@ export function setQRcode(url) {
   };
 }
 
-function generateQRcode(url) {
-  return (dispatch) => {
-    const imgBase64 = jrQrcode.getQrBase64(url);
-    dispatch(setQRcode(imgBase64));
-    dispatch(setPublishBtn(false));
-    dispatch(displayQRcode(true));
+// 保存发布了的h5
+function saveMyPublish(content) {
+  return {
+    type: SAVE_MY_PUBLISH,
+    content,
   };
 }
 
+// 是否展示发布设置
+export function displayPublishSettings(boolean) {
+  return {
+    type: DISPLAY_PUBLISH_SETTINGS,
+    display: boolean,
+  };
+}
+
+// ajax把pages信息发送到后台然后上传到七牛云 生成二维码
 function upload(content) {
   return (dispatch) => {
     // **加载loading界面
@@ -90,26 +111,17 @@ function upload(content) {
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
-      const resMessage = $.parseJSON(JSON.stringify(xhr.response));
-      // console.log(resMessage);
-      const url = resMessage.url;
-      dispatch(generateQRcode(url));
-    //   if (xhr.status !== 200 || !resMessage.success) {
-    //     // **登录失败
-    //     dispatch(loginErrMessage(resMessage.message));
-    //   } else {
-    //     // **登录成功
-    //     dispatch(loginSuccess(true));
-    //     // **保存token
-    //     Auth.authenticateUser(resMessage.token);
-    //     dispatch(loginFormInput({}, true));
-
-    //     // 保存用户信息
-    //     dispatch(saveUserMes(resMessage.user));
-    //   }
-
-    //   // **取消loading
-    //   dispatch(loading(false));
+      const url = $.parseJSON(JSON.stringify(xhr.response)).url;
+      const imgBase64 = jrQrcode.getQrBase64(url);
+      dispatch(setQRcode(imgBase64));
+      dispatch(setPublishBtn(false));
+      dispatch(displayQRcode(true));
+      dispatch(saveMyPublish({
+        pages: content.pages,
+        qrcodeUrl: imgBase64,
+        createTime: Date.now(),
+        title: content.title,
+      }));
     });
     xhr.send(JSON.stringify(content));
   };

@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import Dashboard from '../components/Dashboard.jsx';
-import HomePage from '../components/HomePage.jsx';
+import Dashboard from '../components/Home/Dashboard.jsx';
+import HomePage from '../components/Home/HomePage.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import TopBar from './TopBarContainer.jsx';
 

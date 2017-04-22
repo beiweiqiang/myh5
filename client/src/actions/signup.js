@@ -95,33 +95,61 @@ function submitSignupValidate(formData) {
   return (dispatch) => {
     dispatch(loading(true));
 
-    $.ajax({
-      url: '/auth/signup',
-      type: 'post',
-      dataType: 'json',
-      data: formData,
-      error(err) {
-        console.log(err);
-        dispatch(loading(false));
-      },
-      success(res) {
-        // console.log('ajax res');
-        // console.log(res);
-        if (res.success) {
-          // 在登录页面显示 注册成功 的消息
-          dispatch(signupSuccessMessage(res.message));
+    // **AJAX 请求
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', '/auth/signup');
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      const resMessage = $.parseJSON(JSON.stringify(xhr.response));
 
-          // 发送注册成功状态，进行跳转
-          dispatch(signupSuccess(true));
+      if (xhr.status !== 200 || !resMessage.success) {
+        // **注册失败
+        dispatch(signupErrMessage(resMessage.error));
+      } else {
+        // 在登录页面显示 注册成功 的消息
+        dispatch(signupSuccessMessage(resMessage.message));
 
-          // 清除注册表单已填内容
-          dispatch(signUpFormInput({}, true));
-        } else {
-          dispatch(signupErrMessage(res.error));
-        }
-        dispatch(loading(false));
-      },
+        // 发送注册成功状态，进行跳转
+        dispatch(signupSuccess(true));
+
+        // 清除注册表单已填内容
+        dispatch(signUpFormInput({}, true));
+      }
+
+      // **取消loading
+      dispatch(loading(false));
     });
+    xhr.send(JSON.stringify(formData));
+
+    // $.ajax({
+    //   url: '/auth/signup',
+    //   type: 'post',
+    //   dataType: 'json',
+    //   // data: formData,
+    //   data: JSON.stringify(formData),
+    //   error(err) {
+    //     console.log(err);
+    //     dispatch(loading(false));
+    //   },
+    //   success(res) {
+    //     // console.log('ajax res');
+    //     // console.log(res);
+    //     if (res.success) {
+    //       // 在登录页面显示 注册成功 的消息
+    //       dispatch(signupSuccessMessage(res.message));
+
+    //       // 发送注册成功状态，进行跳转
+    //       dispatch(signupSuccess(true));
+
+    //       // 清除注册表单已填内容
+    //       dispatch(signUpFormInput({}, true));
+    //     } else {
+    //       dispatch(signupErrMessage(res.error));
+    //     }
+    //     dispatch(loading(false));
+    //   },
+    // });
   };
 }
 
@@ -141,7 +169,13 @@ export function submitSignup(signUpContent) {
       const { name, email, password } = signUpContent;
       const data = new Identicon().toString();
       const avatarUrl = `data:image/png;base64,${data}`;
-      const formData = `name=${name}&email=${email}&password=${password}&avatarUrl=${avatarUrl}`;
+      // const formData = `name=${name}&email=${email}&password=${password}&avatarUrl=${avatarUrl}`;
+      const formData = {
+        name,
+        email,
+        password,
+        avatarUrl,
+      };
       return dispatch(submitSignupValidate(formData));
     }
     return dispatch(validateSignup(validateRes.errors));

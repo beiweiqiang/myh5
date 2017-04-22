@@ -53,7 +53,7 @@ class Logged extends Component {
           <Link to="/newpage">
             <MenuItem primaryText="新建H5" />
           </Link>
-          <Link to="/">
+          <Link to="/mypage">
             <MenuItem primaryText="我的H5" />
           </Link>
           <Link to="/logout">

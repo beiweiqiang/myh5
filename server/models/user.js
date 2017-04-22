@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 // define the User model schema
 const UserSchema = new mongoose.Schema({
   // **邮箱
+  // userAccount: {
+  //   email: String,
+  // },
   email: {
     type: String,
     index: { unique: true },
@@ -14,6 +17,7 @@ const UserSchema = new mongoose.Schema({
   name: String,
   // **用户头像url
   avatarUrl: String,
+  createTime: Number,
 });
 
 

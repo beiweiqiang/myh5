@@ -76,7 +76,7 @@ function submitValidateLogin(formData) {
     // **AJAX 请求
     const xhr = new XMLHttpRequest();
     xhr.open('post', '/auth/login');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Content-type', 'application/json');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       const resMessage = $.parseJSON(JSON.stringify(xhr.response));
@@ -98,7 +98,7 @@ function submitValidateLogin(formData) {
       // **取消loading
       dispatch(loading(false));
     });
-    xhr.send(formData);
+    xhr.send(JSON.stringify(formData));
   };
 }
 
@@ -116,7 +116,10 @@ export function submitLogin(loginContent) {
     const validateRes = validateLoginForm(loginContent);
     if (validateRes.isFormValid) {
       const { email, password } = loginContent;
-      const formData = `email=${email}&password=${password}`;
+      const formData = {
+        email,
+        password,
+      };
       // 表单填写验证成功，提交进行对比
       return dispatch(submitValidateLogin(formData));
     }

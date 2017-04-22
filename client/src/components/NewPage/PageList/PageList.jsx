@@ -19,7 +19,16 @@ class PageList extends Component {
     } = this.props;
 
     return (
-      <div style={{ marginBottom: '40px' }}>
+      <div style={{ margin: '20px 0 40px 0' }}>
+        <RaisedButton
+          label="添加新页"
+          secondary
+          fullWidth
+          onTouchTap={(event) => {
+            togglePage(pages.length);
+            addNewPage();
+          }}
+        />
         <List>
           {pages.map((ele, index) => (
             <PageListItem
@@ -31,15 +40,6 @@ class PageList extends Component {
             />
           ))}
         </List>
-        <RaisedButton
-          label="添加页"
-          secondary
-          fullWidth
-          onTouchTap={(event) => {
-            togglePage(pages.length);
-            addNewPage();
-          }}
-        />
       </div>
     );
   }

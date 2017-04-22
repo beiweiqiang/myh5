@@ -6,6 +6,7 @@ const initialUser = {
   email: '',
   password: '',
   avatarUrl: '',
+  createTime: '',
 };
 export function user(state = initialUser, action) {
   if (action.type === SAVE_USER_MESSAGE) {

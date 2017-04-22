@@ -2,23 +2,26 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import TopBar from './TopBarContainer.jsx';
-import Toolbar from '../components/Toolbar.jsx';
-import MobileWindow from '../components/MobileWindow/MobileWindow.jsx';
-import PageList from '../components/PageList/PageList.jsx';
-import MyTemplate from '../components/MyTemplate.jsx';
-import EditTabs from '../components/EditTabs/EditTabs.jsx';
+import Toolbar from '../components/NewPage/ToolBar/Toolbar.jsx';
+import MobileWindow from '../components/NewPage/MobileWindow/MobileWindow.jsx';
+import PageList from '../components/NewPage/PageList/PageList.jsx';
+import MyTemplate from '../components/NewPage/MyTemplate/MyTemplate.jsx';
+import EditTabs from '../components/NewPage/EditTabs/EditTabs.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
-import EditCard from '../components/EditCard/index.jsx';
+import EditCard from '../components/NewPage/EditCard/index.jsx';
+import PublishSettings from '../components/NewPage/PublishSettings/index.jsx';
 
 import {
   // toolbar
-  togglePhoneSize, addText, addPic, publishH5, displayQRcode,
+  togglePhoneSize, addText, addPic, publishH5, displayQRcode, displayPublishSettings,
   // pagelist
   togglePage, deletePage, addNewPage, upMovePage, downMovePage,
   // edittabs
   changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition,
   // tabs
   toggleTextEditCard, deleteTextItem,
+  // publishsettings
+  changePublishTitle,
 } from '../actions';
 
 const style = {
@@ -54,18 +57,32 @@ const underToolbarStyle = {
 class NewPage extends Component {
   render() {
     // state to props
-    const { publishBtnDisabled, qrcodeUrl, showQR, email, loading, mobileSize, currentPage, pages, currentTextIndex } = this.props;
+    const {
+      publishBtnDisabled,
+      qrcodeUrl,
+      showQR,
+      email,
+      loading,
+      mobileSize,
+      currentPage,
+      pages,
+      currentTextIndex,
+      displayPubSettings,
+      title,
+    } = this.props;
 
     // dispatch to props
     const {
       // toolbar
-      togglePhoneSize, addText, addPic, publishH5, displayQRcode,
+      togglePhoneSize, addText, addPic, publishH5, displayQRcode, displayPublishSettings,
       // pagelist
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
       // edittabs
       changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition,
       // tabs
       toggleTextEditCard, deleteTextItem,
+      // publishsettings
+      changePublishTitle,
     } = this.props;
 
     if (loading) return (<CircularProgressBg />);
@@ -85,10 +102,12 @@ class NewPage extends Component {
               addPic={addPic}
               mobileSize={mobileSize}
               publishH5={publishH5}
+              publishTitle={title}
               displayQRcode={displayQRcode}
               showQR={showQR}
               qrcodeUrl={qrcodeUrl}
               publishBtnDisabled={publishBtnDisabled}
+              displayPublishSettings={displayPublishSettings}
             />
             <div style={underToolbarStyle}>
               <MobileWindow
@@ -111,7 +130,13 @@ class NewPage extends Component {
                   toggleTextEditCard={toggleTextEditCard}
                   changeTextPosition={changeTextPosition}
                 />)}
-
+              {!displayPubSettings ?
+                null :
+                (<PublishSettings
+                  displayPublishSettings={displayPublishSettings}
+                  publishTitle={title}
+                  changePublishTitle={changePublishTitle}
+                />)}
             </div>
 
           </div>
@@ -138,7 +163,9 @@ class NewPage extends Component {
 }
 
 NewPage.propTypes = {
+  title: PropTypes.string.isRequired,
   publishBtnDisabled: PropTypes.bool.isRequired,
+  displayPubSettings: PropTypes.bool.isRequired,
   qrcodeUrl: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   togglePhoneSize: PropTypes.func.isRequired,
@@ -147,6 +174,7 @@ NewPage.propTypes = {
   publishH5: PropTypes.func.isRequired,
   showQR: PropTypes.bool.isRequired,
   displayQRcode: PropTypes.func.isRequired,
+  displayPublishSettings: PropTypes.func.isRequired,
 
   togglePage: PropTypes.func.isRequired,
   deletePage: PropTypes.func.isRequired,
@@ -166,13 +194,17 @@ NewPage.propTypes = {
   loading: PropTypes.bool.isRequired,
   currentPage: PropTypes.number.isRequired,
   // pages: PropTypes.array.isRequired,
+
+  changePublishTitle: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    publishBtnDisabled: state.publishBtnDisabled,
-    qrcodeUrl: state.qrcodeUrl,
-    showQR: state.displayQRcode,
+    title: state.newPage.title,
+    displayPubSettings: state.newPage.displayPublishSettings,
+    publishBtnDisabled: state.newPage.publishBtnDisabled,
+    qrcodeUrl: state.newPage.qrcodeUrl,
+    showQR: state.newPage.displayQRcode,
     email: state.user.email,
     loading: state.loading,
     mobileSize: state.newPage.mobileSize,
@@ -190,6 +222,7 @@ export default connect(
     addText,
     addPic,
     publishH5,
+    displayPublishSettings,
 
     togglePage,
     deletePage,
@@ -205,5 +238,7 @@ export default connect(
 
     toggleTextEditCard,
     deleteTextItem,
+
+    changePublishTitle,
   }
 )(NewPage);

@@ -1,4 +1,10 @@
-import { TOGGLE_PHONE_SIZE, DISPLAY_QR_CODE, SET_QR_CODE, SET_PUBLISH_BTN } from '../../actions';
+import {
+  TOGGLE_PHONE_SIZE,
+  DISPLAY_QR_CODE,
+  SET_QR_CODE,
+  SET_PUBLISH_BTN,
+  DISPLAY_PUBLISH_SETTINGS,
+} from '../../actions';
 
 // 1 iphone6 375x667
 // 2 iphone6p 414x736
@@ -27,6 +33,13 @@ export function qrcodeUrl(state = '', action) {
 export function publishBtnDisabled(state = false, action) {
   if (action.type === SET_PUBLISH_BTN) {
     return action.disabled;
+  }
+  return state;
+}
+
+export function displayPublishSettings(state = false, action) {
+  if (action.type === DISPLAY_PUBLISH_SETTINGS) {
+    return action.display;
   }
   return state;
 }

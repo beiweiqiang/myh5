@@ -27,6 +27,7 @@ import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import Logout from './containers/Logout.jsx';
 import NewPage from './containers/NewPage.jsx';
+import MyPage from './containers/MyPage.jsx';
 
 import * as reducers from './reducers';
 
@@ -48,7 +49,6 @@ store.subscribe(() => {
   // console.log(store.getState());
   console.log(store.getState().logger);
   // console.log(store.getState().currentPage);
-  // console.log(store.getState().activeItem);
 });
 
 // 暂时修改 router component
@@ -62,6 +62,7 @@ ReactDOM.render(
           <Route path="/signup" component={SignUpPage} />
           <Route path="/logout" component={Logout} />
           <Route path="/newpage" component={DashboardPage} />
+          <Route path="/mypage" component={MyPage} />
         </div>
       </ConnectedRouter>
     </Provider>

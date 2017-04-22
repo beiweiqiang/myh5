@@ -34,6 +34,7 @@ module.exports = new PassportLocalStrategy({
       newUser.password = newUser.generateHash(userData.password);
       newUser.name = userData.name;
       newUser.avatarUrl = userData.avatarUrl;
+      newUser.createTime = Date.now();
 
       newUser.save((saveErr) => {
         if (saveErr) throw saveErr;

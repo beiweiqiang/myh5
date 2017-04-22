@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import SignUpForm from '../components/SignUpForm.jsx';
+import SignUpForm from '../components/SignUp/SignUpForm.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import TopBar from './TopBarContainer.jsx';
 
