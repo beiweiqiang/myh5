@@ -1,6 +1,17 @@
-client/src/actions/user.js 的 getUserMes() 有额外代码
+# myh5
 
-// mlab 云mongodb
-// mongodb://beiweiqiang:123456@ds149820.mlab.com:49820/myh5
-// 本地 mongodb
-// mongodb://localhost:27017/myh5
+一个让你轻松发布H5的平台
+
+所用技术：
+react, redux, react-router4, react-redux, webpack, eslint, mongoose
+
+功能：
+1. 注册登录
+2. h5发布页面，可添加文本、图片，一键生成二维码
+3. 我的h5页面
+
+使用：
+1. clone 本仓库
+2. npm i
+3. 把config_example文件重命名为config
+4. 把config文件里的index.json里面的信息改成自己的
