@@ -1,13 +1,16 @@
 import $ from 'jquery';
 
 import Auth from '../modules/Auth';
-import { loading } from './index';
+import { loading, saveMyPublish } from './index';
 
 // **保存用户信息
 export const SAVE_USER_MESSAGE = 'SAVE_USER_MESSAGE';
 
 // **完成请求，无论本地有没有token
 export const REQUEST_FINISH = 'REQUEST_FINISH';
+
+// 加载本地暂存h5
+export const LOAD_CACHE_PAGES = 'LOAD_CACHE_PAGES';
 
 // 保存用户信息
 export function saveUserMes(user) {
@@ -24,11 +27,17 @@ function sendRequest(boolean = false) {
   };
 }
 
+function loadCachePages(content) {
+  return {
+    type: LOAD_CACHE_PAGES,
+    content,
+  };
+}
+
 // ajax获取用户信息
 export function getUserMes() {
   return (dispatch) => {
     dispatch(loading(true));
-
     const xhr = new XMLHttpRequest();
     xhr.open('get', '/api/topbar');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -38,8 +47,15 @@ export function getUserMes() {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       const resMessage = $.parseJSON(JSON.stringify(xhr.response));
+      // console.log(resMessage);
       if (xhr.status === 200) {
-        dispatch(saveUserMes(resMessage.user));
+        // 加载本地暂存h5
+        const content = localStorage.getItem('savedH5');
+        if (content !== null) dispatch(loadCachePages(JSON.parse(content)));
+
+        // 加载数据库内容
+        dispatch(saveUserMes(resMessage.user.userAccount));
+        resMessage.user.myH5.map((ele, index) => dispatch(saveMyPublish(ele)));
       }
       dispatch(loading(false));
     });

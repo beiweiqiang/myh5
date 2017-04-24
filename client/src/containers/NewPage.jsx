@@ -22,6 +22,8 @@ import {
   toggleTextEditCard, deleteTextItem,
   // publishsettings
   changePublishTitle,
+  // snackbar
+  displaySnackbar,
 } from '../actions';
 
 const style = {
@@ -68,6 +70,7 @@ class NewPage extends Component {
       pages,
       currentTextIndex,
       displayPubSettings,
+      snackbarOpen,
       title,
     } = this.props;
 
@@ -83,6 +86,7 @@ class NewPage extends Component {
       toggleTextEditCard, deleteTextItem,
       // publishsettings
       changePublishTitle,
+      displaySnackbar,
     } = this.props;
 
     if (loading) return (<CircularProgressBg />);
@@ -108,7 +112,10 @@ class NewPage extends Component {
               qrcodeUrl={qrcodeUrl}
               publishBtnDisabled={publishBtnDisabled}
               displayPublishSettings={displayPublishSettings}
+              displaySnackbar={displaySnackbar}
+              snackbarOpen={snackbarOpen}
             />
+            
             <div style={underToolbarStyle}>
               <MobileWindow
                 mobileSize={mobileSize}
@@ -196,10 +203,14 @@ NewPage.propTypes = {
   // pages: PropTypes.array.isRequired,
 
   changePublishTitle: PropTypes.func.isRequired,
+
+  snackbarOpen: PropTypes.bool.isRequired,
+  displaySnackbar: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
+    snackbarOpen: state.displaySnackbar,
     title: state.newPage.title,
     displayPubSettings: state.newPage.displayPublishSettings,
     publishBtnDisabled: state.newPage.publishBtnDisabled,
@@ -240,5 +251,7 @@ export default connect(
     deleteTextItem,
 
     changePublishTitle,
+
+    displaySnackbar,
   }
 )(NewPage);

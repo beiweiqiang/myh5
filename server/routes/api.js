@@ -7,6 +7,10 @@ const ejs = require('ejs');
 const join = require('path').join;
 const read = require('fs').readFileSync;
 
+// const jrQrcode = require('jr-qrcode');
+const QRCode = require('qrcode')
+
+
 const urlPrefix = require('../../config').qiniu.urlPrefix;
 
 const config = require('../../config');
@@ -31,19 +35,20 @@ router.get('/topbar', (req, res) => {
     res.status(200).json({
       message: '登录成功',
       success: true,
-      user: {
-        name: user.name,
-        email: user.email,
-        avatarUrl: user.avatarUrl,
-      },
+      user,
     });
   });
 });
 
 
 
+
 router.post('/publish', (req, res, next) => {
   const { pages, email, title } = req.body;
+
+  const secretToken = req.headers.authorization.split(' ')[1];
+  const payload = jwt.verify(secretToken, config.jwtSecret);
+  const userId = payload.sub;
   const renderStr = ejs.render(read(join(__dirname, '../template/index.ejs'), 'utf8'), { pages, title });
   fs.writeFile(join(__dirname, '../template/index.html'), renderStr, (err) => {
     if (err) throw err;
@@ -51,8 +56,10 @@ router.post('/publish', (req, res, next) => {
     // 要上传的空间
     const bucket = 'myh5';
     // 上传到七牛后保存的文件名
-    const key = `${email}/${Date.now()}.html`;
-    // 构建上传策略函数
+    const createTime = Date.now();
+    const key = `${email}/${createTime}.html`;
+
+    // 七牛构建上传策略函数
     function uptoken(bucket, key) {
       const putPolicy = new qiniu.rs.PutPolicy(bucket + ':' + key);
       return putPolicy.token();
@@ -68,8 +75,23 @@ router.post('/publish', (req, res, next) => {
         if (!err) {
           // 上传成功， 处理返回值
           // console.log(ret.hash, ret.key, ret.persistentId);
-          res.status(200).json({
-            url: `http://${urlPrefix}/${ret.key}`,
+          // const qrcodeUrl = jrQrcode.getQrBase64(`http://${urlPrefix}/${ret.key}`);
+          QRCode.toDataURL(`http://${urlPrefix}/${ret.key}`, function (err, qrcodeUrl) {
+            // console.log(url)
+            // 更新用户数据
+            // console.log(pages);
+            User.findByIdAndUpdate(
+              userId,
+              { $push: { myH5: { pages, createTime, title, qrcodeUrl } } },
+              (err, user) => {
+                if (err) throw err;
+                // we have the updated user returned to us
+                // console.log(user);
+              });
+            res.status(200).json({
+              // url: `http://${urlPrefix}/${ret.key}`,
+              qrcodeUrl,
+            });
           });
         } else {
           // 上传失败， 处理返回代码

@@ -19,7 +19,7 @@ module.exports = new PassportLocalStrategy({
   // console.log(userData);
 
   process.nextTick(() => {
-    User.findOne({ email: userData.email }, (err, user) => {
+    User.findOne({ 'userAccount.email': userData.email }, (err, user) => {
       // console.log('findOne');
       // console.log(err);
       // console.log(user);
@@ -30,11 +30,12 @@ module.exports = new PassportLocalStrategy({
 
       const newUser = new User();
 
-      newUser.email = email;
-      newUser.password = newUser.generateHash(userData.password);
-      newUser.name = userData.name;
-      newUser.avatarUrl = userData.avatarUrl;
-      newUser.createTime = Date.now();
+      newUser.userAccount.email = email;
+      newUser.userAccount.password = newUser.generateHash(userData.password);
+      newUser.userAccount.name = userData.name;
+      newUser.userAccount.avatarUrl = userData.avatarUrl;
+      newUser.userAccount.createTime = Date.now();
+
 
       newUser.save((saveErr) => {
         if (saveErr) throw saveErr;

@@ -27,8 +27,13 @@ export {
   SAVE_USER_MESSAGE,
   // 发送完成一个请求
   REQUEST_FINISH,
+  LOAD_CACHE_PAGES,
 } from './user';
 
+// snackbar
+export {
+  DISPLAY_SNACKBAR,
+} from './mysnackbar';
 
 // **newpage
 // toolbar
@@ -43,7 +48,6 @@ export {
   SET_QR_CODE,
   SET_PUBLISH_BTN,
   SAVE_MY_PUBLISH,
-  SAVE_MY_EDIT_PAGES,
   DISPLAY_PUBLISH_SETTINGS,
 } from './newpage/toolbar';
 // pagelist
@@ -97,6 +101,12 @@ export {
   getUserMes,
 } from './user';
 
+// snackbar
+export {
+  displaySnackbar,
+} from './mysnackbar';
+
+
 // **newpage
 // toolbar
 export {
@@ -107,6 +117,7 @@ export {
   displayQRcode,
   setQRcode,
   displayPublishSettings,
+  saveMyPublish,
 } from './newpage/toolbar';
 // pagelist
 export {

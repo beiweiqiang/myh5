@@ -10,6 +10,8 @@ import Settings from 'material-ui/svg-icons/action/settings';
 import IconButton from 'material-ui/IconButton';
 import { pink500, cyan500 } from 'material-ui/styles/colors';
 
+import MySnackbar from '../../MySnackbar.jsx';
+
 import Dialog from 'material-ui/Dialog';
 
 class MyToolbar extends Component {
@@ -23,6 +25,7 @@ class MyToolbar extends Component {
       publishH5,
       displayQRcode,
       displayPublishSettings,
+      displaySnackbar,
     } = this.props;
 
     // state to props
@@ -35,6 +38,7 @@ class MyToolbar extends Component {
       showQR,
       qrcodeUrl,
       publishBtnDisabled,
+      snackbarOpen,
     } = this.props;
     const publishContent = { pages, email, title: publishTitle };
     return (
@@ -72,15 +76,7 @@ class MyToolbar extends Component {
               />
             </IconButton>
             <ToolbarSeparator />
-            <IconButton
-              tooltip="保存正在编辑的H5"
-              touch
-              onTouchTap={(event) => console.log('save')}
-            >
-              <Save
-                color={cyan500}
-              />
-            </IconButton>
+
             <IconButton
               tooltip="设置发布信息"
               touch
@@ -90,6 +86,23 @@ class MyToolbar extends Component {
                 color={cyan500}
               />
             </IconButton>
+            <IconButton
+              tooltip="保存正在编辑的H5"
+              touch
+              onTouchTap={(event) => {
+                localStorage.setItem('savedH5', JSON.stringify({ pages, title: publishTitle }));
+                displaySnackbar(true);
+              }}
+            >
+              <Save
+                color={cyan500}
+              />
+            </IconButton>
+            <MySnackbar
+              snackbarOpen={snackbarOpen}
+              snackbarMes={'已暂存'}
+              displaySnackbar={displaySnackbar}
+            />
             <IconButton
               tooltip="发布H5"
               touch

@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
+// Logger with default options
+import logger from 'redux-logger';
+
 import createHistory from 'history/createBrowserHistory';
 import {
   BrowserRouter as Router,
@@ -41,13 +44,13 @@ const store = createStore(
     ...reducers,
     router: routerReducer,
   }),
-  applyMiddleware(middleware, ReduxThunk)
+  applyMiddleware(middleware, ReduxThunk, logger)
 );
 
 store.subscribe(() => {
   // 在这里更新你的视图
   // console.log(store.getState());
-  console.log(store.getState().logger);
+  // console.log(store.getState().logger);
   // console.log(store.getState().currentPage);
 });
 

@@ -14,14 +14,13 @@ module.exports = new PassportLocalStrategy({
     password: password.trim(),
   };
 
-  User.findOne({ email: userData.email }, (err, user) => {
+  User.findOne({ 'userAccount.email': userData.email }, (err, user) => {
     if (err) return done(err);
 
     // **没有此用户
     if (!user) {
       const error = new Error('email 不存在');
       error.name = 'IncorrectCredentialsError';
-
       return done(error);
     }
 
@@ -36,17 +35,11 @@ module.exports = new PassportLocalStrategy({
     const payload = {
       sub: user._id,
     };
-
+    // console.log(user);
     // **创建token Synchronous
     const token = jwt.sign(payload, config.jwtSecret);
-    console.log(`jwt token: ${token}`);
-    const data = {
-      email: user.name,
-      name: user.name,
-      password: user.password,
-      avatarUrl: user.avatarUrl,
-      createTime: user.createTime,
-    };
+    // console.log(`jwt token: ${token}`);
+    const data = user;
 
     // **传递3个参数
     return done(null, token, data);

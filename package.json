@@ -25,6 +25,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "qiniu": "^6.1.13",
+    "qrcode": "^0.8.1",
     "react": "^15.4.2",
     "react-color": "^2.11.4",
     "react-dnd": "^2.3.0",
@@ -38,6 +39,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "react-transition-group": "^1.1.2",
     "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
     "validator": "^7.0.0"
   },

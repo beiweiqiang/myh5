@@ -1,4 +1,7 @@
-import { SPIN_LOADING } from '../actions';
+import {
+  SPIN_LOADING,
+  DISPLAY_SNACKBAR,
+} from '../actions';
 
 export signup from './signup';
 
@@ -10,6 +13,12 @@ export newPage from './newpage';
 export myPage from './mypage';
 
 
+export function displaySnackbar(state = false, action) {
+  if (action.type === DISPLAY_SNACKBAR) {
+    return action.display;
+  }
+  return state;
+}
 
 export function loading(state = false, action) {
   if (action.type === SPIN_LOADING) {

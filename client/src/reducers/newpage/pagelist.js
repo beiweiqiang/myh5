@@ -1,5 +1,3 @@
-// import { TOGGLE_PAGE, DELETE_PAGE, ADD_NEW_PAGE } from '../../actions';
-
 import {
   // pagelist
   TOGGLE_PAGE,
@@ -18,6 +16,8 @@ import {
   CHANGE_TEXT_POSITION,
   // tabs
   DELETE_TEXT_ITEM,
+  // user
+  LOAD_CACHE_PAGES,
 } from '../../actions';
 
 // import { ADD_TEXT, ADD_PIC } from '../../actions';
@@ -180,6 +180,11 @@ export function pages(state = [
       ...state.slice(0, action.page),
       page(state[action.page], action),
       ...state.slice(action.page + 1),
+    ];
+  }
+  if (action.type === LOAD_CACHE_PAGES) {
+    return [
+      ...action.content.pages,
     ];
   }
   return state;

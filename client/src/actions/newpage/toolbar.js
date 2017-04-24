@@ -22,9 +22,6 @@ export const SET_PUBLISH_BTN = 'SET_PUBLISH_BTN';
 export const DISPLAY_PUBLISH_SETTINGS = 'DISPLAY_PUBLISH_SETTINGS';
 // 保存发布了的h5
 export const SAVE_MY_PUBLISH = 'SAVE_MY_PUBLISH';
-// 保存正在编辑的h5
-export const SAVE_MY_EDIT_PAGES = 'SAVE_MY_EDIT_PAGES';
-
 
 // actions creator
 
@@ -83,7 +80,8 @@ export function setQRcode(url) {
 }
 
 // 保存发布了的h5
-function saveMyPublish(content) {
+// content: { pages: , createTime: , title: , qrcodeUrl }
+export function saveMyPublish(content) {
   return {
     type: SAVE_MY_PUBLISH,
     content,
@@ -111,14 +109,14 @@ function upload(content) {
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
-      const url = $.parseJSON(JSON.stringify(xhr.response)).url;
-      const imgBase64 = jrQrcode.getQrBase64(url);
-      dispatch(setQRcode(imgBase64));
+      const qrcodeUrl = $.parseJSON(JSON.stringify(xhr.response)).qrcodeUrl;
+      // const imgBase64 = jrQrcode.getQrBase64(url);
+      dispatch(setQRcode(qrcodeUrl));
       dispatch(setPublishBtn(false));
       dispatch(displayQRcode(true));
       dispatch(saveMyPublish({
         pages: content.pages,
-        qrcodeUrl: imgBase64,
+        qrcodeUrl,
         createTime: Date.now(),
         title: content.title,
       }));
@@ -129,6 +127,7 @@ function upload(content) {
 
 export function publishH5(content) {
   return (dispatch) => {
+    console.log(content);
     return dispatch(upload(content));
   };
 }

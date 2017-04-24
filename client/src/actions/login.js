@@ -92,7 +92,7 @@ function submitValidateLogin(formData) {
         dispatch(loginFormInput({}, true));
 
         // 保存用户信息
-        dispatch(saveUserMes(resMessage.user));
+        dispatch(saveUserMes(resMessage.user.userAccount));
       }
 
       // **取消loading
