@@ -1,6 +1,8 @@
 # myh5
 
-一个让你轻松发布H5的平台
+一个让你轻松编辑和发布H5的平台
+
+地址: http://myh5.beiweiqiang.com
 
 所用技术：
 react, redux, react-router4, react-redux, webpack, eslint, mongoose
