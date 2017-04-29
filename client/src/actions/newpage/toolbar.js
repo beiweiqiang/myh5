@@ -8,8 +8,6 @@ const jrQrcode = require('jr-qrcode');
 export const TOGGLE_PHONE_SIZE = 'TOGGLE_PHONE_SIZE';
 // 添加文本
 export const ADD_TEXT = 'ADD_TEXT';
-// 添加图片
-export const ADD_PIC = 'ADD_PIC';
 // 发布h5
 export const PUBLISH_H5 = 'PUBLISH_H5';
 // 展示二维码
@@ -44,18 +42,8 @@ export function addText(page) {
   };
 }
 
-// 添加图片
-export function addPic(page, picUrl, width, height) {
-  return {
-    type: ADD_PIC,
-    picUrl,
-    width,
-    height,
-  };
-}
-
 // 设置发布按钮的disabled状态
-function setPublishBtn(boolean) {
+export function setPublishBtn(boolean) {
   return {
     type: SET_PUBLISH_BTN,
     disabled: boolean,

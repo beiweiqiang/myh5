@@ -7,7 +7,6 @@ import {
   DOWN_MOVE_PAGE,
   // toolbar
   ADD_TEXT,
-  ADD_PIC,
   // editcard
   CHANGE_FONT_SIZE,
   CHANGE_FONT_COLOR,
@@ -18,9 +17,9 @@ import {
   DELETE_TEXT_ITEM,
   // user
   LOAD_CACHE_PAGES,
+  // picdialog
+  // ADD_PIC,
 } from '../../actions';
-
-// import { ADD_TEXT, ADD_PIC } from '../../actions';
 
 export function currentPage(state = 0, action) {
   if (action.type === TOGGLE_PAGE) {
@@ -48,20 +47,20 @@ function page(state = {
       ],
     });
   }
-  if (action.type === ADD_PIC) {
-    return Object.assign({}, state, {
-      pic: [
-        ...state.pic,
-        {
-          url: action.picUrl,
-          width: action.width,
-          height: action.height,
-          x: 0,
-          y: 0,
-        },
-      ],
-    });
-  }
+  // if (action.type === ADD_PIC) {
+  //   return Object.assign({}, state, {
+  //     pic: [
+  //       ...state.pic,
+  //       {
+  //         url: action.picUrl,
+  //         width: action.width,
+  //         height: action.height,
+  //         x: 0,
+  //         y: 0,
+  //       },
+  //     ],
+  //   });
+  // }
   if (action.type === DELETE_TEXT_ITEM) {
     return Object.assign({}, state, {
       text: [
@@ -169,7 +168,7 @@ export function pages(state = [
     ];
   }
   if (action.type === ADD_TEXT
-    || action.type === ADD_PIC
+    // || action.type === ADD_PIC
     || action.type === CHANGE_FONT_SIZE
     || action.type === CHANGE_FONT_COLOR
     || action.type === FONT_BOLD

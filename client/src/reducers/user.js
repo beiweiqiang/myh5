@@ -1,4 +1,7 @@
-import { SAVE_USER_MESSAGE, REQUEST_FINISH } from '../actions';
+import {
+  SAVE_USER_MESSAGE,
+  REQUEST_FINISH,
+} from '../actions';
 
 
 const initialUser = {

@@ -9,10 +9,11 @@ import Save from 'material-ui/svg-icons/content/save';
 import Settings from 'material-ui/svg-icons/action/settings';
 import IconButton from 'material-ui/IconButton';
 import { pink500, cyan500 } from 'material-ui/styles/colors';
-
-import MySnackbar from '../../MySnackbar.jsx';
-
 import Dialog from 'material-ui/Dialog';
+
+// import MySnackbar from '../../MySnackbar.jsx';
+import PicDialog from '../PicDialog/index.jsx';
+
 
 class MyToolbar extends Component {
 
@@ -21,10 +22,11 @@ class MyToolbar extends Component {
     const {
       togglePhoneSize,
       addText,
-      addPic,
       publishH5,
       displayQRcode,
       displayPublishSettings,
+      togglePicDialog,
+      uploadPic,
       displaySnackbar,
     } = this.props;
 
@@ -38,7 +40,8 @@ class MyToolbar extends Component {
       showQR,
       qrcodeUrl,
       publishBtnDisabled,
-      snackbarOpen,
+      displayPicDialog,
+      myUploadPic,
     } = this.props;
     const publishContent = { pages, email, title: publishTitle };
     return (
@@ -69,12 +72,20 @@ class MyToolbar extends Component {
             <IconButton
               tooltip="添加图片"
               touch
-              onTouchTap={(event) => addPic()}
+              onTouchTap={(event) => togglePicDialog(true)}
             >
               <InsertPhoto
                 color={pink500}
               />
             </IconButton>
+            {/*先把displayPicDialog设置成true*/}
+            <PicDialog
+              displayPicDialog={displayPicDialog}
+              togglePicDialog={togglePicDialog}
+              uploadPic={uploadPic}
+              myUploadPic={myUploadPic}
+            />
+
             <ToolbarSeparator />
 
             <IconButton
@@ -86,23 +97,20 @@ class MyToolbar extends Component {
                 color={cyan500}
               />
             </IconButton>
+
             <IconButton
               tooltip="保存正在编辑的H5"
               touch
               onTouchTap={(event) => {
                 localStorage.setItem('savedH5', JSON.stringify({ pages, title: publishTitle }));
-                displaySnackbar(true);
+                displaySnackbar(true, '已保存');
               }}
             >
               <Save
                 color={cyan500}
               />
             </IconButton>
-            <MySnackbar
-              snackbarOpen={snackbarOpen}
-              snackbarMes={'已暂存'}
-              displaySnackbar={displaySnackbar}
-            />
+
             <IconButton
               tooltip="发布H5"
               touch
@@ -132,7 +140,6 @@ class MyToolbar extends Component {
 MyToolbar.propTypes = {
   togglePhoneSize: PropTypes.func.isRequired,
   addText: PropTypes.func.isRequired,
-  addPic: PropTypes.func.isRequired,
   publishH5: PropTypes.func.isRequired,
   displayQRcode: PropTypes.func.isRequired,
   displayPublishSettings: PropTypes.func.isRequired,
@@ -143,6 +150,7 @@ MyToolbar.propTypes = {
   showQR: PropTypes.bool.isRequired,
   email: PropTypes.string.isRequired,
   currentPage: PropTypes.number.isRequired,
+  displaySnackbar: PropTypes.func.isRequired,
 };
 
 export default MyToolbar;

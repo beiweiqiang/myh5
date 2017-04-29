@@ -10,10 +10,12 @@ import EditTabs from '../components/NewPage/EditTabs/EditTabs.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
 import EditCard from '../components/NewPage/EditCard/index.jsx';
 import PublishSettings from '../components/NewPage/PublishSettings/index.jsx';
+import MySnackbar from '../components/MySnackbar.jsx';
+
 
 import {
   // toolbar
-  togglePhoneSize, addText, addPic, publishH5, displayQRcode, displayPublishSettings,
+  togglePhoneSize, addText, publishH5, displayQRcode, displayPublishSettings,
   // pagelist
   togglePage, deletePage, addNewPage, upMovePage, downMovePage,
   // edittabs
@@ -24,6 +26,9 @@ import {
   changePublishTitle,
   // snackbar
   displaySnackbar,
+  // picdialog
+  togglePicDialog,
+  uploadPic,
 } from '../actions';
 
 const style = {
@@ -60,24 +65,40 @@ class NewPage extends Component {
   render() {
     // state to props
     const {
+      // 发布按钮是否可以点击
       publishBtnDisabled,
+      // 二维码url
       qrcodeUrl,
+      // 是否展示二维码dialog
       showQR,
+      // 用户email
       email,
+      // 加载状态
       loading,
+      // 展示移动端的屏幕大小 1 iphone6 2 iphone6p 3 iphone5s
       mobileSize,
+      // 现在正在编辑哪一页
       currentPage,
+      // h5整体内容
       pages,
+      // 在编辑该页的哪一个文本，没有在编辑状态则为null
       currentTextIndex,
+      // 是否展示发布设置card
       displayPubSettings,
-      snackbarOpen,
+      // 浏览器窗口底端是否弹出一个snackbar
+      snackbarOpen, snackbarMes,
+      // 发布设置里面的title
       title,
+      // 是否展示图片选择dialog
+      displayPicDialog,
+      // 用户上传的图片集合
+      myUploadPic,
     } = this.props;
 
     // dispatch to props
     const {
       // toolbar
-      togglePhoneSize, addText, addPic, publishH5, displayQRcode, displayPublishSettings,
+      togglePhoneSize, addText, publishH5, displayQRcode, displayPublishSettings,
       // pagelist
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
       // edittabs
@@ -86,7 +107,11 @@ class NewPage extends Component {
       toggleTextEditCard, deleteTextItem,
       // publishsettings
       changePublishTitle,
+
       displaySnackbar,
+      // picdialog
+      togglePicDialog,
+      uploadPic,
     } = this.props;
 
     if (loading) return (<CircularProgressBg />);
@@ -103,7 +128,6 @@ class NewPage extends Component {
               currentPage={currentPage}
               togglePhoneSize={togglePhoneSize}
               addText={addText}
-              addPic={addPic}
               mobileSize={mobileSize}
               publishH5={publishH5}
               publishTitle={title}
@@ -113,9 +137,12 @@ class NewPage extends Component {
               publishBtnDisabled={publishBtnDisabled}
               displayPublishSettings={displayPublishSettings}
               displaySnackbar={displaySnackbar}
-              snackbarOpen={snackbarOpen}
+              displayPicDialog={displayPicDialog}
+              togglePicDialog={togglePicDialog}
+              uploadPic={uploadPic}
+              myUploadPic={myUploadPic}
             />
-            
+
             <div style={underToolbarStyle}>
               <MobileWindow
                 mobileSize={mobileSize}
@@ -164,6 +191,11 @@ class NewPage extends Component {
             />
           </div>
         </div>
+        <MySnackbar
+          snackbarOpen={snackbarOpen}
+          snackbarMes={snackbarMes}
+          displaySnackbar={displaySnackbar}
+        />
       </div>
     );
   }
@@ -177,7 +209,6 @@ NewPage.propTypes = {
   email: PropTypes.string.isRequired,
   togglePhoneSize: PropTypes.func.isRequired,
   addText: PropTypes.func.isRequired,
-  addPic: PropTypes.func.isRequired,
   publishH5: PropTypes.func.isRequired,
   showQR: PropTypes.bool.isRequired,
   displayQRcode: PropTypes.func.isRequired,
@@ -205,12 +236,20 @@ NewPage.propTypes = {
   changePublishTitle: PropTypes.func.isRequired,
 
   snackbarOpen: PropTypes.bool.isRequired,
+  snackbarMes: PropTypes.string.isRequired,
   displaySnackbar: PropTypes.func.isRequired,
+
+  // picdialog
+  displayPicDialog: PropTypes.bool.isRequired,
+  togglePicDialog: PropTypes.func.isRequired,
+  uploadPic: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    snackbarOpen: state.displaySnackbar,
+    displayPicDialog: state.newPage.displayPicDialog,
+    snackbarOpen: state.snackbar.open,
+    snackbarMes: state.snackbar.mes,
     title: state.newPage.title,
     displayPubSettings: state.newPage.displayPublishSettings,
     publishBtnDisabled: state.newPage.publishBtnDisabled,
@@ -222,6 +261,7 @@ function mapStateToProps(state) {
     currentPage: state.newPage.currentPage,
     pages: state.newPage.pages,
     currentTextIndex: state.newPage.currentTextIndex,
+    myUploadPic: state.myUploadPic,
   };
 }
 
@@ -231,7 +271,6 @@ export default connect(
     displayQRcode,
     togglePhoneSize,
     addText,
-    addPic,
     publishH5,
     displayPublishSettings,
 
@@ -253,5 +292,8 @@ export default connect(
     changePublishTitle,
 
     displaySnackbar,
+
+    togglePicDialog,
+    uploadPic,
   }
 )(NewPage);

@@ -40,8 +40,8 @@ export {
 export {
   // 切换屏幕尺寸
   TOGGLE_PHONE_SIZE,
-  // 添加图片 文本
-  ADD_PIC, ADD_TEXT,
+  // 添加文本
+  ADD_TEXT,
   // 发布h5
   PUBLISH_H5,
   DISPLAY_QR_CODE,
@@ -74,9 +74,15 @@ export {
 export {
   CHANGE_TEXT_POSITION,
 } from './newpage/mobilewindow';
+// publishsettings
 export {
   CHANGE_PUBLISH_TITLE,
 } from './newpage/publishsettings';
+// picdialog
+export {
+  TOGGLE_PIC_DIALOG,
+  ADD_PIC_TO_MY_UPLOAD,
+} from './newpage/picdialog';
 
 // action creator =========================================================
 
@@ -112,12 +118,12 @@ export {
 export {
   togglePhoneSize,
   addText,
-  addPic,
   publishH5,
   displayQRcode,
   setQRcode,
   displayPublishSettings,
   saveMyPublish,
+  setPublishBtn,
 } from './newpage/toolbar';
 // pagelist
 export {
@@ -143,9 +149,17 @@ export {
 export {
   changeTextPosition,
 } from './newpage/mobilewindow';
+// publishsettings
 export {
   changePublishTitle,
 } from './newpage/publishsettings';
+// picdialog
+export {
+  togglePicDialog,
+  uploadPic,
+  addPicToMyUpload,
+} from './newpage/picdialog';
+
 
 
 // 是否正在加载

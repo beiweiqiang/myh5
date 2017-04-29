@@ -7,15 +7,28 @@ export signup from './signup';
 
 export login from './login';
 
-export { user, sendRequest } from './user';
+export {
+  user,
+  sendRequest,
+} from './user';
 
 export newPage from './newpage';
 export myPage from './mypage';
 
+export {
+  myUploadPic,
+} from './newpage/picdialog';
 
-export function displaySnackbar(state = false, action) {
+const snackbarInit = {
+  open: false,
+  mes: '',
+};
+export function snackbar(state = snackbarInit, action) {
   if (action.type === DISPLAY_SNACKBAR) {
-    return action.display;
+    return {
+      open: action.open,
+      mes: action.mes,
+    };
   }
   return state;
 }

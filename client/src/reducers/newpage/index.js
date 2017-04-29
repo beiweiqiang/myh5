@@ -8,8 +8,13 @@ import {
   title,
 } from './publishsettings';
 
+import {
+  displayPicDialog,
+} from './picdialog';
+
 export default combineReducers({
   title,
+  displayPicDialog,
   displayQRcode,
   qrcodeUrl,
   publishBtnDisabled,

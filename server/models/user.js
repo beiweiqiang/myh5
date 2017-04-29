@@ -37,6 +37,10 @@ const UserSchema = new mongoose.Schema({
     createTime: Number,
   },
   myH5: [h5],
+  // 用户上传的图片
+  uploadPic: [{
+    url: String,
+  }],
 });
 
 

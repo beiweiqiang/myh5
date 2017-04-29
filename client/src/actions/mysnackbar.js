@@ -1,8 +1,9 @@
 export const DISPLAY_SNACKBAR = 'DISPLAY_SNACKBAR';
 
-export function displaySnackbar(boolean) {
+export function displaySnackbar(boolean, mes) {
   return {
     type: DISPLAY_SNACKBAR,
-    display: boolean,
+    open: boolean,
+    mes,
   };
 }

@@ -12,7 +12,7 @@ class MySnackbar extends Component {
         open={snackbarOpen}
         message={snackbarMes}
         autoHideDuration={4000}
-        onRequestClose={() => displaySnackbar(false)}
+        onRequestClose={() => displaySnackbar(false, '')}
       />
     );
   }

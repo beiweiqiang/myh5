@@ -55,7 +55,7 @@ passport.use('local-login', localLoginStrategy);
 
 // authentication checker 中间件，要在 routes 之前
 const authCheckMiddleware = require('./server/middleware/auth-check');
-
+// 检查认证情况authorization
 app.use('/api', authCheckMiddleware);
 
 // routes

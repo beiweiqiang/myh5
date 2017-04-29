@@ -2,4 +2,3 @@ node_modules
 my.md
 client/dist
 config
-server/template/index.html

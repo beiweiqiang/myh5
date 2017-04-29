@@ -1,7 +1,11 @@
 import $ from 'jquery';
 
 import Auth from '../modules/Auth';
-import { loading, saveUserMes } from './index';
+import {
+  loading,
+  saveUserMes,
+  setPublishBtn,
+} from './index';
 
 // 登录成功
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -87,6 +91,8 @@ function submitValidateLogin(formData) {
       } else {
         // **登录成功
         dispatch(loginSuccess(true));
+        // 发布按钮可以使用
+        dispatch(setPublishBtn(false));
         // **保存token
         Auth.authenticateUser(resMessage.token);
         dispatch(loginFormInput({}, true));

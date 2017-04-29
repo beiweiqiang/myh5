@@ -60,11 +60,12 @@ ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <div>
+          {/*DashboardPage*/}
           <Route exact path="/" component={NewPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/logout" component={Logout} />
-          <Route path="/newpage" component={DashboardPage} />
+          <Route path="/newpage" component={NewPage} />
           <Route path="/mypage" component={MyPage} />
         </div>
       </ConnectedRouter>
