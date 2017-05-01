@@ -72,11 +72,14 @@ class MyUploadPic extends Component {
   render() {
     // dispatch
     const {
-      uploadPic
+      uploadPic,
+      addPic,
+      togglePicDialog,
     } = this.props;
     // state to props
     const {
       myUploadPic,
+      currentPage,
     } = this.props;
     return (
       <div style={styles.root}>
@@ -103,7 +106,9 @@ class MyUploadPic extends Component {
                   labelStyle={{ color: cyan500 }}
                   label="添加"
                   onTouchTap={() => {
-                    console.log('添加', index);
+                    addPic(currentPage, pic.url);
+                    togglePicDialog(false);
+                    console.log('添加', pic.url);
                   }}
                 />
               }
@@ -118,7 +123,11 @@ class MyUploadPic extends Component {
 }
 
 MyUploadPic.propTypes = {
+  uploadPic: PropTypes.func.isRequired,
+  addPic: PropTypes.func.isRequired,
+  togglePicDialog: PropTypes.func.isRequired,
 
+  currentPage: PropTypes.number.isRequired,
 };
 
 export default MyUploadPic;

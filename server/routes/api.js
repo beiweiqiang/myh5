@@ -8,7 +8,6 @@ const join = require('path').join;
 const read = require('fs').readFileSync;
 const QRCode = require('qrcode');
 const exec = require('child_process').exec;
-const path = require('path');
 const formidable = require('formidable');
 
 const urlPrefix = require('../../config').qiniu.urlPrefix;
@@ -171,7 +170,7 @@ router.post('/picUpload', (req, res) => {
 // 填充数据后的html上传至七牛云
 // 更新用户数据库
 router.post('/publish', (req, res) => {
-  const { pages, email, title } = req.body;
+  const { pages, title } = req.body;
 
   const secretToken = req.headers.authorization.split(' ')[1];
   const payload = jwt.verify(secretToken, config.jwtSecret);

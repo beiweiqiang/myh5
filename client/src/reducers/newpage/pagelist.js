@@ -15,10 +15,16 @@ import {
   CHANGE_TEXT_POSITION,
   // tabs
   DELETE_TEXT_ITEM,
+  DELETE_PIC_ITEM,
   // user
   LOAD_CACHE_PAGES,
   // picdialog
-  // ADD_PIC,
+  ADD_PIC,
+  CHANGE_PIC_SIZE,
+  CHANGE_PIC_POSITION,
+  CHANGE_PIC_OPACITY,
+  CHANGE_PIC_ANGLE,
+  CHANGE_PIC_SIZE_TO_POSITION,
 } from '../../actions';
 
 export function currentPage(state = 0, action) {
@@ -43,24 +49,29 @@ function page(state = {
           bold: false,
           x: 0,
           y: 0,
+          opacity: 1.0,
+          angle: 0,
         },
       ],
     });
   }
-  // if (action.type === ADD_PIC) {
-  //   return Object.assign({}, state, {
-  //     pic: [
-  //       ...state.pic,
-  //       {
-  //         url: action.picUrl,
-  //         width: action.width,
-  //         height: action.height,
-  //         x: 0,
-  //         y: 0,
-  //       },
-  //     ],
-  //   });
-  // }
+  if (action.type === ADD_PIC) {
+    return Object.assign({}, state, {
+      pic: [
+        ...state.pic,
+        {
+          url: action.url,
+          width: 120,
+          height: 120,
+          x: 0,
+          y: 0,
+          opacity: 1.0,
+          angle: 0,
+        },
+      ],
+    });
+  }
+
   if (action.type === DELETE_TEXT_ITEM) {
     return Object.assign({}, state, {
       text: [
@@ -69,6 +80,15 @@ function page(state = {
       ],
     });
   }
+  if (action.type === DELETE_PIC_ITEM) {
+    return Object.assign({}, state, {
+      pic: [
+        ...state.pic.slice(0, action.item),
+        ...state.pic.slice(action.item + 1),
+      ],
+    });
+  }
+
   if (action.type === CHANGE_FONT_SIZE) {
     return Object.assign({}, state, {
       text: [
@@ -126,6 +146,65 @@ function page(state = {
     });
   }
 
+  if (action.type === CHANGE_PIC_SIZE) {
+    return Object.assign({}, state, {
+      pic: [
+        ...state.pic.slice(0, action.item),
+        Object.assign({}, state.pic[action.item], {
+          width: state.pic[action.item].width + action.size.width,
+          height: state.pic[action.item].height + action.size.height,
+        }),
+        ...state.pic.slice(action.item + 1),
+      ],
+    });
+  }
+  if (action.type === CHANGE_PIC_POSITION) {
+    return Object.assign({}, state, {
+      pic: [
+        ...state.pic.slice(0, action.item),
+        Object.assign({}, state.pic[action.item], {
+          x: action.position.x,
+          y: action.position.y,
+        }),
+        ...state.pic.slice(action.item + 1),
+      ],
+    });
+  }
+  if (action.type === CHANGE_PIC_OPACITY) {
+    return Object.assign({}, state, {
+      pic: [
+        ...state.pic.slice(0, action.item),
+        Object.assign({}, state.pic[action.item], {
+          opacity: action.opacity,
+        }),
+        ...state.pic.slice(action.item + 1),
+      ],
+    });
+  }
+  if (action.type === CHANGE_PIC_ANGLE) {
+    return Object.assign({}, state, {
+      pic: [
+        ...state.pic.slice(0, action.item),
+        Object.assign({}, state.pic[action.item], {
+          angle: action.angle,
+        }),
+        ...state.pic.slice(action.item + 1),
+      ],
+    });
+  }
+  if (action.type === CHANGE_PIC_SIZE_TO_POSITION) {
+    return Object.assign({}, state, {
+      pic: [
+        ...state.pic.slice(0, action.item),
+        Object.assign({}, state.pic[action.item], {
+          x: state.pic[action.item].x + action.delta.width,
+          y: state.pic[action.item].y + action.delta.height,
+        }),
+        ...state.pic.slice(action.item + 1),
+      ],
+    });
+  }
+
   return state;
 }
 
@@ -168,13 +247,19 @@ export function pages(state = [
     ];
   }
   if (action.type === ADD_TEXT
-    // || action.type === ADD_PIC
+    || action.type === ADD_PIC
     || action.type === CHANGE_FONT_SIZE
     || action.type === CHANGE_FONT_COLOR
     || action.type === FONT_BOLD
     || action.type === CHANG_TEXT_CONTENT
     || action.type === CHANGE_TEXT_POSITION
-    || action.type === DELETE_TEXT_ITEM) {
+    || action.type === DELETE_TEXT_ITEM
+    || action.type === CHANGE_PIC_SIZE
+    || action.type === CHANGE_PIC_POSITION
+    || action.type === CHANGE_PIC_OPACITY
+    || action.type === CHANGE_PIC_ANGLE
+    || action.type === DELETE_PIC_ITEM
+    || action.type === CHANGE_PIC_SIZE_TO_POSITION) {
     return [
       ...state.slice(0, action.page),
       page(state[action.page], action),

@@ -13,7 +13,7 @@ import FontBold from './FontBold.jsx';
 import TextContent from './TextContent.jsx';
 import Position from './Position.jsx';
 
-class EditCard extends Component {
+class EditTextCard extends Component {
   handleClickOutside = evt => {
     this.props.toggleTextEditCard(null);
   }
@@ -70,7 +70,7 @@ class EditCard extends Component {
   }
 }
 
-EditCard.propTypes = {
+EditTextCard.propTypes = {
   currentPage: PropTypes.number.isRequired,
   // currentTextIndex: PropTypes.number.isRequired,
 
@@ -82,4 +82,4 @@ EditCard.propTypes = {
 };
 
 
-export default onClickOutside(EditCard);
+export default onClickOutside(EditTextCard);

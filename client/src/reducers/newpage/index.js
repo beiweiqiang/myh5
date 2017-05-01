@@ -2,7 +2,10 @@ import { combineReducers } from 'redux';
 
 import { mobileSize, displayQRcode, qrcodeUrl, publishBtnDisabled, displayPublishSettings } from './toolbar';
 import { currentPage, pages } from './pagelist';
-import { currentTextIndex } from './tabs';
+import {
+  currentTextIndex,
+  currentPicIndex,
+} from './tabs';
 
 import {
   title,
@@ -22,6 +25,6 @@ export default combineReducers({
   mobileSize,
   currentPage,
   currentTextIndex,
-  // currentPicIndex,
+  currentPicIndex,
   pages,
 });

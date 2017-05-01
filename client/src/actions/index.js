@@ -62,6 +62,8 @@ export {
 export {
   TOGGLE_TEXT_EDIT_CARD,
   DELETE_TEXT_ITEM,
+  TOGGLE_PIC_EDIT_CARD,
+  DELETE_PIC_ITEM,
 } from './newpage/tabs';
 // editcard
 export {
@@ -82,6 +84,13 @@ export {
 export {
   TOGGLE_PIC_DIALOG,
   ADD_PIC_TO_MY_UPLOAD,
+  ADD_PIC,
+
+  CHANGE_PIC_SIZE,
+  CHANGE_PIC_POSITION,
+  CHANGE_PIC_OPACITY,
+  CHANGE_PIC_ANGLE,
+  CHANGE_PIC_SIZE_TO_POSITION,
 } from './newpage/picdialog';
 
 // action creator =========================================================
@@ -137,6 +146,8 @@ export {
 export {
   toggleTextEditCard,
   deleteTextItem,
+  togglePicEditCard,
+  deletePicItem,
 } from './newpage/tabs';
 // editcard
 export {
@@ -158,6 +169,13 @@ export {
   togglePicDialog,
   uploadPic,
   addPicToMyUpload,
+  addPic,
+
+  changePicSize,
+  changePicPosition,
+  changePicOpacity,
+  changePicAngle,
+  changePicSizeToPosition,
 } from './newpage/picdialog';
 
 

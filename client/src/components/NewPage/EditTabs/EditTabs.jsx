@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 
 import { Tabs, Tab } from 'material-ui/Tabs';
-import EditTabList from './EditTabList.jsx';
+import EditTabTextList from './EditTabTextList.jsx';
+import EditTabPicList from './EditTabPicList.jsx';
 
 const styles = {
   headline: {
@@ -17,25 +17,38 @@ class EditTabs extends Component {
 
   render() {
     // pages, currentPage, toggleTextEditCard, deleteTextItem
-
+    // state
+    const {
+      pages, currentPage,
+    } = this.props;
+    // dispatch
+    const {
+      toggleTextEditCard,
+      deleteTextItem,
+      togglePicEditCard,
+      deletePicItem,
+    } = this.props;
     return (
       <Tabs>
         <Tab
           label="文本"
         >
-          <EditTabList {...this.props} />
+          <EditTabTextList
+            pages={pages}
+            currentPage={currentPage}
+            toggleTextEditCard={toggleTextEditCard}
+            deleteTextItem={deleteTextItem}
+          />
         </Tab>
         <Tab
           label="图片"
         >
-          <div>
-            <h2 style={styles.headline}>Controllable Tab B</h2>
-            <p>
-              This is another example of a controllable tab. Remember, if you
-              use controllable Tabs, you need to give all of your tabs values or else
-              you wont be able to select them.
-            </p>
-          </div>
+          <EditTabPicList
+            pages={pages}
+            currentPage={currentPage}
+            togglePicEditCard={togglePicEditCard}
+            deletePicItem={deletePicItem}
+          />
         </Tab>
       </Tabs>
     );

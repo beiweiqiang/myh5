@@ -28,6 +28,7 @@ class MyToolbar extends Component {
       togglePicDialog,
       uploadPic,
       displaySnackbar,
+      addPic,
     } = this.props;
 
     // state to props
@@ -43,7 +44,7 @@ class MyToolbar extends Component {
       displayPicDialog,
       myUploadPic,
     } = this.props;
-    const publishContent = { pages, email, title: publishTitle };
+    const publishContent = { pages, title: publishTitle };
     return (
       <div style={{ width: '100%' }}>
         <Toolbar style={{ width: '100%', marginBottom: '10px' }}>
@@ -84,6 +85,8 @@ class MyToolbar extends Component {
               togglePicDialog={togglePicDialog}
               uploadPic={uploadPic}
               myUploadPic={myUploadPic}
+              currentPage={currentPage}
+              addPic={addPic}
             />
 
             <ToolbarSeparator />

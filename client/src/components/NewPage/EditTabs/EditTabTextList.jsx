@@ -72,7 +72,7 @@ EditListItem.propTypes = {
   toggleTextEditCard: PropTypes.func.isRequired,
 };
 
-export default class TabsList extends React.Component {
+export default class EditTabTextList extends React.Component {
 
   render() {
     // pages, currentPage, toggleTextEditCard, deleteTextItem
@@ -80,7 +80,7 @@ export default class TabsList extends React.Component {
     const { toggleTextEditCard, deleteTextItem } = this.props;
     return (
       <List>
-        <Subheader>点击文本弹出样式编辑窗口</Subheader>
+        <Subheader>点击列表弹出样式编辑窗口</Subheader>
         {pages[currentPage].text.map((ele, index) => (
           <EditListItem
             key={`${Date.now() + index}`}
@@ -94,7 +94,7 @@ export default class TabsList extends React.Component {
   }
 }
 
-TabsList.propTypes = {
+EditTabTextList.propTypes = {
   currentPage: PropTypes.number.isRequired,
   toggleTextEditCard: PropTypes.func.isRequired,
 };

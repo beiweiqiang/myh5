@@ -6,6 +6,7 @@
 
 所用技术：
 react, redux, react-router4, react-redux, webpack, eslint, mongoose
+上传的图片和生成的页面放在七牛云上
 
 功能：
 1. 注册登录
@@ -20,8 +21,14 @@ react, redux, react-router4, react-redux, webpack, eslint, mongoose
 5. 开两个terminal，一个运行npm start，一个运行npm run bundle
 
 
-部分特点
-1 不是登录状态不能进行发布
+部分特点：
 
-接下来实现
-1 发布图片
+接下来实现：
+1. 研究本地如何缓存图片
+2. 让用户选择是否30天内免登陆
+3. 密码修改
+4. 头像修改
+
+bug：
+1. 在MyRnd处存在16px的bug，y设为0但是实际上是16px
+  解决：原来是在组件的style里直接写position: absolute，改成用className就行了

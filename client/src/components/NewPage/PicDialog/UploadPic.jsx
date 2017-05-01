@@ -20,7 +20,15 @@ const styles = {
 
 class UploadPic extends Component {
   render() {
-    const { uploadPic } = this.props;
+    // dispatch
+    const {
+      uploadPic,
+
+    } = this.props;
+    // state to props
+    const {
+
+    } = this.props;
     return (
       <div>
         <FlatButton

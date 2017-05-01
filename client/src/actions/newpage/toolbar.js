@@ -1,8 +1,6 @@
 import $ from 'jquery';
 import Auth from '../../modules/Auth';
 
-const jrQrcode = require('jr-qrcode');
-
 // actions constant
 // 切换手机屏幕大小
 export const TOGGLE_PHONE_SIZE = 'TOGGLE_PHONE_SIZE';
@@ -98,7 +96,6 @@ function upload(content) {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       const qrcodeUrl = $.parseJSON(JSON.stringify(xhr.response)).qrcodeUrl;
-      // const imgBase64 = jrQrcode.getQrBase64(url);
       dispatch(setQRcode(qrcodeUrl));
       dispatch(setPublishBtn(false));
       dispatch(displayQRcode(true));

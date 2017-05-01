@@ -11,10 +11,13 @@ class PicTabs extends Component {
     // dispatch
     const {
       uploadPic,
+      addPic,
+      togglePicDialog,
     } = this.props;
     // state to props
     const {
       myUploadPic,
+      currentPage,
     } = this.props;
     return (
       <Tabs>
@@ -26,6 +29,9 @@ class PicTabs extends Component {
           <MyUploadPic
             uploadPic={uploadPic}
             myUploadPic={myUploadPic}
+            addPic={addPic}
+            currentPage={currentPage}
+            togglePicDialog={togglePicDialog}
           />
         </Tab>
       </Tabs>

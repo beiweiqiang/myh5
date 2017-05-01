@@ -11,6 +11,69 @@ export const TOGGLE_PIC_DIALOG = 'TOGGLE_PIC_DIALOG';
 // 添加图片
 export const ADD_PIC = 'ADD_PIC';
 
+// 因为拉伸或减小 左边或上边 而产生的位置改变
+export const CHANGE_PIC_SIZE_TO_POSITION = 'CHANGE_PIC_SIZE_TO_POSITION';
+// 修改图片宽高
+export const CHANGE_PIC_SIZE = 'CHANG_PIC_SIZE';
+// 修改图片位置
+export const CHANGE_PIC_POSITION = 'CHANGE_PIC_POSITION';
+// 修改图片不透明度
+export const CHANGE_PIC_OPACITY = 'CHANGE_PIC_OPACITY';
+// 修改图片角度
+export const CHANGE_PIC_ANGLE = 'CHANGE_PIC_ANGLE';
+
+// delta: { width: Number, height: Number } 这两个都是相差值
+export function changePicSizeToPosition(page, item, delta) {
+  return {
+    type: CHANGE_PIC_SIZE_TO_POSITION,
+    page,
+    item,
+    delta,
+  };
+}
+
+// size: { width: Number, height: Number }
+export function changePicSize(page, item, size) {
+  return {
+    type: CHANGE_PIC_SIZE,
+    page,
+    item,
+    size,
+  };
+}
+
+// position: { x: Number, y: Number }
+export function changePicPosition(page, item, position) {
+  return {
+    type: CHANGE_PIC_POSITION,
+    page,
+    item,
+    position,
+  };
+}
+
+// opacity: Number 0.0 ~ 1.0(不透明)
+export function changePicOpacity(page, item, opacity) {
+  return {
+    type: CHANGE_PIC_OPACITY,
+    page,
+    item,
+    opacity,
+  };
+}
+
+// angle: Number
+export function changePicAngle(page, item, angle) {
+  return {
+    type: CHANGE_PIC_ANGLE,
+    page,
+    item,
+    angle,
+  };
+}
+
+
+
 export function togglePicDialog(boolean) {
   return {
     type: TOGGLE_PIC_DIALOG,
@@ -22,6 +85,16 @@ export function addPicToMyUpload(picArr) {
   return {
     type: ADD_PIC_TO_MY_UPLOAD,
     picArr,
+  };
+}
+
+// page 图片放在哪一页
+// url 图片url
+export function addPic(page, url) {
+  return {
+    type: ADD_PIC,
+    page,
+    url,
   };
 }
 

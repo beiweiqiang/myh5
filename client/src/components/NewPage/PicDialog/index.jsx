@@ -12,11 +12,13 @@ class PicDialog extends Component {
     const {
       displayPicDialog,
       myUploadPic,
+      currentPage,
     } = this.props;
     // dispatch
     const {
       togglePicDialog,
       uploadPic,
+      addPic,
     } = this.props;
     const actions = [
       <FlatButton
@@ -38,6 +40,9 @@ class PicDialog extends Component {
         <PicTabs
           uploadPic={uploadPic}
           myUploadPic={myUploadPic}
+          currentPage={currentPage}
+          addPic={addPic}
+          togglePicDialog={togglePicDialog}
         />
       </Dialog>
     );
@@ -46,7 +51,9 @@ class PicDialog extends Component {
 
 PicDialog.propTypes = {
   displayPicDialog: PropTypes.bool.isRequired,
+  currentPage: PropTypes.number.isRequired,
 
+  addPic: PropTypes.func.isRequired,
   togglePicDialog: PropTypes.func.isRequired,
   uploadPic: PropTypes.func.isRequired,
 };

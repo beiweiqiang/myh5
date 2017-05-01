@@ -8,7 +8,8 @@ import PageList from '../components/NewPage/PageList/PageList.jsx';
 import MyTemplate from '../components/NewPage/MyTemplate/MyTemplate.jsx';
 import EditTabs from '../components/NewPage/EditTabs/EditTabs.jsx';
 import CircularProgressBg from '../components/CircularProgressBg.jsx';
-import EditCard from '../components/NewPage/EditCard/index.jsx';
+import EditTextCard from '../components/NewPage/EditTextCard/index.jsx';
+import EditPicCard from '../components/NewPage/EditPicCard/index.jsx';
 import PublishSettings from '../components/NewPage/PublishSettings/index.jsx';
 import MySnackbar from '../components/MySnackbar.jsx';
 
@@ -21,14 +22,14 @@ import {
   // edittabs
   changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition,
   // tabs
-  toggleTextEditCard, deleteTextItem,
+  toggleTextEditCard, deleteTextItem, togglePicEditCard, deletePicItem,
   // publishsettings
   changePublishTitle,
   // snackbar
   displaySnackbar,
   // picdialog
-  togglePicDialog,
-  uploadPic,
+  togglePicDialog, uploadPic, addPic,
+  changePicSize, changePicPosition, changePicOpacity, changePicAngle, changePicSizeToPosition,
 } from '../actions';
 
 const style = {
@@ -81,8 +82,8 @@ class NewPage extends Component {
       currentPage,
       // h5整体内容
       pages,
-      // 在编辑该页的哪一个文本，没有在编辑状态则为null
-      currentTextIndex,
+      // 在编辑该页的哪一个文本 / 图片，没有在编辑状态则为null
+      currentTextIndex, currentPicIndex,
       // 是否展示发布设置card
       displayPubSettings,
       // 浏览器窗口底端是否弹出一个snackbar
@@ -95,23 +96,30 @@ class NewPage extends Component {
       myUploadPic,
     } = this.props;
 
-    // dispatch to props
+    // dispatch
     const {
       // toolbar
       togglePhoneSize, addText, publishH5, displayQRcode, displayPublishSettings,
-      // pagelist
+      // 关于页码
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
-      // edittabs
+      // 修改文本样式
       changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition,
       // tabs
-      toggleTextEditCard, deleteTextItem,
+      toggleTextEditCard, deleteTextItem, togglePicEditCard, deletePicItem,
       // publishsettings
       changePublishTitle,
 
       displaySnackbar,
+
       // picdialog
+      // 切换显示图片选择dialog
       togglePicDialog,
+      // 上传用户图片
       uploadPic,
+      // 点击添加按钮添加图片
+      addPic,
+      // 修改图片样式
+      changePicSize, changePicPosition, changePicOpacity, changePicAngle, changePicSizeToPosition,
     } = this.props;
 
     if (loading) return (<CircularProgressBg />);
@@ -141,6 +149,7 @@ class NewPage extends Component {
               togglePicDialog={togglePicDialog}
               uploadPic={uploadPic}
               myUploadPic={myUploadPic}
+              addPic={addPic}
             />
 
             <div style={underToolbarStyle}>
@@ -148,12 +157,14 @@ class NewPage extends Component {
                 mobileSize={mobileSize}
                 pages={pages}
                 currentPage={currentPage}
-                currentTextIndex={currentTextIndex}
                 changeTextPosition={changeTextPosition}
+                changePicSize={changePicSize}
+                changePicPosition={changePicPosition}
+                changePicSizeToPosition={changePicSizeToPosition}
               />
               {currentTextIndex === null ?
                 null :
-                (<EditCard
+                (<EditTextCard
                   pages={pages}
                   currentTextIndex={currentTextIndex}
                   currentPage={currentPage}
@@ -163,6 +174,14 @@ class NewPage extends Component {
                   changeTextContent={changeTextContent}
                   toggleTextEditCard={toggleTextEditCard}
                   changeTextPosition={changeTextPosition}
+                />)}
+              {currentPicIndex === null ?
+                null :
+                (<EditPicCard
+                  pages={pages}
+                  currentPicIndex={currentPicIndex}
+                  currentPage={currentPage}
+                  togglePicEditCard={togglePicEditCard}
                 />)}
               {!displayPubSettings ?
                 null :
@@ -188,6 +207,8 @@ class NewPage extends Component {
               currentPage={currentPage}
               toggleTextEditCard={toggleTextEditCard}
               deleteTextItem={deleteTextItem}
+              togglePicEditCard={togglePicEditCard}
+              deletePicItem={deletePicItem}
             />
           </div>
         </div>
@@ -227,6 +248,8 @@ NewPage.propTypes = {
 
   toggleTextEditCard: PropTypes.func.isRequired,
   deleteTextItem: PropTypes.func.isRequired,
+  togglePicEditCard: PropTypes.func.isRequired,
+  deletePicItem: PropTypes.func.isRequired,
 
   mobileSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -243,6 +266,12 @@ NewPage.propTypes = {
   displayPicDialog: PropTypes.bool.isRequired,
   togglePicDialog: PropTypes.func.isRequired,
   uploadPic: PropTypes.func.isRequired,
+  addPic: PropTypes.func.isRequired,
+  changePicSize: PropTypes.func.isRequired,
+  changePicPosition: PropTypes.func.isRequired,
+  changePicOpacity: PropTypes.func.isRequired,
+  changePicAngle: PropTypes.func.isRequired,
+  changePicSizeToPosition: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -260,7 +289,10 @@ function mapStateToProps(state) {
     mobileSize: state.newPage.mobileSize,
     currentPage: state.newPage.currentPage,
     pages: state.newPage.pages,
+
     currentTextIndex: state.newPage.currentTextIndex,
+    currentPicIndex: state.newPage.currentPicIndex,
+
     myUploadPic: state.myUploadPic,
   };
 }
@@ -288,6 +320,8 @@ export default connect(
 
     toggleTextEditCard,
     deleteTextItem,
+    togglePicEditCard,
+    deletePicItem,
 
     changePublishTitle,
 
@@ -295,5 +329,11 @@ export default connect(
 
     togglePicDialog,
     uploadPic,
+    addPic,
+    changePicSize,
+    changePicPosition,
+    changePicOpacity,
+    changePicAngle,
+    changePicSizeToPosition,
   }
 )(NewPage);

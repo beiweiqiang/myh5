@@ -38,4 +38,9 @@ a {
 .box {
   display: inline-block;
   position: absolute;
+  cursor: move;
+}
+
+.addOpacity {
+  opacity: 0.3;
 }

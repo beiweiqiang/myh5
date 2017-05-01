@@ -39,8 +39,13 @@
         .swiper-slide {
             background: #fff;
         }
-        .box {
+        .textBox {
             position: absolute;
+        }
+        .picBox {
+            position: absolute;
+            background-size: cover;
+            background-position: 50% 50%;
         }
     </style>
 </head>
@@ -54,11 +59,21 @@
                 <div class="swiper-slide">
                     <% page.text.forEach(function(item, index){ %>
                         <span
-                            class="box"
+                            class="textBox"
                             style="font-size: <%= item.size %>px;
                                 color: <%= item.color %>;
                                 font-weight: <%= item.bold ? 'bold' : 'normal' %>;
                                 transform: translate(<%= item.x %>px, <%= item.y %>px)">
+                            <%= item.content %>
+                        </span>
+                    <% }); %>
+                    <% page.pic.forEach(function(item, index){ %>
+                        <span
+                            class="picBox"
+                            style="transform: translate(<%= item.x %>px, <%= item.y %>px);
+                                background-image: url(<%= item.url %>);
+                                width: <%= item.width %>px;
+                                height: <%= item.height %>px">
                             <%= item.content %>
                         </span>
                     <% }); %>
