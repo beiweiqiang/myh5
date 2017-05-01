@@ -32,6 +32,8 @@ class MyRnd extends Component {
           backgroundPosition: '50% 50%',
           backgroundClip: 'padding-box',
           boxSizing: 'border-box',
+          opacity,
+          transform: `rotate(${angle}deg)`,
         }}
         className="box"
         onResizeStart={(event, direction, refToElement, delta) => {

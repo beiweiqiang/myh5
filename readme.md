@@ -24,11 +24,12 @@ react, redux, react-router4, react-redux, webpack, eslint, mongoose
 部分特点：
 
 接下来实现：
-1. 研究本地如何缓存图片
-2. 让用户选择是否30天内免登陆
-3. 密码修改
-4. 头像修改
+- 让用户选择是否30天内免登陆
+- 密码修改
+- 头像修改
+- 加动画
+- 研究一下微信接口
 
 bug：
-1. 在MyRnd处存在16px的bug，y设为0但是实际上是16px
+- 在MyRnd处存在16px的bug，y设为0但是实际上是16px
   解决：原来是在组件的style里直接写position: absolute，改成用className就行了

@@ -5,13 +5,15 @@ export const CHANGE_FONT_COLOR = 'CHANGE_FONT_COLOR';
 // 字体加粗
 export const FONT_BOLD = 'FONT_BOLD';
 // 修改文本内容
-export const CHANG_TEXT_CONTENT = 'CHANG_TEXT_CONTENT';
+export const CHANGE_TEXT_CONTENT = 'CHANGE_TEXT_CONTENT';
+// 修改文本不透明度
+export const CHANGE_TEXT_OPACITY = 'CHANGE_TEXT_OPACITY';
 
 // actions creator ======================
 
 export function changeTextContent(page, item, content) {
   return {
-    type: CHANG_TEXT_CONTENT,
+    type: CHANGE_TEXT_CONTENT,
     page,
     item,
     content,
@@ -42,5 +44,14 @@ export function fontBold(page, item, boolean) {
     page,
     item,
     bold: boolean,
+  };
+}
+
+export function changeTextOpacity(page, item, opacity) {
+  return {
+    type: CHANGE_TEXT_OPACITY,
+    page,
+    item,
+    opacity,
   };
 }

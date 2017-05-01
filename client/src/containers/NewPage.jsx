@@ -20,7 +20,7 @@ import {
   // pagelist
   togglePage, deletePage, addNewPage, upMovePage, downMovePage,
   // edittabs
-  changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition,
+  changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition, changeTextOpacity,
   // tabs
   toggleTextEditCard, deleteTextItem, togglePicEditCard, deletePicItem,
   // publishsettings
@@ -103,7 +103,7 @@ class NewPage extends Component {
       // 关于页码
       togglePage, deletePage, addNewPage, upMovePage, downMovePage,
       // 修改文本样式
-      changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition,
+      changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition, changeTextOpacity,
       // tabs
       toggleTextEditCard, deleteTextItem, togglePicEditCard, deletePicItem,
       // publishsettings
@@ -128,7 +128,6 @@ class NewPage extends Component {
       <div>
         <TopBar />
         <div style={style}>
-          <MyTemplate />
           <div style={centerStyle} >
             <Toolbar
               email={email}
@@ -174,6 +173,7 @@ class NewPage extends Component {
                   changeTextContent={changeTextContent}
                   toggleTextEditCard={toggleTextEditCard}
                   changeTextPosition={changeTextPosition}
+                  changeTextOpacity={changeTextOpacity}
                 />)}
               {currentPicIndex === null ?
                 null :
@@ -182,6 +182,8 @@ class NewPage extends Component {
                   currentPicIndex={currentPicIndex}
                   currentPage={currentPage}
                   togglePicEditCard={togglePicEditCard}
+                  changePicOpacity={changePicOpacity}
+                  changePicAngle={changePicAngle}
                 />)}
               {!displayPubSettings ?
                 null :
@@ -245,6 +247,7 @@ NewPage.propTypes = {
   changeFontColor: PropTypes.func.isRequired,
   fontBold: PropTypes.func.isRequired,
   changeTextPosition: PropTypes.func.isRequired,
+  changeTextOpacity: PropTypes.func.isRequired,
 
   toggleTextEditCard: PropTypes.func.isRequired,
   deleteTextItem: PropTypes.func.isRequired,
@@ -317,6 +320,7 @@ export default connect(
     changeFontSize,
     changeFontColor,
     fontBold,
+    changeTextOpacity,
 
     toggleTextEditCard,
     deleteTextItem,

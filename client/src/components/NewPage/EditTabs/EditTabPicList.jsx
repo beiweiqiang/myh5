@@ -53,7 +53,7 @@ class EditListItem extends Component {
 
     return (
       <ListItem
-        primaryText={`${index}`}
+        primaryText={`图片 ${index + 1}`}
         onTouchTap={(event) => togglePicEditCard(index)}
         rightIconButton={(
           <span>

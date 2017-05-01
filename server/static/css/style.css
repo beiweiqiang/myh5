@@ -39,6 +39,7 @@ a {
   display: inline-block;
   position: absolute;
   cursor: move;
+  transform-origin: 50% 50%;
 }
 
 .addOpacity {

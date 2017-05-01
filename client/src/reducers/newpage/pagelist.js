@@ -11,8 +11,9 @@ import {
   CHANGE_FONT_SIZE,
   CHANGE_FONT_COLOR,
   FONT_BOLD,
-  CHANG_TEXT_CONTENT,
+  CHANGE_TEXT_CONTENT,
   CHANGE_TEXT_POSITION,
+  CHANGE_TEXT_OPACITY,
   // tabs
   DELETE_TEXT_ITEM,
   DELETE_PIC_ITEM,
@@ -134,12 +135,23 @@ function page(state = {
       ],
     });
   }
-  if (action.type === CHANG_TEXT_CONTENT) {
+  if (action.type === CHANGE_TEXT_CONTENT) {
     return Object.assign({}, state, {
       text: [
         ...state.text.slice(0, action.item),
         Object.assign({}, state.text[action.item], {
           content: action.content,
+        }),
+        ...state.text.slice(action.item + 1),
+      ],
+    });
+  }
+  if (action.type === CHANGE_TEXT_OPACITY) {
+    return Object.assign({}, state, {
+      text: [
+        ...state.text.slice(0, action.item),
+        Object.assign({}, state.text[action.item], {
+          opacity: action.opacity,
         }),
         ...state.text.slice(action.item + 1),
       ],
@@ -251,8 +263,9 @@ export function pages(state = [
     || action.type === CHANGE_FONT_SIZE
     || action.type === CHANGE_FONT_COLOR
     || action.type === FONT_BOLD
-    || action.type === CHANG_TEXT_CONTENT
+    || action.type === CHANGE_TEXT_CONTENT
     || action.type === CHANGE_TEXT_POSITION
+    || action.type === CHANGE_TEXT_OPACITY
     || action.type === DELETE_TEXT_ITEM
     || action.type === CHANGE_PIC_SIZE
     || action.type === CHANGE_PIC_POSITION

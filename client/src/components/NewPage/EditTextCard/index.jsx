@@ -12,6 +12,7 @@ import ColorPick from './ColorPick.jsx';
 import FontBold from './FontBold.jsx';
 import TextContent from './TextContent.jsx';
 import Position from './Position.jsx';
+import TextOpacity from './TextOpacity.jsx';
 
 class EditTextCard extends Component {
   handleClickOutside = evt => {
@@ -19,10 +20,11 @@ class EditTextCard extends Component {
   }
   
   render() {
-    // pages, currentTextIndex, currentPage, changeFontSize, changeFontColor, fontBold, changeTextContent
     const { pages, currentTextIndex, currentPage } = this.props;
-    const { changeFontSize, changeFontColor, fontBold, changeTextContent, toggleTextEditCard, changeTextPosition } = this.props;
-    const { content, size, color, bold, x, y } = pages[currentPage].text[currentTextIndex];
+    const { changeFontSize, changeFontColor, fontBold, changeTextContent, toggleTextEditCard, changeTextPosition,
+      changeTextOpacity,
+     } = this.props;
+    const { content, size, color, bold, x, y, opacity } = pages[currentPage].text[currentTextIndex];
     return (
       <Card style={{ maxWidth: '360px', padding: '0 2em 1em 2em' }}>
         <CardHeader
@@ -46,6 +48,12 @@ class EditTextCard extends Component {
           currentTextIndex={currentTextIndex}
           currentPage={currentPage}
           changeFontSize={changeFontSize}
+        />
+        <TextOpacity
+          currentPage={currentPage}
+          currentTextIndex={currentTextIndex}
+          changeTextOpacity={changeTextOpacity}
+          opacity={opacity}
         />
         <Position
           position={{x, y}}

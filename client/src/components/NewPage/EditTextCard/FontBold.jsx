@@ -8,7 +8,7 @@ class FontBold extends Component {
     return (
       <div>
         <Checkbox
-          style={{ margin: '6px 0px' }}
+          style={{ margin: '18px 0px' }}
           label="加粗"
           onCheck={(event, isInputChecked) => {
             fontBold(currentPage, currentTextIndex, isInputChecked);

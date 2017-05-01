@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
+import Slider from 'material-ui/Slider';
 
 
 class FontSize extends Component {
@@ -8,15 +9,25 @@ class FontSize extends Component {
     const { changeFontSize, currentTextIndex, currentPage } = this.props;
 
     return (
-      <TextField
-        name="fontSize"
-        floatingLabelText="输入字体大小"
-        onChange={(event, newValue) => {
-          changeFontSize(currentPage, currentTextIndex, newValue);
+      <div
+        style={{
+          marginTop: '12px',
         }}
-        value={size}
-        type="number"
-      />
+      >
+        <small>{`字体大小: ${size} (可使用键盘方向键)`}</small>
+        <Slider
+          min={13}
+          max={100}
+          step={1}
+          value={size}
+          onChange={(event, newValue) => {
+            changeFontSize(currentPage, currentTextIndex, newValue);
+          }}
+          style={{
+            marginBottom: '-24px',
+          }}
+        />
+      </div>
     );
   }
 }

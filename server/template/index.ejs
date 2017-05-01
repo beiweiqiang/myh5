@@ -41,11 +41,13 @@
         }
         .textBox {
             position: absolute;
+            transform-origin: 50% 50%;            
         }
         .picBox {
             position: absolute;
             background-size: cover;
             background-position: 50% 50%;
+            transform-origin: 50% 50%;            
         }
     </style>
 </head>
@@ -63,19 +65,25 @@
                             style="font-size: <%= item.size %>px;
                                 color: <%= item.color %>;
                                 font-weight: <%= item.bold ? 'bold' : 'normal' %>;
-                                transform: translate(<%= item.x %>px, <%= item.y %>px)">
+                                transform: translate(<%= item.x %>px, <%= item.y %>px);
+                                opacity: <%= item.opacity %>">
                             <%= item.content %>
                         </span>
                     <% }); %>
                     <% page.pic.forEach(function(item, index){ %>
-                        <span
-                            class="picBox"
-                            style="transform: translate(<%= item.x %>px, <%= item.y %>px);
-                                background-image: url(<%= item.url %>);
-                                width: <%= item.width %>px;
-                                height: <%= item.height %>px">
-                            <%= item.content %>
-                        </span>
+                        <div
+                            style="display: inline-block;
+                                transform: translate(<%= item.x %>px, <%= item.y %>px)"
+                        >
+                            <span
+                                class="picBox"
+                                style="transform: rotate(<%= item.angle %>deg);
+                                    background-image: url(<%= item.url %>);
+                                    width: <%= item.width %>px;
+                                    height: <%= item.height %>px;
+                                    opacity: <%= item.opacity %>">
+                            </span>
+                        </div>
                     <% }); %>
                 </div>
 

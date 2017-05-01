@@ -70,7 +70,8 @@ export {
   CHANGE_FONT_SIZE,
   CHANGE_FONT_COLOR,
   FONT_BOLD,
-  CHANG_TEXT_CONTENT,
+  CHANGE_TEXT_CONTENT,
+  CHANGE_TEXT_OPACITY,
 } from './newpage/editcard';
 // mobilewindow
 export {
@@ -155,6 +156,7 @@ export {
   changeFontColor,
   fontBold,
   changeTextContent,
+  changeTextOpacity,
 } from './newpage/editcard';
 // mobilewindow
 export {

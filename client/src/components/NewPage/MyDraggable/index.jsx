@@ -6,11 +6,12 @@ export default class MyDraggable extends React.Component {
   render() {
     const { ele, currentPage, index } = this.props;
     const { changeTextPosition } = this.props;
-    const { content, size, color, bold, x, y } = ele;
+    const { content, size, color, bold, x, y, opacity, angle } = ele;
     const textStyle = {
       fontSize: size,
       color,
       fontWeight: `${bold ? 'bold' : 'normal'}`,
+      opacity,
     };
     return (
       <Draggable

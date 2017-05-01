@@ -4,8 +4,10 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Done from 'material-ui/svg-icons/action/done';
 import { blue500 } from 'material-ui/styles/colors';
-
 import onClickOutside from 'react-onclickoutside';
+
+import PicOpacity from './PicOpacity.jsx';
+import PicAngle from './PicAngle.jsx';
 
 class EditPicCard extends Component {
   handleClickOutside = evt => {
@@ -19,7 +21,9 @@ class EditPicCard extends Component {
     } = this.props;
     // dispatch
     const {
+      changePicOpacity, changePicAngle,
     } = this.props;
+    const picStyle = pages[currentPage].pic[currentPicIndex];
     return (
       <Card style={{ maxWidth: '360px', padding: '0 2em 1em 2em' }}>
         <CardHeader
@@ -32,6 +36,18 @@ class EditPicCard extends Component {
             onTouchTap={(event) => togglePicEditCard(false)}
           />
         </CardHeader>
+        <PicOpacity
+          currentPage={currentPage}
+          currentPicIndex={currentPicIndex}
+          changePicOpacity={changePicOpacity}
+          opacity={picStyle.opacity}
+        />
+        <PicAngle
+          currentPage={currentPage}
+          currentPicIndex={currentPicIndex}
+          changePicAngle={changePicAngle}
+          angle={picStyle.angle}
+        />
       </Card>
     );
   }

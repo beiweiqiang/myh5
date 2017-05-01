@@ -19,9 +19,12 @@ class MobileWindow extends Component {
     } = this.props;
     const windowSize = {};
     switch (mobileSize) {
-      case 1: windowSize.width = 375; windowSize.height = 667; break;
-      case 2: windowSize.width = 414; windowSize.height = 736; break;
-      case 3: windowSize.width = 320; windowSize.height = 568; break;
+      // i6 状态栏40px 导航栏88px
+      case 1: windowSize.width = 375; windowSize.height = (667 - 40 - 88); break;
+      // i6p 状态栏60px 导航栏132px
+      case 2: windowSize.width = 414; windowSize.height = (736 - 40 - 88); break;
+      // i5s 状态栏40px 导航栏88px
+      case 3: windowSize.width = 320; windowSize.height = (568 - 40 - 88); break;
       default: break;
     }
     const style = {
