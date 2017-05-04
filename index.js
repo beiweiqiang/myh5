@@ -10,6 +10,9 @@ const passport = require('passport');
 const config = require('./config');
 const qiniu = require('qiniu');
 
+const signature = require('./signature');
+const wechatCfg = require('./config/wechat.cfg');
+
 // 需要填写你的 Access Key 和 Secret Key
 qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
@@ -20,8 +23,17 @@ require('./server/models').connect(config.dbUri);
 
 const app = express();
 
+app.all('*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-type');
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+  next();
+});
+
+
+
 // 指定端口
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // app 静态资源
 app.use(express.static(path.resolve(__dirname, 'server', 'static')));
@@ -30,6 +42,17 @@ app.use(express.static(path.resolve(__dirname, 'client', 'dist')));
 // 解析http body信息
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/signature', (req, res) => {
+  const url = req.query.url;
+  // console.log(url);
+  signature.sign(url, (signatureMap) => {
+    // 因为config接口需要appid,多加一个参数传入appid
+    signatureMap.appId = wechatCfg.appid;
+    // 发送给客户端
+    res.json(signatureMap);
+  });
+});
 
 app.use(cookieParser());
 

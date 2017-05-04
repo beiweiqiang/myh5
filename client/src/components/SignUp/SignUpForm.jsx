@@ -29,6 +29,7 @@ class SignUpForm extends Component {
               errorText={validateResult.name}
               onChange={event => signupFormInput({ name: `${event.target.value}` })}
               value={user.name}
+              autoFocus
             />
           </div>
 

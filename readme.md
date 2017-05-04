@@ -9,9 +9,10 @@ react, redux, react-router4, react-redux, webpack, eslint, mongoose
 上传的图片和生成的页面放在七牛云上
 
 功能：
-1. 注册登录
-2. h5发布页面，可添加文本、图片，一键生成二维码
-3. 我的h5页面
+- 注册登录
+- h5发布页面，可添加文本、图片，一键生成二维码
+- 我的h5页面
+- 未编辑完的h5可以本地保存
 
 使用：
 1. clone 本仓库
@@ -29,6 +30,7 @@ react, redux, react-router4, react-redux, webpack, eslint, mongoose
 - 头像修改
 - 加动画
 - 研究一下微信接口
+- 线上和测试分开七牛云
 
 bug：
 - 在MyRnd处存在16px的bug，y设为0但是实际上是16px

@@ -26,6 +26,7 @@ class LoginForm extends Component {
               errorText={validateResult.email}
               onChange={event => loginFormInput({ email: `${event.target.value}` })}
               value={user.email}
+              autoFocus
             />
           </div>
 

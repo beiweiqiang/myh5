@@ -10,13 +10,13 @@ const QRCode = require('qrcode');
 const exec = require('child_process').exec;
 const formidable = require('formidable');
 
-const urlPrefix = require('../../config').qiniu.urlPrefix;
+const urlPrefix = require('../../config').qiniuOnline.urlPrefix;
 const config = require('../../config');
 
 const router = new express.Router();
 
 // 要上传的空间
-const myBucket = 'myh5';
+const myBucket = config.qiniuOnline.bucket;
 
 // 七牛构建上传策略函数
 const uptoken = (bucketName, key) => {
