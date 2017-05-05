@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import $ from 'jquery';
 
 const styles = {
   uploadButton: {

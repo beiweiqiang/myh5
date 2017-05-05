@@ -31,7 +31,7 @@ class MyToolbar extends Component {
       addPic,
     } = this.props;
 
-    // state to props
+    // state
     const {
       publishTitle,
       mobileSize,
@@ -43,8 +43,16 @@ class MyToolbar extends Component {
       publishBtnDisabled,
       displayPicDialog,
       myUploadPic,
+      // 微信分享图标
+      wechatImg,
+      wechatDes,
     } = this.props;
-    const publishContent = { pages, title: publishTitle };
+    // 传给后端的内容
+    const wechatSettings = {
+      img: wechatImg,
+      desc: wechatDes,
+    };
+    const publishContent = { pages, title: publishTitle, wechatSettings };
     return (
       <div style={{ width: '100%' }}>
         <Toolbar style={{ width: '100%', marginBottom: '10px' }}>
@@ -105,7 +113,7 @@ class MyToolbar extends Component {
               tooltip="保存正在编辑的H5"
               touch
               onTouchTap={(event) => {
-                localStorage.setItem('savedH5', JSON.stringify({ pages, title: publishTitle }));
+                localStorage.setItem('savedH5', JSON.stringify(publishContent));
                 displaySnackbar(true, '已保存');
               }}
             >
@@ -154,6 +162,7 @@ MyToolbar.propTypes = {
   email: PropTypes.string.isRequired,
   currentPage: PropTypes.number.isRequired,
   displaySnackbar: PropTypes.func.isRequired,
+  wechatImg: PropTypes.string.isRequired,
 };
 
 export default MyToolbar;

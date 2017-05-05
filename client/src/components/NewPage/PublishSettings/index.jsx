@@ -4,10 +4,13 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Done from 'material-ui/svg-icons/action/done';
 import { blue500 } from 'material-ui/styles/colors';
+import Subheader from 'material-ui/Subheader';
 
 import onClickOutside from 'react-onclickoutside';
 
 import PublishTitle from './PublishTitle.jsx';
+import WechatShareImgUrl from './WechatShareImgUrl.jsx';
+import WechatShareDesc from './WechatShareDesc.jsx';
 
 class PublishSettings extends Component {
   handleClickOutside = evt => {
@@ -15,13 +18,18 @@ class PublishSettings extends Component {
   }
   
   render() {
-    // 
+    // state
     const {
       publishTitle,
+      wechatImgUrl,
+      wechatDes,
     } = this.props;
+    // dispatch
     const {
       displayPublishSettings,
       changePublishTitle,
+      uploadWechatImgUrl,
+      changeWechatDesc,
     } = this.props;
     return (
       <Card style={{ maxWidth: '360px', padding: '0 2em 1em 2em' }}>
@@ -38,6 +46,15 @@ class PublishSettings extends Component {
         <PublishTitle
           changePublishTitle={changePublishTitle}
           publishTitle={publishTitle}
+        />
+        <h4 style={{ color: blue500, fontWeight: 'normal' }}>微信分享设置</h4>
+        <WechatShareImgUrl
+          imgUrl={wechatImgUrl}
+          upload={uploadWechatImgUrl}
+        />
+        <WechatShareDesc
+          changeWechatShareDesc={changeWechatDesc}
+          desc={wechatDes}
         />
       </Card>
     );

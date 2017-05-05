@@ -22,7 +22,8 @@ class PublishTitle extends Component {
 }
 
 PublishTitle.propTypes = {
-
+  publishTitle: PropTypes.string.isRequired,
+  changePublishTitle: PropTypes.func.isRequired,
 };
 
 export default PublishTitle;

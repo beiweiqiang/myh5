@@ -57,6 +57,61 @@ router.get('/topbar', (req, res) => {
   });
 });
 
+router.post('/wechatImgUpload', (req, res) => {
+  // get the last part from a authorization header string like "bearer token-value"
+  const token = req.headers.authorization.split(' ')[1];
+  // decode the token using a secret key-phrase
+  const payload = jwt.verify(token, config.jwtSecret);
+  const userId = payload.sub;
+  // 不存在该目录则生成
+  const dir = join(__dirname, `../temp/uploads/img/${userId}`);
+  checkDir(dir);
+  const form = new formidable.IncomingForm();
+  form.multiples = false;
+  form.uploadDir = dir;
+  form.on('file', (field, file) => {
+    const suffix = file.name.replace(/.*(\..*)/gi, '$1');
+    const fileName = `${Date.now()}${suffix}`;
+    fs.rename(file.path, join(form.uploadDir, fileName));
+
+    // 上传七牛云
+    const key = `resource/${userId}/img/${fileName}`;
+    // 生成上传 Token
+    const token = uptoken(myBucket, key);
+    // 构造上传函数
+    function uploadFile(myUptoken, myKey, localFile) {
+      const extra = new qiniu.io.PutExtra();
+      qiniu.io.putFile(myUptoken, myKey, localFile, extra, (err, ret) => {
+        if (!err) {
+          // 上传成功， 处理返回值
+          // console.log(ret.hash, ret.key, ret.persistentId);
+          const url = `http://${urlPrefix}/${ret.key}`;
+          // 把在服务器生成的对应临时目录删除
+          exec(`rmdir ${dir} /s /q `, function (err, stdout, stderr) {
+            // your callback goes here
+            console.log('已删除临时上传的wechat img');
+          });
+          res.status(200).json({
+            url,
+          });
+        } else {
+          // 上传失败， 处理返回代码
+          console.log(err);
+        }
+      });
+    }
+    // 调用uploadFile上传
+    const filePath = join(dir, fileName);
+    uploadFile(token, key, filePath);
+  });
+
+  form.on('error', (err) => {
+    console.log('An error has occured: \n' + err);
+  });
+
+  form.parse(req);
+});
+
 // ajax上传图片，临时保存在本地，然后上传到七牛云
 router.post('/picUpload', (req, res) => {
   // get the last part from a authorization header string like "bearer token-value"
@@ -170,14 +225,14 @@ router.post('/picUpload', (req, res) => {
 // 填充数据后的html上传至七牛云
 // 更新用户数据库
 router.post('/publish', (req, res) => {
-  const { pages, title } = req.body;
+  const { pages, title, wechatSettings } = req.body;
 
   const secretToken = req.headers.authorization.split(' ')[1];
   const payload = jwt.verify(secretToken, config.jwtSecret);
   const userId = payload.sub;
 
   // 生成已填数据的html模板
-  const renderStr = ejs.render(read(join(__dirname, '../template/index.ejs'), 'utf8'), { pages, title });
+  const renderStr = ejs.render(read(join(__dirname, '../template/index.ejs'), 'utf8'), { pages, title, wechatSettings });
 
   // 不存在该目录则生成
   const dir = join(__dirname, `../temp/html/${userId}`);

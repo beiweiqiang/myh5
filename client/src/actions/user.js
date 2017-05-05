@@ -6,6 +6,8 @@ import {
   saveMyPublish,
   setPublishBtn,
   addPicToMyUpload,
+  changeWechatImgUrl,
+  changeWechatDesc,
 } from './index';
 
 // **保存用户信息
@@ -60,9 +62,15 @@ export function getUserMes() {
         dispatch(setPublishBtn(false));
 
         // 加载本地暂存h5
-        const content = localStorage.getItem('savedH5');
-        if (content !== null) dispatch(loadCachePages(JSON.parse(content)));
-
+        let content = localStorage.getItem('savedH5');
+        if (content !== null) {
+          content = JSON.parse(content);
+          dispatch(loadCachePages(content));
+          // 微信分享图标
+          dispatch(changeWechatImgUrl(content.wechatSettings.img));
+          // 微信分享描述
+          dispatch(changeWechatDesc(content.wechatSettings.desc));
+        }
         // 加载数据库内容
         // 获取用户信息
         dispatch(saveUserMes(resMessage.user.userAccount));

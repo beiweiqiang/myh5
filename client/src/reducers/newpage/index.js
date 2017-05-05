@@ -9,6 +9,7 @@ import {
 
 import {
   title,
+  wechatSettings,
 } from './publishsettings';
 
 import {
@@ -27,4 +28,5 @@ export default combineReducers({
   currentTextIndex,
   currentPicIndex,
   pages,
+  wechatSettings,
 });

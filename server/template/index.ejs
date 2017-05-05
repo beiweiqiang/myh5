@@ -57,9 +57,13 @@
     <span
         id="userData"
         style="display: none"
-        data-onMenuShareTimelineTitle="<%=  %>"
+        data-onMenuShareTimelineTitle="<%= title %>"
         data-onMenuShareTimelineLink="<%=  %>"
-        data-onMenuShareTimelineImgUrl="<%=  %>"
+        data-onMenuShareTimelineImgUrl="<%= wechatSettings.img %>"
+        data-onMenuShareAppMessageTitle="<%= title %>"
+        data-onMenuShareAppMessageDesc="<%= wechatSettings.desc %>"
+        data-onMenuShareAppMessageLink="<%=  %>"
+        data-onMenuShareAppMessageImgUrl="<%= wechatSettings.img %>"
     ></span>
     <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -115,30 +119,38 @@
             direction: 'vertical'
         });
         var url = location.href.split('#')[0];
-        console.log(url);
+        // console.log(url);
+
         var dataSpan = $('#userData');
         var data = {
             onMenuShareTimeline: {
                 title: dataSpan.attr('data-onMenuShareTimelineTitle'),
-            }
+                link: dataSpan.attr('data-onMenuShareTimelineLink'),
+                imgUrl: dataSpan.attr('data-onMenuShareTimelineImgUrl'),
+            },
+            onMenuShareAppMessage: {
+                title: dataSpan.attr('data-onMenuShareAppMessageTitle'),
+                desc: dataSpan.attr('data-onMenuShareAppMessageDesc'),
+                link: dataSpan.attr('data-onMenuShareAppMessageLink'),
+                imgUrl: dataSpan.attr('data-onMenuShareAppMessageImgUrl'),
+            },
         };
+        console.log(data);
         // **AJAX 请求
         var xhr = new XMLHttpRequest();
         // xhr.open('get', 'http://beiweiqiang.com:3000/getsignature');
-        xhr.open('get', `http://beiweiqiang.com:3001/signature?url=${url}`);
-        // xhr.open('get', `http://localhost:3000/signature?url=${url}`);
+        // xhr.open('get', `http://beiweiqiang.com:3001/signature?url=${url}`);
+        xhr.open('get', `http://localhost:3001/signature?url=${url}`);
 
         xhr.setRequestHeader('Content-type', 'application/json');
         // xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
-            // var data = $.parseJSON(JSON.stringify(xhr.response));
             var data = JSON.parse(xhr.response);
-            // var data = xhr.response;
-            // console.log();
             console.log(data);
             var appId = data.appId; 
             console.log(appId);
             var jssdkConfig = {
+                // 上线以后设为false
                 debug: true,
                 appId: appId,
                 timestamp: data.timestamp,
@@ -147,7 +159,6 @@
                 jsApiList: [
                 'onMenuShareTimeline',
                 'onMenuShareAppMessage',
-                'menuItem:share:appMessage'
                 ]
             };
             //config接口注入权限验证配置
@@ -157,46 +168,37 @@
                 console.log(jssdkConfig);
                 console.log("jssdk准备就绪");
                 window.wx.onMenuShareAppMessage({
-                    title: '分享标题', // 分享标题
-                    desc: '分享描述', // 分享描述
-                    link: 'http://beiweiqiang.com', // 分享链接
-                    imgUrl: 'http://oe57cuk42.bkt.clouddn.com/3.jpg', // 分享图标
+                    title: data.onMenuShareAppMessage.title, // 分享标题
+                    desc: data.onMenuShareAppMessage.desc, // 分享描述
+                    link: data.onMenuShareAppMessage.link, // 分享链接
+                    imgUrl: data.onMenuShareAppMessage.imgUrl, // 分享图标
                     trigger: function (res) {
                         // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-                        alert('用户点击发送给朋友');
                     },
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        alert('分享成功!!!');
                     },
                     cancel: function () {
-                        alert('分享取消!!!!!');
                         // 用户取消分享后执行的回调函数
                     },
                     fail: function (res) {
                         alert(JSON.stringify(res));
                     }
                 });
-            });
-            document.querySelector('#shareBtn').onclick = function () {
-
                 // 分享到朋友圈
-                // window.wx.onMenuShareTimeline({
-                //     title: '分享标题', // 分享标题
-                //     link: 'http://beiweiqiang.com', // 分享链接
-                //     imgUrl: 'http://oe57cuk42.bkt.clouddn.com/3.jpg', // 分享图标
-                //     success: function () { 
-                //         // 用户确认分享后执行的回调函数
-                //     },
-                //     cancel: function () { 
-                //         // 用户取消分享后执行的回调函数
-                //     }
-                // });
-                // 分享给朋友
-                alert('分享');
-                
-            };
-            
+                window.wx.onMenuShareTimeline({
+                    title: data.onMenuShareTimeline.title, // 分享标题
+                    link: data.onMenuShareTimeline.link, // 分享链接
+                    imgUrl: data.onMenuShareTimeline.imgUrl, // 分享图标
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () { 
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+
+            });
             //jssdk调用失败的返回
             window.wx.error((res) => {
                 console.log("jssdk调用失败");        
@@ -204,9 +206,6 @@
             });
 
         });
-        // xhr.send(JSON.stringify({
-        //     url: url,
-        // }));
         xhr.send();
 
 

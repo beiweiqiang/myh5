@@ -80,6 +80,8 @@ export {
 // publishsettings
 export {
   CHANGE_PUBLISH_TITLE,
+  CHANGE_WECHAT_DESC,
+  CHANGE_WECHAT_IMG_URL,
 } from './newpage/publishsettings';
 // picdialog
 export {
@@ -165,6 +167,9 @@ export {
 // publishsettings
 export {
   changePublishTitle,
+  changeWechatDesc,
+  changeWechatImgUrl,
+  uploadWechatImgUrl,
 } from './newpage/publishsettings';
 // picdialog
 export {

@@ -24,7 +24,7 @@ import {
   // tabs
   toggleTextEditCard, deleteTextItem, togglePicEditCard, deletePicItem,
   // publishsettings
-  changePublishTitle,
+  changePublishTitle, changeWechatDesc, uploadWechatImgUrl,
   // snackbar
   displaySnackbar,
   // picdialog
@@ -64,7 +64,7 @@ const underToolbarStyle = {
 
 class NewPage extends Component {
   render() {
-    // state to props
+    // state
     const {
       // 发布按钮是否可以点击
       publishBtnDisabled,
@@ -90,6 +90,10 @@ class NewPage extends Component {
       snackbarOpen, snackbarMes,
       // 发布设置里面的title
       title,
+      // 微信分享图标
+      wechatImg,
+      // 微信分享描述
+      wechatDes,
       // 是否展示图片选择dialog
       displayPicDialog,
       // 用户上传的图片集合
@@ -107,7 +111,7 @@ class NewPage extends Component {
       // tabs
       toggleTextEditCard, deleteTextItem, togglePicEditCard, deletePicItem,
       // publishsettings
-      changePublishTitle,
+      changePublishTitle, uploadWechatImgUrl, changeWechatDesc,
 
       displaySnackbar,
 
@@ -149,6 +153,8 @@ class NewPage extends Component {
               uploadPic={uploadPic}
               myUploadPic={myUploadPic}
               addPic={addPic}
+              wechatImg={wechatImg}
+              wechatDes={wechatDes}
             />
 
             <div style={underToolbarStyle}>
@@ -190,7 +196,11 @@ class NewPage extends Component {
                 (<PublishSettings
                   displayPublishSettings={displayPublishSettings}
                   publishTitle={title}
+                  uploadWechatImgUrl={uploadWechatImgUrl}
+                  wechatImgUrl={wechatImg}
                   changePublishTitle={changePublishTitle}
+                  wechatDes={wechatDes}
+                  changeWechatDesc={changeWechatDesc}
                 />)}
             </div>
 
@@ -260,6 +270,8 @@ NewPage.propTypes = {
   // pages: PropTypes.array.isRequired,
 
   changePublishTitle: PropTypes.func.isRequired,
+  uploadWechatImgUrl: PropTypes.func.isRequired,
+  wechatImg: PropTypes.string.isRequired,
 
   snackbarOpen: PropTypes.bool.isRequired,
   snackbarMes: PropTypes.string.isRequired,
@@ -283,6 +295,9 @@ function mapStateToProps(state) {
     snackbarOpen: state.snackbar.open,
     snackbarMes: state.snackbar.mes,
     title: state.newPage.title,
+    wechatImg: state.newPage.wechatSettings.imgUrl,
+    wechatDes: state.newPage.wechatSettings.desc,
+
     displayPubSettings: state.newPage.displayPublishSettings,
     publishBtnDisabled: state.newPage.publishBtnDisabled,
     qrcodeUrl: state.newPage.qrcodeUrl,
@@ -328,6 +343,8 @@ export default connect(
     deletePicItem,
 
     changePublishTitle,
+    uploadWechatImgUrl,
+    changeWechatDesc,
 
     displaySnackbar,
 

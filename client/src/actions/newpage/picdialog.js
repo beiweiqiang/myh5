@@ -141,10 +141,8 @@ export function uploadPic(files) {
         // xhr() {
         //   // create an XMLHttpRequest
         //   const xhr = new XMLHttpRequest();
-
         //   // listen to the 'progress' event
         //   xhr.upload.addEventListener('progress', (evt) => {
-
         //     if (evt.lengthComputable) {
         //       // calculate the percentage of upload completed
         //       var percentComplete = evt.loaded / evt.total;
@@ -158,11 +156,8 @@ export function uploadPic(files) {
         //       if (percentComplete === 100) {
         //         $('.progress-bar').html('Done');
         //       }
-
         //     }
-
         //   }, false);
-
         //   return xhr;
         // }
       // });
