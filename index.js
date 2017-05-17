@@ -33,7 +33,7 @@ app.all('*', (req, res, next) => {
 
 
 // 指定端口
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // app 静态资源
 app.use(express.static(path.resolve(__dirname, 'server', 'static')));

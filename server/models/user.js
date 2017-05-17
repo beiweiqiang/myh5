@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const h5text = new mongoose.Schema({
   bold: Boolean,
@@ -46,7 +46,7 @@ const UserSchema = new mongoose.Schema({
 
 // **密码加密
 UserSchema.methods.generateHash = function (password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 
 // **验证输入的密码是否正确
