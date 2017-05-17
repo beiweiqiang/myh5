@@ -1,9 +1,0 @@
-{
-  "dbUri": "mongodb://xxx",
-  "jwtSecret": "your secret string",
-  "qiniu": {
-    "urlPrefix": "xxxx",
-    "ACCESS_KEY": "xxxx",
-    "SECRET_KEY": "xxxx"
-  }
-}

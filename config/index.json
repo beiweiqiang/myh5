@@ -1,0 +1,16 @@
+{
+  "dbUri": "mongodb://localhost:27017/myh5",
+  "jwtSecret": "a secret phrase!! my lover heanqiqiqiqi",
+  "qiniu": {
+    "bucket": "myh5",
+    "urlPrefix": "ooopff47i.bkt.clouddn.com",
+    "ACCESS_KEY": "5kV827c7p2HGPe6vZvvK6IQmj2Qs0cn4RaMBBC2M",
+    "SECRET_KEY": "GAVyXzPkMMrzELE1j_5E7qICFSzSImRQHRfQSxkL"
+  },
+  "qiniuOnline": {
+    "bucket": "myh5-online",
+    "urlPrefix": "opax3316l.bkt.clouddn.com",
+    "ACCESS_KEY": "5kV827c7p2HGPe6vZvvK6IQmj2Qs0cn4RaMBBC2M",
+    "SECRET_KEY": "GAVyXzPkMMrzELE1j_5E7qICFSzSImRQHRfQSxkL"
+  } 
+}
