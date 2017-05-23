@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import TopBar from './TopBarContainer.jsx';
 import Toolbar from '../components/NewPage/ToolBar/Toolbar.jsx';
@@ -64,8 +65,9 @@ const underToolbarStyle = {
 
 class NewPage extends Component {
   render() {
-    // state
     const {
+      dispatch,
+      // 以下是 state
       // 发布按钮是否可以点击
       publishBtnDisabled,
       // 二维码url
@@ -100,31 +102,115 @@ class NewPage extends Component {
       myUploadPic,
     } = this.props;
 
-    // dispatch
-    const {
-      // toolbar
-      togglePhoneSize, addText, publishH5, displayQRcode, displayPublishSettings,
-      // 关于页码
-      togglePage, deletePage, addNewPage, upMovePage, downMovePage,
-      // 修改文本样式
-      changeFontSize, changeFontColor, fontBold, changeTextContent, changeTextPosition, changeTextOpacity,
-      // tabs
-      toggleTextEditCard, deleteTextItem, togglePicEditCard, deletePicItem,
-      // publishsettings
-      changePublishTitle, uploadWechatImgUrl, changeWechatDesc,
-
+    // 以下每个组件都分为 state 和 actionCreators 两部分
+    const stateToolbar = {
+      email,
+      pages,
+      currentPage,
+      mobileSize,
+      publishTitle: title,
+      showQR,
+      qrcodeUrl,
+      publishBtnDisabled,
+      displayPicDialog,
+      myUploadPic,
+      wechatImg,
+      wechatDes,
+    };
+    const actionCreatorsToolbar = bindActionCreators({
+      togglePhoneSize,
+      addText,
+      publishH5,
+      displayQRcode,
+      displayPublishSettings,
       displaySnackbar,
-
-      // picdialog
       // 切换显示图片选择dialog
       togglePicDialog,
       // 上传用户图片
       uploadPic,
       // 点击添加按钮添加图片
       addPic,
-      // 修改图片样式
-      changePicSize, changePicPosition, changePicOpacity, changePicAngle, changePicSizeToPosition,
-    } = this.props;
+    }, dispatch);
+
+    const stateMobileWindow = {
+      mobileSize,
+      pages,
+      currentPage,
+    };
+    const actionCreatorsMobileWindow = bindActionCreators({
+      changeTextPosition,
+      changePicSize,
+      changePicPosition,
+      changePicSizeToPosition,
+    }, dispatch);
+
+    const stateEditTextCard = {
+      pages,
+      currentTextIndex,
+      currentPage,
+    };
+    const actionCreatorsEditTextCard = bindActionCreators({
+      changeFontSize,
+      changeFontColor,
+      fontBold,
+      changeTextContent,
+      toggleTextEditCard,
+      changeTextPosition,
+      changeTextOpacity,
+    }, dispatch);
+
+    const stateEditPicCard = {
+      pages,
+      currentPicIndex,
+      currentPage,
+    };
+    const actionCreatorsEditPicCard = bindActionCreators({
+      togglePicEditCard,
+      changePicOpacity,
+      changePicAngle,
+    }, dispatch);
+
+    const statePublishSettings = {
+      publishTitle: title,
+      wechatImgUrl: wechatImg,
+      wechatDes,
+    };
+    const actionCreatorsPublishSettings = bindActionCreators({
+      displayPublishSettings,
+      uploadWechatImgUrl,
+      changePublishTitle,
+      changeWechatDesc,
+    }, dispatch);
+
+    const statePageList = {
+      pages,
+    };
+    const actionCreatorsPageList = bindActionCreators({
+      togglePage,
+      deletePage,
+      addNewPage,
+      upMovePage,
+      downMovePage,
+    }, dispatch);
+
+    const stateEditTabs = {
+      pages,
+      currentPage,
+    };
+    const actionCreatorsEditTabs = bindActionCreators({
+      toggleTextEditCard,
+      deleteTextItem,
+      togglePicEditCard,
+      deletePicItem,
+    }, dispatch);
+
+    const stateMySnackbar = {
+      snackbarOpen,
+      snackbarMes,
+    };
+    const actionCreatorsMySnackbar = bindActionCreators({
+      displaySnackbar,
+    }, dispatch);
 
     if (loading) return (<CircularProgressBg />);
 
@@ -134,100 +220,50 @@ class NewPage extends Component {
         <div style={style}>
           <div style={centerStyle} >
             <Toolbar
-              email={email}
-              pages={pages}
-              currentPage={currentPage}
-              togglePhoneSize={togglePhoneSize}
-              addText={addText}
-              mobileSize={mobileSize}
-              publishH5={publishH5}
-              publishTitle={title}
-              displayQRcode={displayQRcode}
-              showQR={showQR}
-              qrcodeUrl={qrcodeUrl}
-              publishBtnDisabled={publishBtnDisabled}
-              displayPublishSettings={displayPublishSettings}
-              displaySnackbar={displaySnackbar}
-              displayPicDialog={displayPicDialog}
-              togglePicDialog={togglePicDialog}
-              uploadPic={uploadPic}
-              myUploadPic={myUploadPic}
-              addPic={addPic}
-              wechatImg={wechatImg}
-              wechatDes={wechatDes}
+              {...stateToolbar}
+              {...actionCreatorsToolbar}
             />
 
             <div style={underToolbarStyle}>
               <MobileWindow
-                mobileSize={mobileSize}
-                pages={pages}
-                currentPage={currentPage}
-                changeTextPosition={changeTextPosition}
-                changePicSize={changePicSize}
-                changePicPosition={changePicPosition}
-                changePicSizeToPosition={changePicSizeToPosition}
+                {...stateMobileWindow}
+                {...actionCreatorsMobileWindow}
               />
               {currentTextIndex === null ?
                 null :
                 (<EditTextCard
-                  pages={pages}
-                  currentTextIndex={currentTextIndex}
-                  currentPage={currentPage}
-                  changeFontSize={changeFontSize}
-                  changeFontColor={changeFontColor}
-                  fontBold={fontBold}
-                  changeTextContent={changeTextContent}
-                  toggleTextEditCard={toggleTextEditCard}
-                  changeTextPosition={changeTextPosition}
-                  changeTextOpacity={changeTextOpacity}
+                  {...stateEditTextCard}
+                  {...actionCreatorsEditTextCard}
                 />)}
               {currentPicIndex === null ?
                 null :
                 (<EditPicCard
-                  pages={pages}
-                  currentPicIndex={currentPicIndex}
-                  currentPage={currentPage}
-                  togglePicEditCard={togglePicEditCard}
-                  changePicOpacity={changePicOpacity}
-                  changePicAngle={changePicAngle}
+                  {...stateEditPicCard}
+                  {...actionCreatorsEditPicCard}
                 />)}
               {!displayPubSettings ?
                 null :
                 (<PublishSettings
-                  displayPublishSettings={displayPublishSettings}
-                  publishTitle={title}
-                  uploadWechatImgUrl={uploadWechatImgUrl}
-                  wechatImgUrl={wechatImg}
-                  changePublishTitle={changePublishTitle}
-                  wechatDes={wechatDes}
-                  changeWechatDesc={changeWechatDesc}
+                  {...statePublishSettings}
+                  {...actionCreatorsPublishSettings}
                 />)}
             </div>
 
           </div>
           <div style={rightStyle}>
             <PageList
-              pages={pages}
-              togglePage={togglePage}
-              deletePage={deletePage}
-              addNewPage={addNewPage}
-              upMovePage={upMovePage}
-              downMovePage={downMovePage}
+              {...statePageList}
+              {...actionCreatorsPageList}
             />
             <EditTabs
-              pages={pages}
-              currentPage={currentPage}
-              toggleTextEditCard={toggleTextEditCard}
-              deleteTextItem={deleteTextItem}
-              togglePicEditCard={togglePicEditCard}
-              deletePicItem={deletePicItem}
+              {...stateEditTabs}
+              {...actionCreatorsEditTabs}
             />
           </div>
         </div>
         <MySnackbar
-          snackbarOpen={snackbarOpen}
-          snackbarMes={snackbarMes}
-          displaySnackbar={displaySnackbar}
+          {...stateMySnackbar}
+          {...actionCreatorsMySnackbar}
         />
       </div>
     );
@@ -240,53 +276,16 @@ NewPage.propTypes = {
   displayPubSettings: PropTypes.bool.isRequired,
   qrcodeUrl: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  togglePhoneSize: PropTypes.func.isRequired,
-  addText: PropTypes.func.isRequired,
-  publishH5: PropTypes.func.isRequired,
-  showQR: PropTypes.bool.isRequired,
-  displayQRcode: PropTypes.func.isRequired,
-  displayPublishSettings: PropTypes.func.isRequired,
-
-  togglePage: PropTypes.func.isRequired,
-  deletePage: PropTypes.func.isRequired,
-  upMovePage: PropTypes.func.isRequired,
-  downMovePage: PropTypes.func.isRequired,
-
-  changeTextContent: PropTypes.func.isRequired,
-  changeFontSize: PropTypes.func.isRequired,
-  changeFontColor: PropTypes.func.isRequired,
-  fontBold: PropTypes.func.isRequired,
-  changeTextPosition: PropTypes.func.isRequired,
-  changeTextOpacity: PropTypes.func.isRequired,
-
-  toggleTextEditCard: PropTypes.func.isRequired,
-  deleteTextItem: PropTypes.func.isRequired,
-  togglePicEditCard: PropTypes.func.isRequired,
-  deletePicItem: PropTypes.func.isRequired,
 
   mobileSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
   currentPage: PropTypes.number.isRequired,
-  // pages: PropTypes.array.isRequired,
-
-  changePublishTitle: PropTypes.func.isRequired,
-  uploadWechatImgUrl: PropTypes.func.isRequired,
   wechatImg: PropTypes.string.isRequired,
 
   snackbarOpen: PropTypes.bool.isRequired,
   snackbarMes: PropTypes.string.isRequired,
-  displaySnackbar: PropTypes.func.isRequired,
 
-  // picdialog
   displayPicDialog: PropTypes.bool.isRequired,
-  togglePicDialog: PropTypes.func.isRequired,
-  uploadPic: PropTypes.func.isRequired,
-  addPic: PropTypes.func.isRequired,
-  changePicSize: PropTypes.func.isRequired,
-  changePicPosition: PropTypes.func.isRequired,
-  changePicOpacity: PropTypes.func.isRequired,
-  changePicAngle: PropTypes.func.isRequired,
-  changePicSizeToPosition: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -317,44 +316,4 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {
-    displayQRcode,
-    togglePhoneSize,
-    addText,
-    publishH5,
-    displayPublishSettings,
-
-    togglePage,
-    deletePage,
-    addNewPage,
-    upMovePage,
-    downMovePage,
-
-    changeTextPosition,
-    changeTextContent,
-    changeFontSize,
-    changeFontColor,
-    fontBold,
-    changeTextOpacity,
-
-    toggleTextEditCard,
-    deleteTextItem,
-    togglePicEditCard,
-    deletePicItem,
-
-    changePublishTitle,
-    uploadWechatImgUrl,
-    changeWechatDesc,
-
-    displaySnackbar,
-
-    togglePicDialog,
-    uploadPic,
-    addPic,
-    changePicSize,
-    changePicPosition,
-    changePicOpacity,
-    changePicAngle,
-    changePicSizeToPosition,
-  }
 )(NewPage);

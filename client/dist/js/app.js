@@ -35040,6 +35040,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -35047,6 +35049,8 @@ var _react = __webpack_require__(0);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(44);
+
+var _redux = __webpack_require__(67);
 
 var _TopBarContainer = __webpack_require__(81);
 
@@ -35144,8 +35148,8 @@ var NewPage = function (_Component) {
   _createClass(NewPage, [{
     key: 'render',
     value: function render() {
-      // state
       var _props = this.props,
+          dispatch = _props.dispatch,
           publishBtnDisabled = _props.publishBtnDisabled,
           qrcodeUrl = _props.qrcodeUrl,
           showQR = _props.showQR,
@@ -35165,42 +35169,116 @@ var NewPage = function (_Component) {
           displayPicDialog = _props.displayPicDialog,
           myUploadPic = _props.myUploadPic;
 
-      // dispatch
+      // 以下每个组件都分为 state 和 actionCreators 两部分
 
-      var _props2 = this.props,
-          togglePhoneSize = _props2.togglePhoneSize,
-          addText = _props2.addText,
-          publishH5 = _props2.publishH5,
-          displayQRcode = _props2.displayQRcode,
-          displayPublishSettings = _props2.displayPublishSettings,
-          togglePage = _props2.togglePage,
-          deletePage = _props2.deletePage,
-          addNewPage = _props2.addNewPage,
-          upMovePage = _props2.upMovePage,
-          downMovePage = _props2.downMovePage,
-          changeFontSize = _props2.changeFontSize,
-          changeFontColor = _props2.changeFontColor,
-          fontBold = _props2.fontBold,
-          changeTextContent = _props2.changeTextContent,
-          changeTextPosition = _props2.changeTextPosition,
-          changeTextOpacity = _props2.changeTextOpacity,
-          toggleTextEditCard = _props2.toggleTextEditCard,
-          deleteTextItem = _props2.deleteTextItem,
-          togglePicEditCard = _props2.togglePicEditCard,
-          deletePicItem = _props2.deletePicItem,
-          changePublishTitle = _props2.changePublishTitle,
-          uploadWechatImgUrl = _props2.uploadWechatImgUrl,
-          changeWechatDesc = _props2.changeWechatDesc,
-          displaySnackbar = _props2.displaySnackbar,
-          togglePicDialog = _props2.togglePicDialog,
-          uploadPic = _props2.uploadPic,
-          addPic = _props2.addPic,
-          changePicSize = _props2.changePicSize,
-          changePicPosition = _props2.changePicPosition,
-          changePicOpacity = _props2.changePicOpacity,
-          changePicAngle = _props2.changePicAngle,
-          changePicSizeToPosition = _props2.changePicSizeToPosition;
+      var stateToolbar = {
+        email: email,
+        pages: pages,
+        currentPage: currentPage,
+        mobileSize: mobileSize,
+        publishTitle: title,
+        showQR: showQR,
+        qrcodeUrl: qrcodeUrl,
+        publishBtnDisabled: publishBtnDisabled,
+        displayPicDialog: displayPicDialog,
+        myUploadPic: myUploadPic,
+        wechatImg: wechatImg,
+        wechatDes: wechatDes
+      };
+      var actionCreatorsToolbar = (0, _redux.bindActionCreators)({
+        togglePhoneSize: _actions.togglePhoneSize,
+        addText: _actions.addText,
+        publishH5: _actions.publishH5,
+        displayQRcode: _actions.displayQRcode,
+        displayPublishSettings: _actions.displayPublishSettings,
+        displaySnackbar: _actions.displaySnackbar,
+        // 切换显示图片选择dialog
+        togglePicDialog: _actions.togglePicDialog,
+        // 上传用户图片
+        uploadPic: _actions.uploadPic,
+        // 点击添加按钮添加图片
+        addPic: _actions.addPic
+      }, dispatch);
 
+      var stateMobileWindow = {
+        mobileSize: mobileSize,
+        pages: pages,
+        currentPage: currentPage
+      };
+      var actionCreatorsMobileWindow = (0, _redux.bindActionCreators)({
+        changeTextPosition: _actions.changeTextPosition,
+        changePicSize: _actions.changePicSize,
+        changePicPosition: _actions.changePicPosition,
+        changePicSizeToPosition: _actions.changePicSizeToPosition
+      }, dispatch);
+
+      var stateEditTextCard = {
+        pages: pages,
+        currentTextIndex: currentTextIndex,
+        currentPage: currentPage
+      };
+      var actionCreatorsEditTextCard = (0, _redux.bindActionCreators)({
+        changeFontSize: _actions.changeFontSize,
+        changeFontColor: _actions.changeFontColor,
+        fontBold: _actions.fontBold,
+        changeTextContent: _actions.changeTextContent,
+        toggleTextEditCard: _actions.toggleTextEditCard,
+        changeTextPosition: _actions.changeTextPosition,
+        changeTextOpacity: _actions.changeTextOpacity
+      }, dispatch);
+
+      var stateEditPicCard = {
+        pages: pages,
+        currentPicIndex: currentPicIndex,
+        currentPage: currentPage
+      };
+      var actionCreatorsEditPicCard = (0, _redux.bindActionCreators)({
+        togglePicEditCard: _actions.togglePicEditCard,
+        changePicOpacity: _actions.changePicOpacity,
+        changePicAngle: _actions.changePicAngle
+      }, dispatch);
+
+      var statePublishSettings = {
+        publishTitle: title,
+        wechatImgUrl: wechatImg,
+        wechatDes: wechatDes
+      };
+      var actionCreatorsPublishSettings = (0, _redux.bindActionCreators)({
+        displayPublishSettings: _actions.displayPublishSettings,
+        uploadWechatImgUrl: _actions.uploadWechatImgUrl,
+        changePublishTitle: _actions.changePublishTitle,
+        changeWechatDesc: _actions.changeWechatDesc
+      }, dispatch);
+
+      var statePageList = {
+        pages: pages
+      };
+      var actionCreatorsPageList = (0, _redux.bindActionCreators)({
+        togglePage: _actions.togglePage,
+        deletePage: _actions.deletePage,
+        addNewPage: _actions.addNewPage,
+        upMovePage: _actions.upMovePage,
+        downMovePage: _actions.downMovePage
+      }, dispatch);
+
+      var stateEditTabs = {
+        pages: pages,
+        currentPage: currentPage
+      };
+      var actionCreatorsEditTabs = (0, _redux.bindActionCreators)({
+        toggleTextEditCard: _actions.toggleTextEditCard,
+        deleteTextItem: _actions.deleteTextItem,
+        togglePicEditCard: _actions.togglePicEditCard,
+        deletePicItem: _actions.deletePicItem
+      }, dispatch);
+
+      var stateMySnackbar = {
+        snackbarOpen: snackbarOpen,
+        snackbarMes: snackbarMes
+      };
+      var actionCreatorsMySnackbar = (0, _redux.bindActionCreators)({
+        displaySnackbar: _actions.displaySnackbar
+      }, dispatch);
 
       if (loading) return _react2.default.createElement(_CircularProgressBg2.default, null);
 
@@ -35214,98 +35292,24 @@ var NewPage = function (_Component) {
           _react2.default.createElement(
             'div',
             { style: centerStyle },
-            _react2.default.createElement(_Toolbar2.default, {
-              email: email,
-              pages: pages,
-              currentPage: currentPage,
-              togglePhoneSize: togglePhoneSize,
-              addText: addText,
-              mobileSize: mobileSize,
-              publishH5: publishH5,
-              publishTitle: title,
-              displayQRcode: displayQRcode,
-              showQR: showQR,
-              qrcodeUrl: qrcodeUrl,
-              publishBtnDisabled: publishBtnDisabled,
-              displayPublishSettings: displayPublishSettings,
-              displaySnackbar: displaySnackbar,
-              displayPicDialog: displayPicDialog,
-              togglePicDialog: togglePicDialog,
-              uploadPic: uploadPic,
-              myUploadPic: myUploadPic,
-              addPic: addPic,
-              wechatImg: wechatImg,
-              wechatDes: wechatDes
-            }),
+            _react2.default.createElement(_Toolbar2.default, _extends({}, stateToolbar, actionCreatorsToolbar)),
             _react2.default.createElement(
               'div',
               { style: underToolbarStyle },
-              _react2.default.createElement(_MobileWindow2.default, {
-                mobileSize: mobileSize,
-                pages: pages,
-                currentPage: currentPage,
-                changeTextPosition: changeTextPosition,
-                changePicSize: changePicSize,
-                changePicPosition: changePicPosition,
-                changePicSizeToPosition: changePicSizeToPosition
-              }),
-              currentTextIndex === null ? null : _react2.default.createElement(_index2.default, {
-                pages: pages,
-                currentTextIndex: currentTextIndex,
-                currentPage: currentPage,
-                changeFontSize: changeFontSize,
-                changeFontColor: changeFontColor,
-                fontBold: fontBold,
-                changeTextContent: changeTextContent,
-                toggleTextEditCard: toggleTextEditCard,
-                changeTextPosition: changeTextPosition,
-                changeTextOpacity: changeTextOpacity
-              }),
-              currentPicIndex === null ? null : _react2.default.createElement(_index4.default, {
-                pages: pages,
-                currentPicIndex: currentPicIndex,
-                currentPage: currentPage,
-                togglePicEditCard: togglePicEditCard,
-                changePicOpacity: changePicOpacity,
-                changePicAngle: changePicAngle
-              }),
-              !displayPubSettings ? null : _react2.default.createElement(_index6.default, {
-                displayPublishSettings: displayPublishSettings,
-                publishTitle: title,
-                uploadWechatImgUrl: uploadWechatImgUrl,
-                wechatImgUrl: wechatImg,
-                changePublishTitle: changePublishTitle,
-                wechatDes: wechatDes,
-                changeWechatDesc: changeWechatDesc
-              })
+              _react2.default.createElement(_MobileWindow2.default, _extends({}, stateMobileWindow, actionCreatorsMobileWindow)),
+              currentTextIndex === null ? null : _react2.default.createElement(_index2.default, _extends({}, stateEditTextCard, actionCreatorsEditTextCard)),
+              currentPicIndex === null ? null : _react2.default.createElement(_index4.default, _extends({}, stateEditPicCard, actionCreatorsEditPicCard)),
+              !displayPubSettings ? null : _react2.default.createElement(_index6.default, _extends({}, statePublishSettings, actionCreatorsPublishSettings))
             )
           ),
           _react2.default.createElement(
             'div',
             { style: rightStyle },
-            _react2.default.createElement(_PageList2.default, {
-              pages: pages,
-              togglePage: togglePage,
-              deletePage: deletePage,
-              addNewPage: addNewPage,
-              upMovePage: upMovePage,
-              downMovePage: downMovePage
-            }),
-            _react2.default.createElement(_EditTabs2.default, {
-              pages: pages,
-              currentPage: currentPage,
-              toggleTextEditCard: toggleTextEditCard,
-              deleteTextItem: deleteTextItem,
-              togglePicEditCard: togglePicEditCard,
-              deletePicItem: deletePicItem
-            })
+            _react2.default.createElement(_PageList2.default, _extends({}, statePageList, actionCreatorsPageList)),
+            _react2.default.createElement(_EditTabs2.default, _extends({}, stateEditTabs, actionCreatorsEditTabs))
           )
         ),
-        _react2.default.createElement(_MySnackbar2.default, {
-          snackbarOpen: snackbarOpen,
-          snackbarMes: snackbarMes,
-          displaySnackbar: displaySnackbar
-        })
+        _react2.default.createElement(_MySnackbar2.default, _extends({}, stateMySnackbar, actionCreatorsMySnackbar))
       );
     }
   }]);
@@ -35319,53 +35323,16 @@ NewPage.propTypes = {
   displayPubSettings: _react.PropTypes.bool.isRequired,
   qrcodeUrl: _react.PropTypes.string.isRequired,
   email: _react.PropTypes.string.isRequired,
-  togglePhoneSize: _react.PropTypes.func.isRequired,
-  addText: _react.PropTypes.func.isRequired,
-  publishH5: _react.PropTypes.func.isRequired,
-  showQR: _react.PropTypes.bool.isRequired,
-  displayQRcode: _react.PropTypes.func.isRequired,
-  displayPublishSettings: _react.PropTypes.func.isRequired,
-
-  togglePage: _react.PropTypes.func.isRequired,
-  deletePage: _react.PropTypes.func.isRequired,
-  upMovePage: _react.PropTypes.func.isRequired,
-  downMovePage: _react.PropTypes.func.isRequired,
-
-  changeTextContent: _react.PropTypes.func.isRequired,
-  changeFontSize: _react.PropTypes.func.isRequired,
-  changeFontColor: _react.PropTypes.func.isRequired,
-  fontBold: _react.PropTypes.func.isRequired,
-  changeTextPosition: _react.PropTypes.func.isRequired,
-  changeTextOpacity: _react.PropTypes.func.isRequired,
-
-  toggleTextEditCard: _react.PropTypes.func.isRequired,
-  deleteTextItem: _react.PropTypes.func.isRequired,
-  togglePicEditCard: _react.PropTypes.func.isRequired,
-  deletePicItem: _react.PropTypes.func.isRequired,
 
   mobileSize: _react.PropTypes.number.isRequired,
   loading: _react.PropTypes.bool.isRequired,
   currentPage: _react.PropTypes.number.isRequired,
-  // pages: PropTypes.array.isRequired,
-
-  changePublishTitle: _react.PropTypes.func.isRequired,
-  uploadWechatImgUrl: _react.PropTypes.func.isRequired,
   wechatImg: _react.PropTypes.string.isRequired,
 
   snackbarOpen: _react.PropTypes.bool.isRequired,
   snackbarMes: _react.PropTypes.string.isRequired,
-  displaySnackbar: _react.PropTypes.func.isRequired,
 
-  // picdialog
-  displayPicDialog: _react.PropTypes.bool.isRequired,
-  togglePicDialog: _react.PropTypes.func.isRequired,
-  uploadPic: _react.PropTypes.func.isRequired,
-  addPic: _react.PropTypes.func.isRequired,
-  changePicSize: _react.PropTypes.func.isRequired,
-  changePicPosition: _react.PropTypes.func.isRequired,
-  changePicOpacity: _react.PropTypes.func.isRequired,
-  changePicAngle: _react.PropTypes.func.isRequired,
-  changePicSizeToPosition: _react.PropTypes.func.isRequired
+  displayPicDialog: _react.PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
@@ -35394,46 +35361,7 @@ function mapStateToProps(state) {
   };
 }
 
-var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  displayQRcode: _actions.displayQRcode,
-  togglePhoneSize: _actions.togglePhoneSize,
-  addText: _actions.addText,
-  publishH5: _actions.publishH5,
-  displayPublishSettings: _actions.displayPublishSettings,
-
-  togglePage: _actions.togglePage,
-  deletePage: _actions.deletePage,
-  addNewPage: _actions.addNewPage,
-  upMovePage: _actions.upMovePage,
-  downMovePage: _actions.downMovePage,
-
-  changeTextPosition: _actions.changeTextPosition,
-  changeTextContent: _actions.changeTextContent,
-  changeFontSize: _actions.changeFontSize,
-  changeFontColor: _actions.changeFontColor,
-  fontBold: _actions.fontBold,
-  changeTextOpacity: _actions.changeTextOpacity,
-
-  toggleTextEditCard: _actions.toggleTextEditCard,
-  deleteTextItem: _actions.deleteTextItem,
-  togglePicEditCard: _actions.togglePicEditCard,
-  deletePicItem: _actions.deletePicItem,
-
-  changePublishTitle: _actions.changePublishTitle,
-  uploadWechatImgUrl: _actions.uploadWechatImgUrl,
-  changeWechatDesc: _actions.changeWechatDesc,
-
-  displaySnackbar: _actions.displaySnackbar,
-
-  togglePicDialog: _actions.togglePicDialog,
-  uploadPic: _actions.uploadPic,
-  addPic: _actions.addPic,
-  changePicSize: _actions.changePicSize,
-  changePicPosition: _actions.changePicPosition,
-  changePicOpacity: _actions.changePicOpacity,
-  changePicAngle: _actions.changePicAngle,
-  changePicSizeToPosition: _actions.changePicSizeToPosition
-})(NewPage);
+var _default = (0, _reactRedux.connect)(mapStateToProps)(NewPage);
 
 exports.default = _default;
 ;
