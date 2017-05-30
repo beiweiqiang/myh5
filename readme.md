@@ -18,7 +18,9 @@ react, redux, react-router4, react-redux, webpack, eslint, mongoose
 使用：
 1. clone 本仓库
 2. npm i
-3. 开两个terminal，一个运行npm start，一个运行npm run bundle
+3. npm start 开启服务器
+4. npm run dev 开启 webpack-dev-server，浏览器自动打开 localhost:8080
+5. 如果要生成生产模式下的文件，使用 npm run build
 
 
 部分特点：

@@ -56,7 +56,6 @@ export function getUserMes() {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       const resMessage = $.parseJSON(JSON.stringify(xhr.response));
-      console.log(resMessage);
       if (xhr.status === 200) {
         // 发布按钮可以使用
         dispatch(setPublishBtn(false));

@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --use_strict index.js",
-    "bundle": "webpack --watch --color",
-    "webp": "webpack-dev-server"
+    "start": "nodemon index.js",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack",
+    "wp-stats": "webpack --json > stats.json",
+    "bundle": "cross-env NODE_ENV=development webpack --watch --color",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server",
+    "clean": "rimraf ./client/dist/*"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -33,6 +36,7 @@
     "react-dnd-html5-backend": "^2.3.0",
     "react-dom": "^15.4.2",
     "react-draggable": "^2.2.3",
+    "react-hot-loader": "^3.0.0-beta.7",
     "react-onclickoutside": "^5.11.1",
     "react-redux": "^5.0.3",
     "react-rnd": "^5.0.2",
@@ -56,6 +60,8 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.22.0",
     "babel-preset-stage-2": "^6.13.0",
+    "compression-webpack-plugin": "^0.4.0",
+    "cross-env": "^5.0.0",
     "css-loader": "^0.23.1",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
@@ -66,10 +72,12 @@
     "less-loader": "^4.0.2",
     "nodemon": "^1.11.0",
     "postcss-loader": "^0.9.1",
-    "react-hot-loader": "^3.0.0-beta.6",
+    "rimraf": "^2.6.1",
     "source-map-loader": "^0.2.0",
     "style-loader": "^0.13.1",
-    "webpack": "^2.1.0-beta.25",
-    "webpack-dev-server": "^2.1.0-beta.0"
+    "uglifyjs-webpack-plugin": "^0.4.3",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.1.0-beta.0",
+    "webpack-merge": "^4.1.0"
   }
 }

@@ -30,7 +30,11 @@ app.all('*', (req, res, next) => {
   next();
 });
 
-
+app.get('*.js', (req, res, next) => {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
 
 // 指定端口
 const PORT = process.env.PORT || 3000;
