@@ -30,6 +30,7 @@ app.all('*', (req, res, next) => {
   next();
 });
 
+// 获取js文件时选择gz压缩文件
 app.get('*.js', (req, res, next) => {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');

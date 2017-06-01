@@ -4,11 +4,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack",
-    "wp-stats": "webpack --json > stats.json",
-    "bundle": "cross-env NODE_ENV=development webpack --watch --color",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server",
-    "clean": "rimraf ./client/dist/*"
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --progress && gulp && rimraf ./client/dist/*",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress",
+    "clean": "rimraf ./client/dist/* ./build/*",
+    "wp-stats": "webpack --json > stats.json"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -20,7 +19,7 @@
     "express": "^4.15.2",
     "express-session": "^1.15.1",
     "formidable": "^1.1.1",
-    "identicon.js": "^2.1.0",
+    "identicon.js": "^2.2.1",
     "jquery": "^3.2.1",
     "jsonwebtoken": "^7.3.0",
     "material-ui": "^0.17.1",
@@ -68,6 +67,8 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "gulp": "^3.9.1",
+    "html-webpack-plugin": "^2.28.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.2",
     "nodemon": "^1.11.0",
@@ -75,9 +76,8 @@
     "rimraf": "^2.6.1",
     "source-map-loader": "^0.2.0",
     "style-loader": "^0.13.1",
-    "uglifyjs-webpack-plugin": "^0.4.3",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.1.0-beta.0",
-    "webpack-merge": "^4.1.0"
+    "webpack-md5-hash": "^0.0.5"
   }
 }

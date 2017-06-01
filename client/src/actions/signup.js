@@ -161,13 +161,22 @@ function validateSignup(validateErr) {
   };
 }
 
+function generateHash() {
+  let text = '';
+  const possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < 32; i += 1) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+}
+
 // 总按钮，提交注册表单，点击以后先进行表单验证
 export function submitSignup(signUpContent) {
   return (dispatch) => {
     const validateRes = validateSignupForm(signUpContent);
     if (validateRes.isFormValid) {
       const { name, email, password } = signUpContent;
-      const data = new Identicon().toString();
+      const data = new Identicon(generateHash()).toString();
       const avatarUrl = `data:image/png;base64,${data}`;
       // const formData = `name=${name}&email=${email}&password=${password}&avatarUrl=${avatarUrl}`;
       const formData = {
