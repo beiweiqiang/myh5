@@ -1,10 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Done from 'material-ui/svg-icons/action/done';
 import { blue500 } from 'material-ui/styles/colors';
 import onClickOutside from 'react-onclickoutside';
+
 
 import PicOpacity from './PicOpacity.jsx';
 import PicAngle from './PicAngle.jsx';

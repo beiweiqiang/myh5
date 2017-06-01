@@ -1,9 +1,11 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import PropTypes from 'prop-types';
+
 
 class LoginForm extends Component {
   render() {

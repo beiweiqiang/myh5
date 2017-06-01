@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
 
